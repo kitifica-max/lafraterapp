@@ -1,0 +1,124 @@
+.detail-header {
+  background-color: var(--color-navy);
+  color: var(--color-surface);
+  padding: 50px 24px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.detail-header h1 {
+  font-size: 1.3rem;
+  flex: 1;
+}
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.btn-back svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ministerio-hero {
+  background-color: var(--color-navy);
+  padding: 0 24px 32px;
+  text-align: center;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.ministerio-icon {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 12px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+.ministerio-miembros {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.detail-body {
+  padding: 24px;
+}
+.detail-section {
+  margin-bottom: 28px;
+}
+.detail-section h2 {
+  font-size: 1.1rem;
+  color: var(--color-text-main);
+  margin-bottom: 10px;
+}
+.detail-section p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface);
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--color-blue);
+}
+.schedule-day {
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+.schedule-time {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.leaders-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.leader-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-surface);
+  padding: 8px 14px 8px 8px;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+.leader-avatar {
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-blue);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.leader-chip span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-main);
+}

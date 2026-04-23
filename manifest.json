@@ -1,0 +1,25 @@
+{
+  "name": "Frater - Fraternidad Cristiana",
+  "short_name": "Frater",
+  "description": "App oficial de Fraternidad Cristiana de El Salvador",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A1931",
+  "theme_color": "#0A1931",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "img/LogoFrater_1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/LogoFrater_1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

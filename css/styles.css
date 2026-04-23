@@ -1,0 +1,327 @@
+/* =========================================
+   VARIABLES GLOBALES Y SISTEMA DE DISEÑO
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Paleta de Colores Frater */
+  --color-navy: #0A1931;       /* Azul Navy profundo para cabeceras/logos */
+  --color-blue: #185ADB;       /* Azul puro para botones primarios y acentos */
+  --color-bg: #F4F6F9;         /* Gris muy claro/blanco roto para el fondo de la app */
+  --color-surface: #FFFFFF;    /* Blanco puro para tarjetas y modales */
+  --color-text-main: #1E293B;  /* Gris muy oscuro para el texto principal */
+  --color-text-muted: #64748B; /* Gris medio para subtítulos y texto secundario */
+  --color-border: #E2E8F0;     /* Gris claro para bordes sutiles */
+  
+  /* Tipografía */
+  --font-main: 'Lexend', sans-serif;
+  
+  /* Radios y Sombras */
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+/* =========================================
+   RESETEO Y ESTILOS BASE (Mobile First)
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-surface);
+  color: var(--color-text-main);
+  -webkit-font-smoothing: antialiased;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+/* Tipografía Base */
+h1, h2, h3 { font-weight: 600; }
+p { line-height: 1.5; }
+
+/* Botones genéricos */
+.btn-primary {
+  background-color: var(--color-blue);
+  color: var(--color-surface);
+  border: none;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-primary:active { opacity: 0.8; }
+.btn-primary:disabled {
+  background-color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+/* =========================================
+   ESTILOS ESPECÍFICOS DEL DASHBOARD (index)
+   ========================================= */
+
+/* Cabecera Principal */
+.dashboard-header {
+  background-color: var(--color-navy);
+  color: var(--color-surface);
+  padding: 40px 24px 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  margin-bottom: 24px;
+}
+.dashboard-header img.logo {
+  height: 32px;
+  margin-bottom: 20px;
+  display: block;
+}
+.dashboard-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Calendario Deslizable */
+.calendar-section {
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+.calendar-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: none; /* Firefox */
+}
+.calendar-slider::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+.calendar-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50px;
+}
+.calendar-day span {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+.calendar-day .date {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+.calendar-day.active .date {
+  background-color: var(--color-blue);
+  color: var(--color-surface);
+}
+.calendar-day.active span {
+  color: var(--color-blue);
+  font-weight: 600;
+}
+
+/* Títulos de Sección */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  margin-bottom: 16px;
+}
+.section-header h2 {
+  font-size: 1.3rem;
+  color: var(--color-text-main);
+}
+.section-header a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Tarjeta Hero (Plan de Lectura) */
+.hero-card-container {
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+.hero-card {
+  background: linear-gradient(135deg, var(--color-blue), #3b82f6);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  color: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.hero-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+.hero-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  max-width: 70%;
+}
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-blue);
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-main);
+  font-weight: 600;
+  cursor: pointer;
+}
+.hero-icon {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  font-size: 100px;
+  opacity: 0.2;
+}
+
+/* Cartelera de Eventos (Tarjetas Deslizables) */
+.events-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 0 24px 10px 24px;
+  scrollbar-width: none;
+}
+.events-slider::-webkit-scrollbar {
+  display: none;
+}
+.event-card {
+  min-width: 220px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+.event-tag {
+  align-self: flex-start;
+  background-color: rgba(24, 90, 219, 0.1);
+  color: var(--color-blue);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.event-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: var(--color-text-main);
+}
+.event-card p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--color-blue);
+  border: 1.5px solid var(--color-blue);
+  padding: 8px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+.btn-outline:active {
+  background-color: var(--color-blue);
+  color: var(--color-surface);
+}
+
+/* Espaciado para que el nav no tape el contenido */
+.content-spacer {
+  height: 90px;
+}
+
+/* Barra de Navegación Inferior */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 10px 24px; /* Padding extra abajo para iOS */
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  z-index: 1000;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  gap: 4px;
+}
+.nav-item.active {
+  color: var(--color-navy);
+  font-weight: 600;
+}
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nav-item.active svg {
+  fill: var(--color-navy);
+}
+
+/* Botón central de acción (+) */
+.nav-fab {
+  background-color: var(--color-blue);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-surface);
+  box-shadow: 0 4px 10px rgba(24, 90, 219, 0.4);
+  transform: translateY(-10px);
+}
+.nav-fab svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+}

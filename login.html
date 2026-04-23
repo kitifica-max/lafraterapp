@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Frater - Acceso</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1931">
+</head>
+<body>
+
+  <div class="login-container" id="loginView">
+    <header class="login-header">
+      <img src="img/LogoFrater_1.png" alt="Logo Frater" onerror="this.outerHTML='<h1 style=\'color:#0A1931;\'>FRATER</h1>'">
+    </header>
+
+    <main class="login-body" id="formSection">
+      <h1 class="login-title">¡Bienvenido!</h1>
+      <p class="login-subtitle">Ingresa tu correo para recibir tu enlace mágico de acceso rápido. Sin contraseñas.</p>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" placeholder="ejemplo@correo.com" required autocomplete="email">
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">Recibir enlace de acceso</button>
+      </form>
+    </main>
+
+    <main class="feedback-state" id="feedbackSection">
+      <div id="loadingState">
+        <div class="spinner"></div>
+        <h2 class="login-title">Enviando enlace...</h2>
+      </div>
+      <div id="successState" style="display: none;">
+        <div class="success-icon">✉️</div>
+        <h2 class="login-title">¡Revisa tu correo!</h2>
+        <p class="login-subtitle">Te hemos enviado un enlace mágico. Haz clic en él para entrar a la aplicación.</p>
+        <button class="btn-primary" style="background-color: var(--color-bg); color: var(--color-text-main); margin-top: 20px;" onclick="location.reload()">Volver a intentar</button>
+      </div>
+    </main>
+
+    <footer class="login-footer">
+      © 2026 Fraternidad Cristiana de El Salvador
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const formSection = document.getElementById('formSection');
+      const feedbackSection = document.getElementById('feedbackSection');
+      const loadingState = document.getElementById('loadingState');
+      const successState = document.getElementById('successState');
+
+      if (email) {
+        formSection.style.display = 'none';
+        feedbackSection.style.display = 'flex';
+        loadingState.style.display = 'block';
+        successState.style.display = 'none';
+
+        setTimeout(() => {
+          loadingState.style.display = 'none';
+          successState.style.display = 'block';
+          // TODO: await supabase.auth.signInWithOtp({ email })
+        }, 2000);
+      }
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    // Si ya hay sesión activa, redirigir al inicio
+    (async () => {
+      const { data: { session } } = await window.supabaseClient.auth.getSession();
+      if (session) window.location.replace('/index.html');
+    })();
+
+    // Reemplazar el submit con Supabase real
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const formSection = document.getElementById('formSection');
+      const feedbackSection = document.getElementById('feedbackSection');
+      const loadingState = document.getElementById('loadingState');
+      const successState = document.getElementById('successState');
+
+      if (email) {
+        formSection.style.display = 'none';
+        feedbackSection.style.display = 'flex';
+        loadingState.style.display = 'block';
+        successState.style.display = 'none';
+
+        const { error } = await window.supabaseClient.auth.signInWithOtp({
+          email,
+          options: { emailRedirectTo: window.location.origin + '/index.html' }
+        });
+
+        loadingState.style.display = 'none';
+        if (error) {
+          formSection.style.display = 'flex';
+          feedbackSection.style.display = 'none';
+          alert('Error: ' + error.message);
+        } else {
+          successState.style.display = 'block';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

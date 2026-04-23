@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Frater - Explora</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/explore.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1931">
+</head>
+<body>
+
+  <header class="dashboard-header explore-header">
+    <h1>Explora</h1>
+  </header>
+
+  <div class="tabs-container">
+    <button class="tab-btn active" onclick="switchTab('grupos')">Ministerios</button>
+    <button class="tab-btn" onclick="switchTab('blog')">Blog & Noticias</button>
+  </div>
+
+  <main id="grupos" class="explore-section active">
+    
+    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
+      <div class="group-icon">👥</div>
+      <div class="group-info">
+        <h4>Jóvenes Universitarios</h4>
+        <p>Sábados 6:00 PM • Salón 2</p>
+      </div>
+    </div>
+
+    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
+      <div class="group-icon">🎸</div>
+      <div class="group-info">
+        <h4>Ministerio de Alabanza</h4>
+        <p>Ensayos martes y jueves</p>
+      </div>
+    </div>
+
+    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
+      <div class="group-icon">👧🏻</div>
+      <div class="group-info">
+        <h4>Frater Kids (Voluntariado)</h4>
+        <p>Apoyo en servicios dominicales</p>
+      </div>
+    </div>
+
+    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
+      <div class="group-icon">☕</div>
+      <div class="group-info">
+        <h4>Círculo de Mujeres</h4>
+        <p>Reuniones mensuales</p>
+      </div>
+    </div>
+  </main>
+
+  <main id="blog" class="explore-section">
+    
+    <article class="blog-card" onclick="location.href='articulo_detalle.html'">
+      <div class="blog-image">Imagen del Retiro</div>
+      <div class="blog-content">
+        <span class="blog-tag">Comunidad</span>
+        <h4>Resumen del Retiro Anual</h4>
+        <p>Revive los mejores momentos de nuestro campamento de verano y escucha los testimonios.</p>
+        <button class="btn-outline">Leer artículo</button>
+      </div>
+    </article>
+
+    <article class="blog-card" onclick="location.href='articulo_detalle.html'">
+      <div class="blog-image">Imagen de Voluntarios</div>
+      <div class="blog-content">
+        <span class="blog-tag">Obras Sociales</span>
+        <h4>Jornada Médica en la Comunidad</h4>
+        <p>Gracias a todos los que donaron su tiempo, logramos atender a más de 150 familias este mes.</p>
+        <button class="btn-outline">Ver galería</button>
+      </div>
+    </article>
+
+  </main>
+
+  <div class="content-spacer"></div>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      Inicio
+    </a>
+    <a href="explore.html" class="nav-item active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+      Explora
+    </a>
+    <a href="#" class="nav-item nav-fab">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </a>
+    <a href="plan_detalles.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+      Plan
+    </a>
+    <a href="profile.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      Perfil
+    </a>
+  </nav>
+
+  <script>
+    function switchTab(tabId) {
+      // Remover 'active' de todos los botones y secciones
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.explore-section').forEach(sec => sec.classList.remove('active'));
+      
+      // Agregar 'active' al botón clickeado (buscando el evento de forma indirecta o usando el tabId)
+      event.target.classList.add('active');
+      
+      // Mostrar la sección correspondiente
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth-guard.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+</body>
+</html>
