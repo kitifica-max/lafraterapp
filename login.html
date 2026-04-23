@@ -8,6 +8,43 @@
   <link rel="stylesheet" href="css/login.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1931">
+  <style>
+    .input-group { margin-bottom: 16px; }
+
+    .toggle-password {
+      position: relative;
+    }
+    .toggle-password input {
+      padding-right: 44px;
+    }
+    .toggle-password button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #8FAECF;
+      padding: 4px;
+      line-height: 1;
+    }
+
+    .error-msg {
+      color: #E74C3C;
+      font-size: 13px;
+      margin-top: 4px;
+      display: none;
+    }
+    .error-msg.visible { display: block; }
+
+    .code-hint {
+      font-size: 12px;
+      color: #8FAECF;
+      margin-top: 4px;
+    }
+  </style>
 </head>
 <body>
 
@@ -18,27 +55,34 @@
 
     <main class="login-body" id="formSection">
       <h1 class="login-title">¡Bienvenido!</h1>
-      <p class="login-subtitle">Ingresa tu correo para recibir tu enlace mágico de acceso rápido. Sin contraseñas.</p>
+      <p class="login-subtitle">Ingresa tu correo y el código de acceso que te proporcionó tu líder.</p>
 
-      <form id="loginForm">
+      <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="input-group">
           <label for="email">Correo electrónico</label>
           <input type="email" id="email" placeholder="ejemplo@correo.com" required autocomplete="email">
         </div>
-        <button type="submit" class="btn-primary" id="submitBtn">Recibir enlace de acceso</button>
+
+        <div class="input-group">
+          <label for="password">Código de acceso</label>
+          <div class="toggle-password">
+            <input type="password" id="password" placeholder="Ingresa tu código" required autocomplete="current-password">
+            <button type="button" onclick="togglePass()" id="eyeBtn" aria-label="Mostrar contraseña">👁</button>
+          </div>
+          <p class="code-hint">Tu código fue compartido por un administrador de Frater.</p>
+        </div>
+
+        <p class="error-msg" id="errorMsg"></p>
+
+        <button type="submit" class="btn-primary" id="submitBtn">Entrar</button>
       </form>
     </main>
 
-    <main class="feedback-state" id="feedbackSection">
+    <!-- Estado de carga -->
+    <main class="feedback-state" id="feedbackSection" style="display:none;">
       <div id="loadingState">
         <div class="spinner"></div>
-        <h2 class="login-title">Enviando enlace...</h2>
-      </div>
-      <div id="successState" style="display: none;">
-        <div class="success-icon">✉️</div>
-        <h2 class="login-title">¡Revisa tu correo!</h2>
-        <p class="login-subtitle">Te hemos enviado un enlace mágico. Haz clic en él para entrar a la aplicación.</p>
-        <button class="btn-primary" style="background-color: var(--color-bg); color: var(--color-text-main); margin-top: 20px;" onclick="location.reload()">Volver a intentar</button>
+        <h2 class="login-title">Verificando acceso...</h2>
       </div>
     </main>
 
@@ -47,73 +91,62 @@
     </footer>
   </div>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const email = document.getElementById('email').value;
-      const formSection = document.getElementById('formSection');
-      const feedbackSection = document.getElementById('feedbackSection');
-      const loadingState = document.getElementById('loadingState');
-      const successState = document.getElementById('successState');
-
-      if (email) {
-        formSection.style.display = 'none';
-        feedbackSection.style.display = 'flex';
-        loadingState.style.display = 'block';
-        successState.style.display = 'none';
-
-        setTimeout(() => {
-          loadingState.style.display = 'none';
-          successState.style.display = 'block';
-          // TODO: await supabase.auth.signInWithOtp({ email })
-        }, 2000);
-      }
-    });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
-    }
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script>
     // Si ya hay sesión activa, redirigir al inicio
     (async () => {
       const { data: { session } } = await window.supabaseClient.auth.getSession();
-      if (session) window.location.replace('/index.html');
+      if (session) {
+        window.location.replace('/index.html');
+      }
     })();
 
-    // Reemplazar el submit con Supabase real
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    async function handleLogin(e) {
       e.preventDefault();
-      const email = document.getElementById('email').value;
-      const formSection = document.getElementById('formSection');
-      const feedbackSection = document.getElementById('feedbackSection');
-      const loadingState = document.getElementById('loadingState');
-      const successState = document.getElementById('successState');
 
-      if (email) {
-        formSection.style.display = 'none';
-        feedbackSection.style.display = 'flex';
-        loadingState.style.display = 'block';
-        successState.style.display = 'none';
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
 
-        const { error } = await window.supabaseClient.auth.signInWithOtp({
-          email,
-          options: { emailRedirectTo: window.location.origin + '/index.html' }
-        });
+      errorMsg.classList.remove('visible');
+      errorMsg.textContent = '';
 
-        loadingState.style.display = 'none';
-        if (error) {
-          formSection.style.display = 'flex';
-          feedbackSection.style.display = 'none';
-          alert('Error: ' + error.message);
-        } else {
-          successState.style.display = 'block';
-        }
+      // Mostrar spinner
+      document.getElementById('formSection').style.display    = 'none';
+      document.getElementById('feedbackSection').style.display = 'flex';
+
+      const { error } = await window.supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        document.getElementById('feedbackSection').style.display = 'none';
+        document.getElementById('formSection').style.display     = 'flex';
+
+        errorMsg.textContent = error.message === 'Invalid login credentials'
+          ? 'Correo o código de acceso incorrecto. Verifica tus datos.'
+          : 'Error de acceso: ' + error.message;
+        errorMsg.classList.add('visible');
+        return;
       }
-    });
+
+      // Login exitoso → redirigir
+      window.location.replace('/index.html');
+    }
+
+    function togglePass() {
+      const input  = document.getElementById('password');
+      const btn    = document.getElementById('eyeBtn');
+      const isPass = input.type === 'password';
+      input.type   = isPass ? 'text' : 'password';
+      btn.textContent = isPass ? '🙈' : '👁';
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
   </script>
 </body>
 </html>

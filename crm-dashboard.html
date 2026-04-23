@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Administración</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0A1931;
+      --bg2:        #0F2240;
+      --bg3:        #162E54;
+      --accent:     #F5A623;
+      --accent2:    #E8943A;
+      --text:       #FFFFFF;
+      --text-muted: #8FAECF;
+      --border:     #1E3A5F;
+      --danger:     #E74C3C;
+      --success:    #2ECC71;
+      --radius:     12px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar-brand img {
+      height: 36px;
+    }
+    .topbar-brand .crm-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--bg);
+    }
+    .user-info { text-align: right; }
+    .user-name { font-size: 14px; font-weight: 600; }
+    .user-rol  { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+    .btn-logout {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all .2s;
+    }
+    .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
+
+    /* ── MAIN LAYOUT ── */
+    .main-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .page-title { font-size: 24px; font-weight: 700; }
+    .page-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 12px 22px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .2s, transform .1s;
+    }
+    .btn-primary:hover  { background: var(--accent2); }
+    .btn-primary:active { transform: scale(.97); }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .stat-value { font-size: 28px; font-weight: 700; margin-top: 6px; }
+    .stat-value.accent { color: var(--accent); }
+
+    /* ── SEARCH BAR ── */
+    .search-bar {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .search-bar input:focus { border-color: var(--accent); }
+    .search-bar input::placeholder { color: var(--text-muted); }
+    .search-bar .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    /* ── TABLE ── */
+    .table-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .table-scroll { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead { background: var(--bg3); }
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    td {
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:hover td { background: rgba(255,255,255,.03); }
+    .member-name { font-weight: 600; }
+    .member-email { color: var(--text-muted); font-size: 12px; }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .badge-super_admin { background: rgba(245,166,35,.2); color: var(--accent); }
+    .badge-admin       { background: rgba(46,204,113,.2); color: #2ECC71; }
+    .badge-lider       { background: rgba(52,152,219,.2); color: #3498DB; }
+    .badge-miembro     { background: rgba(143,174,207,.15); color: var(--text-muted); }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    .status-dot.active   { background: var(--success); }
+    .status-dot.inactive { background: var(--text-muted); }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    .empty-state p { margin-top: 10px; font-size: 14px; }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      padding: 32px;
+      animation: slideUp .25s ease;
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .modal-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .modal-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus  { border-color: var(--accent); }
+    .form-group select option  { background: var(--bg3); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn-cancel {
+      flex: 1;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 12px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-cancel:hover { border-color: var(--text-muted); color: var(--text); }
+    .btn-submit {
+      flex: 2;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 12px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+      position: relative;
+    }
+    .btn-submit:hover    { background: var(--accent2); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+    .btn-submit .spinner-inline {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(10,25,49,.3);
+      border-top-color: var(--bg);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto;
+    }
+    .btn-submit.loading .spinner-inline { display: block; }
+    .btn-submit.loading .btn-text      { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SUCCESS MODAL ── */
+    .success-modal .success-icon-big {
+      font-size: 52px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .success-modal .modal-title { text-align: center; }
+    .success-modal .modal-subtitle { text-align: center; }
+
+    .code-box {
+      background: var(--bg3);
+      border: 2px dashed var(--accent);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .code-box .code-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .code-value {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+    }
+    .code-warning {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 8px;
+    }
+    .btn-copy {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .2s;
+      margin-bottom: 10px;
+    }
+    .btn-copy:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── LOADING SCREEN ── */
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .spinner-large {
+      width: 48px; height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin-bottom: 16px;
+    }
+    #loadingScreen p { color: var(--text-muted); font-size: 14px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      z-index: 9998;
+      transition: transform .3s ease;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.error { border-color: var(--danger); color: var(--danger); }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .topbar { padding: 12px 16px; }
+      .main-content { padding: 20px 16px; }
+      .code-value { font-size: 26px; letter-spacing: 5px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loadingScreen">
+  <div class="spinner-large"></div>
+  <p>Verificando acceso...</p>
+</div>
+
+<!-- Toast notifications -->
+<div class="toast" id="toast"></div>
+
+<!-- TOP BAR -->
+<nav class="topbar" id="topbar" style="display:none;">
+  <div class="topbar-brand">
+    <img src="img/LogoFrater_1.png" alt="Frater" onerror="this.style.display='none'">
+    <span class="crm-label">CRM</span>
+  </div>
+  <div class="topbar-user">
+    <div class="user-info">
+      <div class="user-name" id="adminName">—</div>
+      <div class="user-rol"  id="adminRol">—</div>
+    </div>
+    <div class="avatar" id="adminAvatar">?</div>
+    <button class="btn-logout" onclick="logout()">Salir</button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main-content" id="mainContent" style="display:none;">
+
+  <div class="page-header">
+    <div>
+      <div class="page-title">Gestión de Miembros</div>
+      <div class="page-subtitle">Administra los miembros de Fraternidad Cristiana</div>
+    </div>
+    <button class="btn-primary" onclick="openAddModal()">
+      <span>+</span> Agregar Miembro
+    </button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total Miembros</div>
+      <div class="stat-value accent" id="statTotal">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Activos</div>
+      <div class="stat-value" id="statActivos">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Líderes</div>
+      <div class="stat-value" id="statLideres">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Admins</div>
+      <div class="stat-value" id="statAdmins">—</div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Buscar por nombre o correo..." oninput="filterTable()">
+  </div>
+
+  <!-- Members Table -->
+  <div class="table-card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Miembro</th>
+            <th>Rol</th>
+            <th>Ministerio</th>
+            <th>Ingreso</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="membersTable">
+          <tr>
+            <td colspan="5">
+              <div class="empty-state">
+                <div class="spinner-large" style="margin:0 auto;"></div>
+                <p>Cargando miembros...</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: AGREGAR MIEMBRO ── -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-title">Nuevo Miembro</div>
+    <div class="modal-subtitle">Completa los datos para crear la cuenta de acceso.</div>
+
+    <form id="addMemberForm" onsubmit="submitNewMember(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre *</label>
+          <input type="text" id="f_nombre" placeholder="Juan Pérez" required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Correo *</label>
+          <input type="email" id="f_email" placeholder="juan@email.com" required autocomplete="off">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Rol</label>
+          <select id="f_rol">
+            <option value="miembro">Miembro</option>
+            <option value="lider">Líder</option>
+            <option value="Admin">Admin</option>
+            <option value="Super_Admin">Super Admin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="f_telefono" placeholder="+503 1234-5678" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Ministerio</label>
+        <select id="f_ministerio">
+          <option value="">Sin asignar</option>
+          <option value="Jóvenes Universitarios">Jóvenes Universitarios</option>
+          <option value="Ministerio de Alabanza">Ministerio de Alabanza</option>
+          <option value="Frater Kids">Frater Kids Voluntariado</option>
+          <option value="Círculo de Mujeres">Círculo de Mujeres</option>
+        </select>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeAddModal()">Cancelar</button>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="btn-text">Crear Miembro</span>
+          <div class="spinner-inline"></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── MODAL: CÓDIGO DE ACCESO ── -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal success-modal">
+    <div class="success-icon-big">✅</div>
+    <div class="modal-title">¡Miembro Creado!</div>
+    <div class="modal-subtitle">
+      Comparte este código de acceso con <strong id="s_nombre"></strong>.<br>
+      Solo se mostrará una vez.
+    </div>
+
+    <div class="code-box">
+      <div class="code-label">Código de Acceso</div>
+      <div class="code-value" id="s_codigo">——</div>
+    </div>
+    <p class="code-warning">⚠️ El usuario deberá ingresar su correo y este código para acceder a la app.</p>
+
+    <button class="btn-copy" onclick="copyCode()">📋 Copiar código</button>
+    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="closeSuccessModal()">
+      Listo
+    </button>
+  </div>
+</div>
+
+
+<!-- ── SCRIPTS ── -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
+  let allMembers = [];
+  let currentCode = '';
+
+  // ── INIT: verificar sesión y rol ──
+  (async () => {
+    const { data: { session } } = await window.supabaseClient.auth.getSession();
+
+    if (!session) {
+      window.location.replace('/login.html');
+      return;
+    }
+
+    const { data: profile, error } = await window.supabaseClient
+      .from('miembros')
+      .select('nombre, rol')
+      .eq('id', session.user.id)
+      .single();
+
+    if (error || !profile || !['Super_Admin', 'Admin'].includes(profile.rol)) {
+      await window.supabaseClient.auth.signOut();
+      window.location.replace('/login.html');
+      return;
+    }
+
+    // Mostrar info del admin
+    document.getElementById('adminName').textContent   = profile.nombre;
+    document.getElementById('adminRol').textContent    = profile.rol;
+    document.getElementById('adminAvatar').textContent = profile.nombre.charAt(0).toUpperCase();
+
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('topbar').style.display       = 'flex';
+    document.getElementById('mainContent').style.display  = 'block';
+
+    await loadMembers();
+  })();
+
+  // ── CARGAR MIEMBROS ──
+  async function loadMembers() {
+    const { data, error } = await window.supabaseClient
+      .from('miembros')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) { showToast('Error al cargar miembros: ' + error.message, true); return; }
+
+    allMembers = data || [];
+    renderStats(allMembers);
+    renderTable(allMembers);
+  }
+
+  function renderStats(members) {
+    document.getElementById('statTotal').textContent   = members.length;
+    document.getElementById('statActivos').textContent = members.filter(m => m.activo).length;
+    document.getElementById('statLideres').textContent = members.filter(m => m.rol === 'lider').length;
+    document.getElementById('statAdmins').textContent  = members.filter(m => ['Admin','Super_Admin'].includes(m.rol)).length;
+  }
+
+  function renderTable(members) {
+    const tbody = document.getElementById('membersTable');
+    if (!members.length) {
+      tbody.innerHTML = `<tr><td colspan="5">
+        <div class="empty-state">
+          <div style="font-size:40px;">👥</div>
+          <p>No hay miembros registrados aún.</p>
+        </div></td></tr>`;
+      return;
+    }
+    tbody.innerHTML = members.map(m => `
+      <tr>
+        <td>
+          <div class="member-name">${escHtml(m.nombre)}</div>
+          <div class="member-email">${escHtml(m.email)}</div>
+        </td>
+        <td><span class="badge badge-${m.rol.toLowerCase()}">${m.rol}</span></td>
+        <td>${m.ministerio ? escHtml(m.ministerio) : '<span style="color:var(--text-muted)">—</span>'}</td>
+        <td style="color:var(--text-muted);font-size:13px;">
+          ${m.fecha_ingreso ? new Date(m.fecha_ingreso).toLocaleDateString('es-SV') : '—'}
+        </td>
+        <td>
+          <span class="status-dot ${m.activo ? 'active' : 'inactive'}"></span>
+          ${m.activo ? 'Activo' : 'Inactivo'}
+        </td>
+      </tr>`).join('');
+  }
+
+  // ── FILTRO BÚSQUEDA ──
+  function filterTable() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = allMembers.filter(m =>
+      m.nombre.toLowerCase().includes(q) || m.email.toLowerCase().includes(q)
+    );
+    renderTable(filtered);
+  }
+
+  // ── MODAL AGREGAR ──
+  function openAddModal() {
+    document.getElementById('addMemberForm').reset();
+    document.getElementById('addModal').classList.add('open');
+  }
+  function closeAddModal() {
+    document.getElementById('addModal').classList.remove('open');
+  }
+
+  // ── SUBMIT NUEVO MIEMBRO ──
+  async function submitNewMember(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    const payload = {
+      nombre:     document.getElementById('f_nombre').value.trim(),
+      email:      document.getElementById('f_email').value.trim(),
+      rol:        document.getElementById('f_rol').value,
+      telefono:   document.getElementById('f_telefono').value.trim() || null,
+      ministerio: document.getElementById('f_ministerio').value || null,
+    };
+
+    const { data, error } = await window.supabaseClient.functions.invoke('create-member', {
+      body: payload
+    });
+
+    btn.classList.remove('loading');
+    btn.disabled = false;
+
+    if (error || (data && data.error)) {
+      showToast('Error: ' + (data?.error || error.message), true);
+      return;
+    }
+
+    closeAddModal();
+    currentCode = data.codigo_acceso;
+    document.getElementById('s_nombre').textContent = data.nombre;
+    document.getElementById('s_codigo').textContent = data.codigo_acceso;
+    document.getElementById('successModal').classList.add('open');
+
+    // Recargar la tabla
+    await loadMembers();
+  }
+
+  // ── MODAL ÉXITO ──
+  function closeSuccessModal() {
+    document.getElementById('successModal').classList.remove('open');
+    currentCode = '';
+  }
+
+  function copyCode() {
+    navigator.clipboard.writeText(currentCode).then(() => {
+      showToast('✅ Código copiado al portapapeles');
+    }).catch(() => {
+      showToast('Código: ' + currentCode);
+    });
+  }
+
+  // ── LOGOUT ──
+  async function logout() {
+    await window.supabaseClient.auth.signOut();
+    window.location.replace('/login.html');
+  }
+
+  // ── CERRAR MODALES CON ESCAPE ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeAddModal();
+      // No cierra successModal con ESC para forzar que guarden el código
+    }
+  });
+
+  // ── CERRAR MODAL AL CLICK FUERA ──
+  document.getElementById('addModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAddModal();
+  });
+
+  // ── TOAST ──
+  let toastTimer;
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3500);
+  }
+
+  // ── ESCAPE HTML ──
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+</script>
+</body>
+</html>
