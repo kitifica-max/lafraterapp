@@ -16,12 +16,21 @@ DECLARE
   admin_nombre TEXT   := 'Daniel Pineda';
   -- CAMBIA ESTA CONTRASEÑA antes de ejecutar:
   temp_password TEXT  := 'FraterAdmin2024!';
+  existing_id  UUID;
 BEGIN
 
-  -- Verificar si el usuario ya existe
-  IF EXISTS (SELECT 1 FROM auth.users WHERE email = admin_email) THEN
-    RAISE NOTICE 'El usuario % ya existe. No se creó duplicado.', admin_email;
-    RETURN;
+  -- Limpiar intentos fallidos previos (usuario creado sin identities)
+  SELECT id INTO existing_id FROM auth.users WHERE email = admin_email;
+  IF existing_id IS NOT NULL THEN
+    IF EXISTS (SELECT 1 FROM auth.identities WHERE user_id = existing_id) THEN
+      RAISE NOTICE 'El usuario % ya existe y está completo. No se modificó.', admin_email;
+      RETURN;
+    ELSE
+      -- Borrar el usuario incompleto para reintentar
+      DELETE FROM public.miembros WHERE id = existing_id;
+      DELETE FROM auth.users      WHERE id = existing_id;
+      RAISE NOTICE 'Usuario incompleto eliminado. Recreando...';
+    END IF;
   END IF;
 
   -- 1. Insertar en auth.users
@@ -86,6 +95,7 @@ BEGIN
   INSERT INTO auth.identities (
     id,
     user_id,
+    provider_id,
     identity_data,
     provider,
     last_sign_in_at,
@@ -94,6 +104,7 @@ BEGIN
   ) VALUES (
     new_user_id,
     new_user_id,
+    admin_email,
     jsonb_build_object('sub', new_user_id::TEXT, 'email', admin_email),
     'email',
     NOW(),
