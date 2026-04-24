@@ -730,8 +730,12 @@
       ministerio: document.getElementById('f_ministerio').value || null,
     };
 
-    const { data, error } = await window.supabaseClient.functions.invoke('create-member', {
-      body: payload
+    const { data, error } = await window.supabaseClient.rpc('crear_miembro', {
+      p_nombre:     payload.nombre,
+      p_email:      payload.email,
+      p_rol:        payload.rol,
+      p_telefono:   payload.telefono,
+      p_ministerio: payload.ministerio,
     });
 
     btn.classList.remove('loading');
