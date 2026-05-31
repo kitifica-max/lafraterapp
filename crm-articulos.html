@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Artículos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <style>
+    .img-upload-zone { border:2px dashed #d1d5db; border-radius:10px; padding:20px; text-align:center; cursor:pointer; transition:border-color 0.15s; }
+    .img-upload-zone:hover { border-color:var(--color-blue); }
+    .img-upload-zone input { display:none; }
+    .img-upload-zone p { margin:0; font-size:0.85rem; color:#6b7280; }
+    .img-previews { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:8px; margin-top:12px; }
+    .img-preview-item { position:relative; aspect-ratio:1; border-radius:8px; overflow:hidden; background:#f3f4f6; }
+    .img-preview-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .img-preview-item button { position:absolute; top:4px; right:4px; background:rgba(0,0,0,0.55); border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; color:white; font-size:13px; line-height:1; display:flex; align-items:center; justify-content:center; padding:0; }
+    .img-preview-item .img-order { position:absolute; bottom:4px; left:4px; background:rgba(0,0,0,0.55); color:#fff; font-size:11px; font-weight:700; border-radius:4px; padding:1px 5px; }
+    .art-table-img { width:40px; height:40px; border-radius:6px; object-fit:cover; display:block; }
+    .art-table-img-placeholder { width:40px; height:40px; border-radius:6px; background:#f3f4f6; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+<div class="crm-layout">
+
+  <aside class="crm-sidebar">
+    <div class="crm-brand"><img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater"><span class="crm-brand-badge">CRM</span></div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Artículos &amp; Blog</h1>
+      <span class="crm-topbar-user"></span>
+    </div>
+    <div class="crm-content">
+
+      <!-- Métricas -->
+      <div class="crm-metrics">
+        <div class="crm-metric">
+          <div class="crm-metric-label">Vistas totales</div>
+          <div class="crm-metric-value" id="metVistas">—</div>
+          <div class="crm-metric-sub">lecturas registradas</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Me gusta totales</div>
+          <div class="crm-metric-value" id="metLikes">—</div>
+          <div class="crm-metric-sub">corazones acumulados</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Artículo más leído</div>
+          <div class="crm-metric-value" style="font-size:1.1rem;line-height:1.3;" id="metTop">—</div>
+          <div class="crm-metric-sub" id="metTopVistas"></div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Categoría más vista</div>
+          <div class="crm-metric-value" style="font-size:1.2rem;" id="metCategoria">—</div>
+          <div class="crm-metric-sub" id="metCategoriaVistas"></div>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div class="crm-card">
+        <div class="crm-card-header">
+          <span class="crm-card-title">Todos los artículos</span>
+          <button class="btn-crm btn-crm-primary" onclick="openModal()">+ Nuevo artículo</button>
+        </div>
+        <div class="crm-table-wrap">
+          <table class="crm-table">
+            <thead>
+              <tr><th>Portada</th><th>Título</th><th>Categoría</th><th>Autor</th><th class="th-center">Vistas</th><th class="th-center">Likes</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="crm-modal-overlay" id="crmModal">
+  <div class="crm-modal crm-modal-lg">
+    <div class="crm-modal-header">
+      <h3 id="modalTitle">Nuevo artículo</h3>
+      <button class="crm-modal-close" onclick="closeModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+
+      <!-- Imágenes (portada + carrusel) -->
+      <div class="crm-field">
+        <label>Imágenes <span style="font-weight:400;color:#aaa;">(mín. 1, máx. 5 — la primera es la portada)</span></label>
+        <div id="imgPreviews" class="img-previews" style="display:none;"></div>
+        <label class="img-upload-zone" id="uploadZone" style="margin-top:0;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <p>Seleccionar imágenes (JPG, PNG, WEBP)</p>
+          <input type="file" id="f-imagenes" accept="image/jpeg,image/png,image/webp" multiple onchange="handleImages(this)">
+        </label>
+      </div>
+
+      <div class="crm-field"><label>Título *</label><input id="f-titulo" placeholder="Ej. Resumen del Retiro Anual"></div>
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Categoría</label>
+          <select id="f-categoria">
+            <option value="Comunidad">Comunidad</option>
+            <option value="Obras Sociales">Obras Sociales</option>
+            <option value="Devocional">Devocional</option>
+            <option value="Noticias">Noticias</option>
+            <option value="Jóvenes">Jóvenes</option>
+            <option value="Familia">Familia</option>
+          </select>
+        </div>
+        <div class="crm-field"><label>Autor</label><input id="f-autor" placeholder="Ej. Pastor Daniel Ruiz"></div>
+      </div>
+      <div class="crm-field" style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.04em;cursor:pointer;margin-bottom:0;">
+          <input type="checkbox" id="f-publicado" style="width:18px;height:18px;accent-color:var(--color-blue);">
+          Publicar ahora
+        </label>
+        <span style="font-size:0.78rem;color:#9ca3af;">(enviará notificación por correo a todos los miembros)</span>
+      </div>
+      <div class="crm-field"><label>Resumen</label><textarea id="f-resumen" rows="2" placeholder="Descripción corta que aparece en la lista..."></textarea></div>
+      <div class="crm-field"><label>Contenido completo</label><textarea id="f-contenido" rows="8" placeholder="Escribe el artículo aquí. Usa líneas en blanco para separar párrafos."></textarea></div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm btn-crm-secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn-crm btn-crm-primary" id="saveBtn" onclick="saveRecord()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
+<script>
+  const sb = window.supabaseClient;
+  let records = [];
+  let currentId = null;
+
+  // Imágenes en memoria
+  let newFiles = [];      // File[] nuevas a subir
+  let existingUrls = [];  // string[] URLs ya guardadas
+
+  // ── MÉTRICAS ────────────────────────────────────────────────
+  async function loadMetrics() {
+    const [
+      { count: vistas },
+      { count: likes },
+      { data: topVistas },
+      { data: porCategoria }
+    ] = await Promise.all([
+      sb.from('articulos_vistas').select('id', { count: 'exact', head: true }),
+      sb.from('articulos_likes').select('id', { count: 'exact', head: true }),
+      sb.from('articulos_vistas').select('articulo_id').then(async ({ data }) => {
+        if (!data?.length) return { data: null };
+        const map = {};
+        data.forEach(r => { map[r.articulo_id] = (map[r.articulo_id] || 0) + 1; });
+        const topId = Object.entries(map).sort((a, b) => b[1] - a[1])[0];
+        if (!topId) return { data: null };
+        const { data: art } = await sb.from('articulos').select('titulo').eq('id', topId[0]).single();
+        return { data: art ? { titulo: art.titulo, count: topId[1] } : null };
+      }),
+      sb.from('articulos_vistas').select('articulo_id').then(async ({ data }) => {
+        if (!data?.length) return { data: null };
+        const { data: arts } = await sb.from('articulos').select('id, categoria');
+        const artMap = Object.fromEntries((arts || []).map(a => [a.id, a.categoria]));
+        const catCount = {};
+        data.forEach(r => {
+          const cat = artMap[r.articulo_id] || 'Sin categoría';
+          catCount[cat] = (catCount[cat] || 0) + 1;
+        });
+        const top = Object.entries(catCount).sort((a, b) => b[1] - a[1])[0];
+        return { data: top ? { categoria: top[0], count: top[1] } : null };
+      })
+    ]);
+
+    document.getElementById('metVistas').textContent = vistas ?? 0;
+    document.getElementById('metLikes').textContent  = likes  ?? 0;
+
+    if (topVistas?.data) {
+      document.getElementById('metTop').textContent = topVistas.data.titulo;
+      document.getElementById('metTopVistas').textContent = `${topVistas.data.count} vistas`;
+    }
+    if (porCategoria?.data) {
+      document.getElementById('metCategoria').textContent = porCategoria.data.categoria;
+      document.getElementById('metCategoriaVistas').textContent = `${porCategoria.data.count} vistas`;
+    }
+  }
+
+  // ── TABLA ────────────────────────────────────────────────────
+  async function load() {
+    const [{ data }, { data: vistas }, { data: likes }] = await Promise.all([
+      sb.from('articulos').select('*').order('created_at', { ascending: false }),
+      sb.from('articulos_vistas').select('articulo_id'),
+      sb.from('articulos_likes').select('articulo_id')
+    ]);
+    records = data || [];
+
+    const vistaCount = {};
+    (vistas || []).forEach(r => { vistaCount[r.articulo_id] = (vistaCount[r.articulo_id] || 0) + 1; });
+    const likeCount = {};
+    (likes || []).forEach(r => { likeCount[r.articulo_id] = (likeCount[r.articulo_id] || 0) + 1; });
+
+    render(records, vistaCount, likeCount);
+  }
+
+  function render(data, vistaCount, likeCount) {
+    const tbody = document.getElementById('tableBody');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="9"><div class="crm-empty"><div class="crm-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg></div><p>Sin artículos. Crea el primero.</p></div></td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(a => {
+      const f    = new Date(a.created_at);
+      const fecha = `${f.getDate()}/${f.getMonth()+1}/${f.getFullYear()}`;
+      const badge = a.publicado
+        ? '<span class="badge badge-green">Publicado</span>'
+        : '<span class="badge badge-yellow">Borrador</span>';
+      const portada = (a.imagenes && a.imagenes[0])
+        ? `<img src="${a.imagenes[0]}" class="art-table-img" alt="">`
+        : `<div class="art-table-img-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+      const v = vistaCount[a.id] || 0;
+      const l = likeCount[a.id] || 0;
+      return `<tr>
+        <td>${portada}</td>
+        <td><strong>${a.titulo}</strong></td>
+        <td><span class="badge badge-blue">${a.categoria || '—'}</span></td>
+        <td class="muted">${a.autor || '—'}</td>
+        <td class="td-center">${v > 0 ? `<strong>${v}</strong>` : '<span class="muted">—</span>'}</td>
+        <td class="td-center">${l > 0 ? `<strong>${l}</strong>` : '<span class="muted">—</span>'}</td>
+        <td>${badge}</td>
+        <td class="muted">${fecha}</td>
+        <td><div class="crm-td-actions">
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="openModal('${a.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Editar</button>
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="togglePublicado('${a.id}', ${a.publicado})">${a.publicado ? 'Despublicar' : 'Publicar'}</button>
+          <button class="btn-crm btn-crm-danger btn-crm-sm" onclick="deleteRecord('${a.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── IMÁGENES ─────────────────────────────────────────────────
+  function handleImages(input) {
+    const files = Array.from(input.files);
+    const remaining = 5 - existingUrls.length - newFiles.length;
+    const toAdd = files.slice(0, remaining);
+    if (files.length > remaining) alert(`Solo se permiten hasta 5 imágenes. Se agregarán ${toAdd.length}.`);
+    newFiles = [...newFiles, ...toAdd];
+    renderPreviews();
+    input.value = '';
+  }
+
+  function renderPreviews() {
+    const container = document.getElementById('imgPreviews');
+    const zone = document.getElementById('uploadZone');
+    const total = existingUrls.length + newFiles.length;
+    if (!total) { container.style.display = 'none'; zone.style.marginTop = '0'; return; }
+    container.style.display = 'grid';
+    zone.style.marginTop = '12px';
+    const items = [
+      ...existingUrls.map((url, i) => ({ type: 'existing', url, i })),
+      ...newFiles.map((f, i) => ({ type: 'new', file: f, i }))
+    ];
+    container.innerHTML = '';
+    items.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'img-preview-item';
+      const img = document.createElement('img');
+      if (item.type === 'existing') {
+        img.src = item.url;
+      } else {
+        img.src = URL.createObjectURL(item.file);
+      }
+      const btn = document.createElement('button');
+      btn.innerHTML = '&#x2715;';
+      btn.title = 'Quitar imagen';
+      btn.onclick = () => {
+        if (item.type === 'existing') existingUrls.splice(existingUrls.indexOf(item.url), 1);
+        else newFiles.splice(item.i, 1);
+        renderPreviews();
+      };
+      const order = document.createElement('div');
+      order.className = 'img-order';
+      order.textContent = idx === 0 ? 'Portada' : `${idx + 1}`;
+      div.append(img, btn, order);
+      container.appendChild(div);
+    });
+    if (total >= 5) zone.style.display = 'none';
+    else zone.style.display = '';
+  }
+
+  async function uploadImages() {
+    const urls = [...existingUrls];
+    for (const file of newFiles) {
+      const ext  = file.name.split('.').pop();
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error } = await sb.storage.from('articulos-imagenes').upload(path, file, { upsert: true });
+      if (error) { alert('Error subiendo imagen: ' + error.message); return null; }
+      const { data: { publicUrl } } = sb.storage.from('articulos-imagenes').getPublicUrl(path);
+      urls.push(publicUrl);
+    }
+    return urls;
+  }
+
+  // ── MODAL ────────────────────────────────────────────────────
+  function openModal(id = null) {
+    currentId = id;
+    newFiles = [];
+    existingUrls = [];
+    renderPreviews();
+    document.getElementById('uploadZone').style.display = '';
+
+    if (id) {
+      const r = records.find(r => r.id === id);
+      document.getElementById('modalTitle').textContent = 'Editar artículo';
+      document.getElementById('f-titulo').value     = r.titulo    || '';
+      document.getElementById('f-categoria').value  = r.categoria || 'Comunidad';
+      document.getElementById('f-autor').value      = r.autor     || '';
+      document.getElementById('f-publicado').checked = r.publicado || false;
+      document.getElementById('f-resumen').value    = r.resumen   || '';
+      document.getElementById('f-contenido').value  = r.contenido || '';
+      existingUrls = Array.isArray(r.imagenes) ? [...r.imagenes] : [];
+      renderPreviews();
+    } else {
+      document.getElementById('modalTitle').textContent = 'Nuevo artículo';
+      ['f-titulo','f-autor','f-resumen','f-contenido'].forEach(i => document.getElementById(i).value = '');
+      document.getElementById('f-categoria').value = 'Comunidad';
+      document.getElementById('f-publicado').checked = false;
+    }
+    document.getElementById('crmModal').classList.add('active');
+  }
+
+  function closeModal() { document.getElementById('crmModal').classList.remove('active'); currentId = null; }
+
+  async function saveRecord() {
+    const titulo = document.getElementById('f-titulo').value.trim();
+    if (!titulo) { alert('El título es obligatorio.'); return; }
+
+    const publicado = document.getElementById('f-publicado').checked;
+    const wasPublicado = currentId ? (records.find(r => r.id === currentId)?.publicado ?? false) : false;
+    const isNewPublish = publicado && !wasPublicado;
+
+    const total = existingUrls.length + newFiles.length;
+    if (total < 1) { alert('Debes agregar al menos una imagen de portada.'); return; }
+
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+
+    const imagenes = await uploadImages();
+    if (!imagenes) { btn.disabled = false; btn.textContent = 'Guardar'; return; }
+
+    const payload = {
+      titulo,
+      categoria:  document.getElementById('f-categoria').value,
+      autor:      document.getElementById('f-autor').value.trim(),
+      publicado,
+      resumen:    document.getElementById('f-resumen').value.trim(),
+      contenido:  document.getElementById('f-contenido').value.trim(),
+      imagenes
+    };
+
+    let savedId = currentId;
+    let error;
+    if (currentId) {
+      ({ error } = await sb.from('articulos').update(payload).eq('id', currentId));
+    } else {
+      const { data, error: err } = await sb.from('articulos').insert(payload).select('id').single();
+      error = err; if (data) savedId = data.id;
+    }
+
+    btn.disabled = false; btn.textContent = 'Guardar';
+    if (error) { alert('Error: ' + error.message); return; }
+
+    // Enviar email de notificación si se publicó ahora
+    if (isNewPublish && savedId) {
+      btn.textContent = 'Notificando...';
+      await sb.functions.invoke('articulo-notify-email', { body: { articulo_id: savedId } });
+      btn.textContent = 'Guardar';
+    }
+
+    closeModal(); load(); loadMetrics();
+  }
+
+  async function togglePublicado(id, current) {
+    const wasPublicado = current;
+    await sb.from('articulos').update({ publicado: !current }).eq('id', id);
+    if (!wasPublicado) {
+      await sb.functions.invoke('articulo-notify-email', { body: { articulo_id: id } });
+    }
+    load(); loadMetrics();
+  }
+
+  async function deleteRecord(id) {
+    if (!confirm('¿Eliminar este artículo?')) return;
+    await sb.from('articulos').delete().eq('id', id);
+    load(); loadMetrics();
+  }
+
+  load();
+  loadMetrics();
+</script>
+</body>
+</html>

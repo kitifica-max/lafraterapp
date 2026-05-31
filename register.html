@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Frater - Crear cuenta</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
+</head>
+<body>
+
+  <div class="login-container" id="formView">
+
+    <header class="login-header">
+      <img src="img/LogoFrater_1.png" alt="Logo Frater" onerror="this.outerHTML='<h1 style=\'color:#0A1931;\'>FRATER</h1>'">
+    </header>
+
+    <main class="login-body">
+      <h1 class="login-title">Crear cuenta</h1>
+      <p class="login-subtitle">Únete a la comunidad Frater.</p>
+
+      <div class="auth-error" id="authError"></div>
+
+      <form id="registerForm" novalidate>
+        <div class="input-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" placeholder="ejemplo@correo.com" required autocomplete="email">
+          <p class="input-error-msg" id="emailError">Ingresa un correo válido.</p>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <div class="input-password-wrap">
+            <input type="password" id="password" placeholder="Mínimo 8 caracteres" required autocomplete="new-password">
+            <button type="button" class="btn-toggle-password" onclick="togglePassword('password', this)">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+          <p class="input-error-msg" id="passwordError">La contraseña debe tener al menos 8 caracteres.</p>
+        </div>
+
+        <div class="input-group">
+          <label for="confirmPassword">Confirmar contraseña</label>
+          <div class="input-password-wrap">
+            <input type="password" id="confirmPassword" placeholder="Repite tu contraseña" required autocomplete="new-password">
+            <button type="button" class="btn-toggle-password" onclick="togglePassword('confirmPassword', this)">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+          <p class="input-error-msg" id="confirmError">Las contraseñas no coinciden.</p>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submitBtn">Crear cuenta</button>
+      </form>
+
+      <div class="auth-switch">
+        ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+      </div>
+    </main>
+
+    <footer class="login-footer">
+      © 2026 Fraternidad Cristiana de El Salvador
+    </footer>
+  </div>
+
+  <!-- Estado de éxito -->
+  <div class="login-container" id="successView" style="display:none;">
+    <header class="login-header">
+      <img src="img/LogoFrater_1.png" alt="Logo Frater" onerror="this.outerHTML='<h1 style=\'color:#0A1931;\'>FRATER</h1>'">
+    </header>
+    <main class="login-body" style="align-items:center;justify-content:center;text-align:center;">
+      <div class="success-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <h2 class="login-title">¡Revisa tu correo!</h2>
+      <p class="login-subtitle">Te enviamos un enlace de confirmación. Haz clic en él para activar tu cuenta y luego inicia sesión.</p>
+      <a href="login.html" class="btn-primary" style="display:block;text-decoration:none;text-align:center;margin-top:8px;">Ir a iniciar sesión</a>
+    </main>
+    <footer class="login-footer">© 2026 Fraternidad Cristiana de El Salvador</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    (async () => {
+      const { data: { session } } = await window.supabaseClient.auth.getSession();
+      if (session) window.location.replace('app.html');
+    })();
+
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      btn.innerHTML = isText
+        ? '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+        : '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm  = document.getElementById('confirmPassword').value;
+      const authError = document.getElementById('authError');
+      const btn = document.getElementById('submitBtn');
+
+      // Reset errors
+      authError.style.display = 'none';
+      ['email','password','confirmPassword'].forEach(id => {
+        document.getElementById(id).classList.remove('error');
+      });
+      ['emailError','passwordError','confirmError'].forEach(id => {
+        document.getElementById(id).style.display = 'none';
+      });
+
+      let valid = true;
+      if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        document.getElementById('email').classList.add('error');
+        document.getElementById('emailError').style.display = 'block';
+        valid = false;
+      }
+      if (password.length < 8) {
+        document.getElementById('password').classList.add('error');
+        document.getElementById('passwordError').style.display = 'block';
+        valid = false;
+      }
+      if (password !== confirm) {
+        document.getElementById('confirmPassword').classList.add('error');
+        document.getElementById('confirmError').style.display = 'block';
+        valid = false;
+      }
+      if (!valid) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Creando cuenta...';
+
+      const { error } = await window.supabaseClient.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: 'https://lafratersvapp.netlify.app/login.html' }
+      });
+
+      if (error) {
+        btn.disabled = false;
+        btn.textContent = 'Crear cuenta';
+        authError.textContent = error.message === 'User already registered'
+          ? 'Este correo ya tiene una cuenta. Intenta iniciar sesión.'
+          : error.message;
+        authError.style.display = 'block';
+      } else {
+        document.getElementById('formView').style.display = 'none';
+        document.getElementById('successView').style.display = 'flex';
+      }
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+</body>
+</html>

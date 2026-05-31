@@ -2,125 +2,448 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Frater - Inicio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Frater — Fraternidad Cristiana de El Salvador</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/welcome.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
 </head>
-<body>
+<body class="landing-page">
 
-  <header class="dashboard-header">
-    <img src="img/LogoFrater_1.png" alt="Logo Frater" class="logo" onerror="this.outerHTML='<h2 style=\'margin-bottom:16px;\'>FRATER</h2>'">
-    <h1>Hola, Daniel</h1>
+  <!-- NAVBAR -->
+  <header class="landing-header">
+    <button class="landing-menu-toggle" id="menuToggle" aria-label="Menú" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="landing-nav-left">
+      <a href="index.html" class="landing-nav-link">Inicio</a>
+      <a href="sobre-nosotros.html" class="landing-nav-link">Nosotros</a>
+      <a href="#servicios" class="landing-nav-link">Servicios</a>
+      <a href="#eventos" class="landing-nav-link">Eventos</a>
+      <a href="#contacto" class="landing-nav-link">Contacto</a>
+    </nav>
+    <div class="landing-brand">
+      <img src="img/LogoFrater_1.png" alt="Frater" onerror="this.outerHTML='<span class=\'landing-brand-text\'>FRATER</span>'">
+    </div>
+    <div class="landing-nav-right">
+      <a href="#servicios" class="landing-btn-outline">Visítanos</a>
+      <a href="app.html" class="landing-btn-primary">Instalar App</a>
+    </div>
   </header>
-
-  <section class="calendar-section">
-    <div class="calendar-slider">
-      <div class="calendar-day">
-        <span>Lun</span>
-        <div class="date">20</div>
-      </div>
-      <div class="calendar-day">
-        <span>Mar</span>
-        <div class="date">21</div>
-      </div>
-      <div class="calendar-day active">
-        <span>Mié</span>
-        <div class="date">22</div>
-      </div>
-      <div class="calendar-day">
-        <span>Jue</span>
-        <div class="date">23</div>
-      </div>
-      <div class="calendar-day">
-        <span>Vie</span>
-        <div class="date">24</div>
-      </div>
-      <div class="calendar-day">
-        <span>Sáb</span>
-        <div class="date">25</div>
-      </div>
-      <div class="calendar-day">
-        <span>Dom</span>
-        <div class="date">26</div>
-      </div>
+  <div class="landing-mobile-menu" id="mobileMenu">
+    <a href="index.html" class="landing-nav-link" onclick="closeMobileMenu()">Inicio</a>
+    <a href="sobre-nosotros.html" class="landing-nav-link" onclick="closeMobileMenu()">Nosotros</a>
+    <a href="#servicios" class="landing-nav-link" onclick="closeMobileMenu()">Servicios</a>
+    <a href="#eventos" class="landing-nav-link" onclick="closeMobileMenu()">Eventos</a>
+    <a href="#contacto" class="landing-nav-link" onclick="closeMobileMenu()">Contacto</a>
+    <div class="mobile-menu-actions">
+      <a href="#servicios" class="landing-btn-outline" onclick="closeMobileMenu()">Visítanos</a>
+      <a href="app.html" class="landing-btn-primary">Instalar App</a>
     </div>
-  </section>
-
-  <div class="section-header">
-    <h2>Plan Kairos</h2>
-    <a href="plan_detalles.html">Ver todo</a>
   </div>
-  <section class="hero-card-container">
-    <div class="hero-card">
-      <h3>Lectura del Día</h3>
-      <p>Comienza tu día reflexionando en Juan 1:1-14 y Salmos 23.</p>
-      <button class="btn-secondary">Leer ahora</button>
-      <div class="hero-icon">📖</div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="landing-hero">
+      <div class="landing-hero-inner">
+        <div class="landing-hero-content">
+          <span class="hero-tag">FRATERNIDAD CRISTIANA DE EL SALVADOR</span>
+          <h1>Una familia de fe<br>en Santa Ana</h1>
+          <p>Somos una iglesia cristiana para la familia.</p>
+          <div class="hero-actions">
+            <a href="#servicios" class="landing-btn-primary landing-btn-lg">Visítanos este domingo</a>
+            <a href="app.html" class="landing-btn-outline landing-btn-lg">Instalar la App</a>
+          </div>
+        </div>
+        <div class="landing-hero-carousel">
+          <div class="hero-carousel-inner" id="heroCarouselInner"></div>
+          <div class="hero-carousel-dots" id="heroCarouselDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IDENTIDAD -->
+    <section class="landing-identidad">
+      <div class="landing-container">
+        <div class="identidad-intro-row">
+          <div class="identidad-intro-text">
+            <span class="section-label">Quiénes somos</span>
+            <h2>Una iglesia para la familia desde 1992</h2>
+            <p>Somos una comunidad cristiana en Santa Ana, El Salvador, comprometida a proclamar el amor de Dios y transformar vidas generación tras generación.</p>
+            <a href="sobre-nosotros.html" class="identidad-link">Conoce nuestra historia completa →</a>
+          </div>
+          <div class="identidad-vm-cards">
+            <div class="identidad-vm-card">
+              <div class="identidad-vm-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <h3>Nuestra Visión</h3>
+              <p>Ser una iglesia cristiana para la familia que proclame el amor de Dios, manifieste el poder del Cristo resucitado y persevere en el orden dado en la Biblia.</p>
+            </div>
+            <div class="identidad-vm-card">
+              <div class="identidad-vm-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              </div>
+              <h3>Nuestra Misión</h3>
+              <p>Predicar el evangelio de Jesucristo para salvar y transformar vidas, conectar al nuevo creyente para que tenga una familia espiritual y hacer todo con excelencia para la gloria de Dios.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="identidad-pilares">
+          <div class="identidad-pilar">
+            <div class="pilar-num">01</div>
+            <div class="pilar-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h4>El Amor</h4>
+            <p>Sin importar raza o condición, todos somos uno en Dios. Nos une nuestra fe y eso basta.</p>
+          </div>
+          <div class="identidad-pilar">
+            <div class="pilar-num">02</div>
+            <div class="pilar-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h4>El Poder</h4>
+            <p>Un poder que no es nuestro. El Espíritu Santo que transforma vidas y hace grandes cosas a través de hombres pequeños.</p>
+          </div>
+          <div class="identidad-pilar">
+            <div class="pilar-num">03</div>
+            <div class="pilar-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </div>
+            <h4>El Orden</h4>
+            <p>Nuestro sello es la excelencia. Todo planificado y hecho como para Dios, basado en lo que enseña la Biblia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="landing-servicios" id="servicios">
+      <div class="landing-container">
+        <div class="servicios-header">
+          <div>
+            <span class="section-label light">Ven a vernos</span>
+            <h2>Reúnete con nosotros</h2>
+            <p>Hay un lugar para ti y tu familia cada domingo.</p>
+          </div>
+          <a href="#contacto" class="landing-btn-outline servicios-btn-outline">Ver cómo llegar →</a>
+        </div>
+        <div class="servicios-grid">
+          <div class="servicios-card">
+            <div class="servicios-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <h4>Servicio Dominical</h4>
+              <p>Domingos · <strong>10:00 – 11:30 a.m.</strong></p>
+            </div>
+          </div>
+          <div class="servicios-card">
+            <div class="servicios-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <h4>Ubicación</h4>
+              <p>Col. Villas de San Rafael, Carretera Panamericana, <strong>Santa Ana</strong></p>
+            </div>
+          </div>
+          <div class="servicios-card">
+            <div class="servicios-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <h4>Oficina</h4>
+              <p>Mar–Vie <strong>8:30 a.m. – 5:00 p.m.</strong><br>Sáb <strong>8:30 a.m. – 12:00 m.d.</strong></p>
+            </div>
+          </div>
+          <div class="servicios-card">
+            <div class="servicios-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div>
+              <h4>Transporte</h4>
+              <p>Buses disponibles para el servicio dominical. <a href="https://wa.me/50379132161" target="_blank" rel="noopener" class="servicios-link">Escríbenos por WhatsApp</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APP CARD -->
+    <section class="landing-app-section">
+      <div class="landing-container">
+        <div class="app-highlight-card">
+          <div class="app-highlight-icon">
+            <img src="img/LogoFrater_2.png" alt="Frater" onerror="this.outerHTML='<svg width=\'48\' height=\'48\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><rect x=\'5\' y=\'2\' width=\'14\' height=\'20\' rx=\'2\'/></svg>'">
+          </div>
+          <div class="app-highlight-body">
+            <h2>Lleva la Frater contigo</h2>
+            <p>Plan de lectura Kairos, eventos, peticiones de oración y notificaciones — todo en tu celular, sin descargar nada.</p>
+            <div class="app-highlight-actions">
+              <a href="app.html" class="landing-btn-primary">Instalar la App</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTOS -->
+    <section class="landing-eventos" id="eventos">
+      <div class="landing-container">
+        <div class="landing-eventos-header">
+          <div>
+            <span class="section-label">Cartelera</span>
+            <h2>¿Qué viene pronto?</h2>
+          </div>
+          <a href="explore.html" class="landing-btn-outline">Ver todos →</a>
+        </div>
+        <div class="landing-eventos-grid" id="landingEventosGrid">
+          <div class="evento-card-skeleton"></div>
+          <div class="evento-card-skeleton"></div>
+          <div class="evento-card-skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="landing-contact" id="contacto">
+      <div class="landing-container">
+        <div class="contact-heading">
+          <h2>Encuéntranos</h2>
+          <p>Visita nuestra iglesia en Santa Ana, El Salvador. Siempre hay un lugar para ti.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="contact-info-body">
+                <h4>Ubicación</h4>
+                <p>Col. Villas de San Rafael, Carretera Panamericana, Santa Ana, El Salvador</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="contact-info-body">
+                <h4>Servicio Dominical</h4>
+                <p>Domingos de <strong>10:00 a.m.</strong> a <strong>11:30 a.m.</strong></p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="contact-info-body">
+                <h4>Horarios de Oficina</h4>
+                <p>Mar–Vie: <strong>8:30 a.m. – 5:00 p.m.</strong><br>Sábados: <strong>8:30 a.m. – 12:00 m.d.</strong></p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.45 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.64a16 16 0 0 0 5.45 5.45l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div class="contact-info-body">
+                <h4>Teléfono</h4>
+                <p><a href="tel:+50324490325" class="contact-link"><strong>(+503) 2449-0325</strong></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15488.399128423687!2d-89.562227!3d13.952664!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f62e86444e276d5%3A0xf5205c4138f33241!2sFraternidad%20Cristiana%20de%20El%20Salvador!5e0!3m2!1sen!2ssv!4v1776960905941!5m2!1sen!2ssv" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Fraternidad Cristiana de El Salvador"></iframe>
+          </div>
+        </div>
+        <div class="contact-transport">
+          <div class="contact-transport-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <p><strong>¿Necesitas transporte?</strong> Escríbenos por WhatsApp para conocer las rutas y horarios de nuestros buses a las <strong>reuniones dominicales.</strong></p>
+          <a href="https://wa.me/50379132161" target="_blank" rel="noopener" class="contact-transport-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escríbenos
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="landing-cta">
+      <div class="landing-container">
+        <h2>¿Listo para ser parte?</h2>
+        <p>Visítanos este domingo o instala la app hoy.</p>
+        <div class="landing-cta-actions">
+          <a href="#servicios" class="landing-btn-primary landing-btn-lg">Visítanos este domingo</a>
+          <a href="app.html" class="landing-btn-outline landing-btn-lg landing-cta-outline">Instalar la App</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <div class="landing-container landing-footer-inner">
+      <div class="footer-brand">
+        <img src="img/LogoFrater_1.png" alt="Frater" onerror="this.style.display='none'">
+        <span>Fraternidad Cristiana de El Salvador</span>
+      </div>
+      <nav class="footer-nav">
+        <a href="#">Inicio</a>
+        <a href="sobre-nosotros.html">Nosotros</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#contacto">Contacto</a>
+        <a href="app.html">App</a>
+      </nav>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/FraterElSalvador/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/lafratersv/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@lafratersv" target="_blank" rel="noopener" class="footer-social-link" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.16 8.16 0 0 0 4.77 1.52V6.76a4.85 4.85 0 0 1-1-.07z"/></svg>
+        </a>
+      </div>
+      <p class="footer-copy">© 2025 Frater El Salvador · Hecho con fe</p>
     </div>
-  </section>
+  </footer>
 
-  <div class="section-header">
-    <h2>Cartelera de Eventos</h2>
-    <a href="explore.html">Ver todos</a>
-  </div>
-  <section class="events-slider">
-    <div class="event-card" onclick="location.href='evento_detalle.html'">
-      <span class="event-tag">Jóvenes</span>
-      <h4>Noche de Adoración</h4>
-      <p>Sábado 25 • 6:00 PM<br>Auditorio Principal</p>
-      <button class="btn-outline">Registrarse</button>
-    </div>
-
-    <div class="event-card" onclick="location.href='evento_detalle.html'">
-      <span class="event-tag">General</span>
-      <h4>Servicio Dominical</h4>
-      <p>Domingo 26 • 9:00 AM<br>Auditorio Principal</p>
-      <button class="btn-outline">Ver detalles</button>
-    </div>
-
-    <div class="event-card" onclick="location.href='evento_detalle.html'">
-      <span class="event-tag">Mujeres</span>
-      <h4>Té y Plática</h4>
-      <p>Martes 28 • 4:00 PM<br>Cafetería Frater</p>
-      <button class="btn-outline">Registrarse</button>
-    </div>
-  </section>
-
-  <div class="content-spacer"></div>
-
-  <nav class="bottom-nav">
-    <a href="index.html" class="nav-item active">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-      Inicio
-    </a>
-    <a href="explore.html" class="nav-item">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-      Explora
-    </a>
-    
-    <a href="#" class="nav-item nav-fab">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-    </a>
-    
-    <a href="plan_detalles.html" class="nav-item">
-      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-      Plan
-    </a>
-    <a href="profile.html" class="nav-item">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-      Perfil
-    </a>
-  </nav>
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/50379132161" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
-  <script src="js/auth-guard.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+    /* ── Mobile menu ── */
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+      document.getElementById('menuToggle').classList.toggle('open');
     }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('menuToggle').classList.remove('open');
+    }
+
+    /* ── Community carousel ── */
+    const COMUNIDAD_CARDS = [
+      { type: 'video', src: 'img/hero-video-frater.mp4', name: 'Fraternidad Cristiana de El Salvador' },
+      { type: 'image', src: 'img/comunidad/1.jpg', name: 'Nuestra comunidad' },
+      { type: 'image', src: 'img/comunidad/2.jpg', name: 'Nuestra comunidad' },
+      { type: 'image', src: 'img/comunidad/3.jpg', name: 'Nuestra comunidad' },
+      { type: 'image', src: 'img/comunidad/4.jpg', name: 'Nuestra comunidad' },
+      { type: 'image', src: 'img/comunidad/5.jpg', name: 'Nuestra comunidad' },
+      { type: 'image', src: 'img/comunidad/6.jpg', name: 'Nuestra comunidad' },
+      { type: 'image', src: 'img/comunidad/7.jpg', name: 'Nuestra comunidad' },
+    ];
+
+    (function initCarousel() {
+      const track = document.getElementById('heroCarouselInner');
+      const dotsContainer = document.getElementById('heroCarouselDots');
+      if (!track || !dotsContainer) return;
+
+      let current = 0;
+      let timer = null;
+      let touchStartX = 0;
+
+      COMUNIDAD_CARDS.forEach((card, i) => {
+        const el = document.createElement('div');
+        el.className = 'hero-carousel-card' + (i === 0 ? ' active' : '');
+        if (card.type === 'video') {
+          el.innerHTML = `<video autoplay muted loop playsinline><source src="${card.src}" type="video/mp4"></video><div class="hero-carousel-overlay">${card.name}</div>`;
+        } else {
+          el.innerHTML = `<img src="${card.src}" alt="${card.name}" loading="lazy"><div class="hero-carousel-overlay">${card.name}</div>`;
+        }
+        track.appendChild(el);
+
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goTo(i);
+        dotsContainer.appendChild(dot);
+      });
+
+      function goTo(n) {
+        const cards = track.querySelectorAll('.hero-carousel-card');
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        cards[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + COMUNIDAD_CARDS.length) % COMUNIDAD_CARDS.length;
+        cards[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      function next() { goTo(current + 1); }
+
+      function startTimer() { timer = setInterval(next, 4000); }
+      function stopTimer() { clearInterval(timer); }
+
+      startTimer();
+
+      track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; stopTimer(); }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) diff > 0 ? next() : goTo(current - 1);
+        startTimer();
+      }, { passive: true });
+      track.addEventListener('mouseenter', stopTimer);
+      track.addEventListener('mouseleave', startTimer);
+    })();
+
+    /* ── Eventos landing ── */
+    const DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+    async function loadEventosLanding() {
+      const grid = document.getElementById('landingEventosGrid');
+      if (!window.supabaseClient || !grid) return;
+      const { data } = await window.supabaseClient
+        .from('eventos')
+        .select('id, titulo, tipo, fecha, hora, lugar, imagen_url')
+        .eq('activo', true)
+        .gte('fecha', new Date().toISOString().split('T')[0])
+        .order('fecha', { ascending: true })
+        .limit(3);
+
+      if (!data?.length) {
+        grid.innerHTML = '<p style="color:var(--color-text-muted);font-size:0.9rem;">No hay eventos próximos.</p>';
+        return;
+      }
+      grid.innerHTML = data.map(e => {
+        const fecha = new Date(e.fecha + 'T00:00:00');
+        const fechaStr = `${DIAS[fecha.getDay()]} ${fecha.getDate()} · ${e.hora || ''}`;
+        if (e.imagen_url) {
+          return `<div class="landing-evento-card has-img" onclick="location.href='evento_detalle.html?id=${e.id}'">
+            <img class="landing-evento-img" src="${e.imagen_url}" alt="${e.titulo}" loading="lazy">
+            <div class="landing-evento-body">
+              <span class="landing-evento-tag">${e.tipo || 'Evento'}</span>
+              <h4>${e.titulo}</h4>
+              <p>${fechaStr}<br>${e.lugar || ''}</p>
+              <span class="landing-evento-link">Ver detalles →</span>
+            </div>
+          </div>`;
+        }
+        return `<div class="landing-evento-card" onclick="location.href='evento_detalle.html?id=${e.id}'">
+          <span class="landing-evento-tag">${e.tipo || 'Evento'}</span>
+          <h4>${e.titulo}</h4>
+          <p>${fechaStr}<br>${e.lugar || ''}</p>
+          <span class="landing-evento-link">Ver detalles →</span>
+        </div>`;
+      }).join('');
+    }
+
+    loadEventosLanding();
+
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
   </script>
 </body>
 </html>

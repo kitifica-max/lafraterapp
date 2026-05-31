@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Asistencia</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+</head>
+<body>
+<div class="crm-layout">
+
+  <aside class="crm-sidebar">
+    <div class="crm-brand"><img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater"><span class="crm-brand-badge">CRM</span></div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Asistencia</h1>
+      <span class="crm-topbar-user"></span>
+    </div>
+    <div class="crm-content">
+
+      <!-- Tabs -->
+      <div class="crm-tab-group">
+        <button id="tab-dominical" class="crm-tab active" onclick="showTab('dominical')">Dominical</button>
+        <button id="tab-checkins" class="crm-tab" onclick="showTab('checkins')">Check-ins App</button>
+      </div>
+
+      <!-- === TAB: ASISTENCIA DOMINICAL === -->
+      <div id="panel-dominical">
+
+        <!-- Métricas -->
+        <div class="crm-metrics">
+          <div class="crm-metric">
+            <div class="crm-metric-label">Último domingo</div>
+            <div class="crm-metric-value" id="metUltimo">—</div>
+            <div class="crm-metric-sub" id="metUltimoFecha">—</div>
+          </div>
+          <div class="crm-metric">
+            <div class="crm-metric-label">Promedio asistencia</div>
+            <div class="crm-metric-value" id="metPromedio">—</div>
+            <div class="crm-metric-sub">Últimos 4 domingos</div>
+          </div>
+          <div class="crm-metric">
+            <div class="crm-metric-label">Total registros</div>
+            <div class="crm-metric-value" id="metRegistros">—</div>
+            <div class="crm-metric-sub">Domingos registrados</div>
+          </div>
+        </div>
+
+        <!-- Formulario registrar nuevo domingo -->
+        <div class="crm-card" style="margin-bottom:22px;">
+          <div class="crm-card-header">
+            <span class="crm-card-title">Registrar Asistencia Dominical</span>
+            <button class="btn-crm btn-crm-primary btn-crm-sm" onclick="toggleForm()" id="btnToggleForm">+ Nuevo registro</button>
+          </div>
+          <div id="formWrapper" class="crm-card-section" style="display:none;">
+            <div class="crm-form-grid crm-form-grid-2">
+              <div>
+                <label class="crm-label">Fecha *</label>
+                <input type="date" id="fFecha" class="crm-input">
+              </div>
+              <div>
+                <label class="crm-label">Servicio</label>
+                <input type="text" id="fServicio" class="crm-input" value="Servicio Dominical" placeholder="Ej: Servicio Dominical">
+              </div>
+              <div>
+                <label class="crm-label">Total asistentes</label>
+                <input type="number" id="fTotal" class="crm-input" min="0" placeholder="0">
+              </div>
+            </div>
+            <div class="crm-form-grid crm-form-grid-4">
+              <div>
+                <label class="crm-label">Hombres</label>
+                <input type="number" id="fHombres" class="crm-input" min="0" placeholder="0">
+              </div>
+              <div>
+                <label class="crm-label">Mujeres</label>
+                <input type="number" id="fMujeres" class="crm-input" min="0" placeholder="0">
+              </div>
+              <div>
+                <label class="crm-label">Niños</label>
+                <input type="number" id="fNinos" class="crm-input" min="0" placeholder="0">
+              </div>
+              <div>
+                <label class="crm-label">Visitas</label>
+                <input type="number" id="fVisitas" class="crm-input" min="0" placeholder="0">
+              </div>
+            </div>
+            <div class="crm-field" style="margin-bottom:0;">
+              <label class="crm-label">Notas</label>
+              <textarea id="fNotas" class="crm-input" rows="2" placeholder="Observaciones, clima, evento especial…"></textarea>
+            </div>
+            <div class="crm-form-actions" style="margin-top:16px;">
+              <button class="btn-crm btn-crm-secondary btn-crm-sm" onclick="cancelForm()">Cancelar</button>
+              <button class="btn-crm btn-crm-primary btn-crm-sm" onclick="guardarRegistro()" id="btnGuardar">Guardar</button>
+            </div>
+            <div id="formError" class="crm-form-error"></div>
+          </div>
+        </div>
+
+        <!-- Historial con búsqueda por fecha -->
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <span class="crm-card-title">Historial Completo</span>
+            <div class="crm-filter-bar">
+              <input type="date" id="searchFecha" oninput="buscarFecha()" class="crm-input">
+              <button class="btn-crm btn-crm-secondary btn-crm-sm" onclick="document.getElementById('searchFecha').value='';renderHistorial(allRecords)">Ver todo</button>
+            </div>
+          </div>
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Servicio</th>
+                  <th class="th-center">Total</th>
+                  <th class="th-center">H</th>
+                  <th class="th-center">M</th>
+                  <th class="th-center">Niños</th>
+                  <th class="th-center">Visitas</th>
+                  <th>Notas</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tableHistorial"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- === TAB: CHECK-INS APP === -->
+      <div id="panel-checkins" style="display:none;">
+        <div class="crm-metrics">
+          <div class="crm-metric">
+            <div class="crm-metric-label">Total check-ins</div>
+            <div class="crm-metric-value" id="metTotal">—</div>
+            <div class="crm-metric-sub">Todos los servicios</div>
+          </div>
+          <div class="crm-metric">
+            <div class="crm-metric-label">Esta semana</div>
+            <div class="crm-metric-value" id="metSemana">—</div>
+            <div class="crm-metric-sub">Últimos 7 días</div>
+          </div>
+          <div class="crm-metric">
+            <div class="crm-metric-label">Hoy</div>
+            <div class="crm-metric-value" id="metHoy">—</div>
+            <div class="crm-metric-sub">Check-ins de hoy</div>
+          </div>
+        </div>
+        <div class="crm-card" style="margin-bottom:22px;">
+          <div class="crm-card-section crm-filter-bar">
+            <label class="crm-label" style="margin-bottom:0;">Desde</label>
+            <input type="date" id="filterDesde" onchange="applyFilter()" class="crm-input">
+            <label class="crm-label" style="margin-bottom:0;">Hasta</label>
+            <input type="date" id="filterHasta" onchange="applyFilter()" class="crm-input">
+            <button class="btn-crm btn-crm-secondary btn-crm-sm" onclick="clearFilters()">Limpiar</button>
+            <span id="totalCount" class="muted" style="margin-left:auto;font-size:0.85rem;"></span>
+          </div>
+        </div>
+        <div class="crm-card">
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead>
+                <tr><th>Nombre</th><th>Servicio</th><th>Fecha</th></tr>
+              </thead>
+              <tbody id="tableCheckins"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal editar -->
+<div id="editModal" class="crm-modal-overlay">
+  <div class="crm-modal">
+    <div class="crm-modal-header">
+      <h3>Editar Registro</h3>
+      <button class="crm-modal-close" onclick="closeEdit()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <input type="hidden" id="editId">
+      <div class="crm-field-row">
+        <div class="crm-field" style="grid-column:1/-1;">
+          <label class="crm-label">Fecha</label>
+          <input type="date" id="editFecha" class="crm-input">
+        </div>
+        <div class="crm-field" style="grid-column:1/-1;">
+          <label class="crm-label">Servicio</label>
+          <input type="text" id="editServicio" class="crm-input">
+        </div>
+        <div class="crm-field">
+          <label class="crm-label">Total</label>
+          <input type="number" id="editTotal" class="crm-input" min="0">
+        </div>
+        <div class="crm-field">
+          <label class="crm-label">Hombres</label>
+          <input type="number" id="editHombres" class="crm-input" min="0">
+        </div>
+        <div class="crm-field">
+          <label class="crm-label">Mujeres</label>
+          <input type="number" id="editMujeres" class="crm-input" min="0">
+        </div>
+        <div class="crm-field">
+          <label class="crm-label">Niños</label>
+          <input type="number" id="editNinos" class="crm-input" min="0">
+        </div>
+        <div class="crm-field">
+          <label class="crm-label">Visitas</label>
+          <input type="number" id="editVisitas" class="crm-input" min="0">
+        </div>
+      </div>
+      <div class="crm-field" style="margin-bottom:0;">
+        <label class="crm-label">Notas</label>
+        <textarea id="editNotas" class="crm-input" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm btn-crm-secondary btn-crm-sm" onclick="closeEdit()">Cancelar</button>
+      <button class="btn-crm btn-crm-primary btn-crm-sm" onclick="saveEdit()">Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
+<script>
+  const sb = window.supabaseClient;
+  let allRecords = [];
+  let checkinsRecords = [];
+
+  // ── TABS ────────────────────────────────────────────────────
+  function showTab(tab) {
+    document.getElementById('panel-dominical').style.display = tab === 'dominical' ? '' : 'none';
+    document.getElementById('panel-checkins').style.display  = tab === 'checkins'  ? '' : 'none';
+    document.querySelectorAll('.crm-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+
+  // ── DOMINICAL ───────────────────────────────────────────────
+  async function loadDominical() {
+    const { data, error } = await sb
+      .from('asistencia_dominical')
+      .select('*')
+      .order('fecha', { ascending: false });
+
+    if (error) { console.error(error); return; }
+    allRecords = data || [];
+    calcMetricsDominical();
+    renderHistorial(allRecords);
+  }
+
+  function calcMetricsDominical() {
+    document.getElementById('metRegistros').textContent = allRecords.length;
+    if (!allRecords.length) return;
+
+    const ultimo = allRecords[0];
+    document.getElementById('metUltimo').textContent = ultimo.total ?? '—';
+    const [y, m, d] = (ultimo.fecha || '').split('-');
+    document.getElementById('metUltimoFecha').textContent = ultimo.fecha ? `${d}/${m}/${y}` : '—';
+
+    const ultimos4 = allRecords.slice(0, 4).map(r => r.total || 0);
+    const prom = Math.round(ultimos4.reduce((a, b) => a + b, 0) / ultimos4.length);
+    document.getElementById('metPromedio').textContent = prom || '—';
+  }
+
+  function renderHistorial(data) {
+    const tbody = document.getElementById('tableHistorial');
+    if (!data.length) {
+      tbody.innerHTML = `<tr><td colspan="9"><div class="crm-empty"><p>Sin registros de asistencia dominical.</p></div></td></tr>`;
+      return;
+    }
+    tbody.innerHTML = data.map(r => {
+      const [y, m, d] = (r.fecha || '').split('-');
+      const fechaStr = r.fecha ? `${d}/${m}/${y}` : '—';
+      return `<tr>
+        <td><strong>${fechaStr}</strong></td>
+        <td>${r.servicio || 'Servicio Dominical'}</td>
+        <td class="td-center"><strong>${r.total ?? '—'}</strong></td>
+        <td class="td-center muted">${r.hombres ?? '—'}</td>
+        <td class="td-center muted">${r.mujeres ?? '—'}</td>
+        <td class="td-center muted">${r.ninos ?? '—'}</td>
+        <td class="td-center"><span class="badge badge-blue">${r.visitas ?? 0}</span></td>
+        <td class="muted truncate" style="max-width:200px;" title="${r.notas || ''}">${r.notas || '—'}</td>
+        <td><div class="crm-td-actions">
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="openEdit('${r.id}')">Editar</button>
+          <button class="btn-crm btn-crm-danger btn-crm-sm" onclick="eliminar('${r.id}')">Eliminar</button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function buscarFecha() {
+    const q = document.getElementById('searchFecha').value;
+    if (!q) { renderHistorial(allRecords); return; }
+    renderHistorial(allRecords.filter(r => r.fecha === q));
+  }
+
+  // ── FORMULARIO NUEVO ────────────────────────────────────────
+  function toggleForm() {
+    const w = document.getElementById('formWrapper');
+    w.style.display = w.style.display === 'none' ? '' : 'none';
+    if (w.style.display !== 'none') {
+      const today = new Date().toISOString().slice(0, 10);
+      document.getElementById('fFecha').value = today;
+      document.getElementById('fTotal').focus();
+    }
+  }
+
+  function cancelForm() {
+    document.getElementById('formWrapper').style.display = 'none';
+  }
+
+  async function guardarRegistro() {
+    const fecha    = document.getElementById('fFecha').value;
+    const servicio = document.getElementById('fServicio').value.trim() || 'Servicio Dominical';
+    const total    = parseInt(document.getElementById('fTotal').value) || 0;
+    const hombres  = parseInt(document.getElementById('fHombres').value) || 0;
+    const mujeres  = parseInt(document.getElementById('fMujeres').value) || 0;
+    const ninos    = parseInt(document.getElementById('fNinos').value) || 0;
+    const visitas  = parseInt(document.getElementById('fVisitas').value) || 0;
+    const notas    = document.getElementById('fNotas').value.trim();
+
+    const errEl = document.getElementById('formError');
+    if (!fecha) { errEl.textContent = 'La fecha es obligatoria.'; errEl.style.display = ''; return; }
+    errEl.style.display = 'none';
+
+    const btn = document.getElementById('btnGuardar');
+    btn.disabled = true; btn.textContent = 'Guardando…';
+
+    const { error } = await sb.from('asistencia_dominical').upsert(
+      { fecha, servicio, total, hombres, mujeres, ninos, visitas, notas },
+      { onConflict: 'fecha' }
+    );
+
+    btn.disabled = false; btn.textContent = 'Guardar';
+
+    if (error) { errEl.textContent = error.message; errEl.style.display = ''; return; }
+    cancelForm();
+    resetForm();
+    loadDominical();
+  }
+
+  function resetForm() {
+    ['fFecha','fTotal','fHombres','fMujeres','fNinos','fVisitas','fNotas'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('fServicio').value = 'Servicio Dominical';
+  }
+
+  // ── EDITAR ───────────────────────────────────────────────────
+  function openEdit(id) {
+    const r = allRecords.find(x => x.id === id);
+    if (!r) return;
+    document.getElementById('editId').value      = r.id;
+    document.getElementById('editFecha').value   = r.fecha || '';
+    document.getElementById('editServicio').value = r.servicio || '';
+    document.getElementById('editTotal').value   = r.total ?? '';
+    document.getElementById('editHombres').value = r.hombres ?? '';
+    document.getElementById('editMujeres').value = r.mujeres ?? '';
+    document.getElementById('editNinos').value   = r.ninos ?? '';
+    document.getElementById('editVisitas').value = r.visitas ?? '';
+    document.getElementById('editNotas').value   = r.notas || '';
+    document.getElementById('editModal').classList.add('active');
+  }
+
+  function closeEdit() {
+    document.getElementById('editModal').classList.remove('active');
+  }
+
+  async function saveEdit() {
+    const id = document.getElementById('editId').value;
+    const payload = {
+      fecha:    document.getElementById('editFecha').value,
+      servicio: document.getElementById('editServicio').value.trim(),
+      total:    parseInt(document.getElementById('editTotal').value) || 0,
+      hombres:  parseInt(document.getElementById('editHombres').value) || 0,
+      mujeres:  parseInt(document.getElementById('editMujeres').value) || 0,
+      ninos:    parseInt(document.getElementById('editNinos').value) || 0,
+      visitas:  parseInt(document.getElementById('editVisitas').value) || 0,
+      notas:    document.getElementById('editNotas').value.trim(),
+      updated_at: new Date().toISOString()
+    };
+    const { error } = await sb.from('asistencia_dominical').update(payload).eq('id', id);
+    if (error) { alert(error.message); return; }
+    closeEdit();
+    loadDominical();
+  }
+
+  async function eliminar(id) {
+    if (!confirm('¿Eliminar este registro? Esta acción no se puede deshacer.')) return;
+    const { error } = await sb.from('asistencia_dominical').delete().eq('id', id);
+    if (error) { alert(error.message); return; }
+    loadDominical();
+  }
+
+  // ── CHECK-INS APP ────────────────────────────────────────────
+  async function loadCheckins() {
+    const { data } = await sb
+      .from('asistencia')
+      .select('*, profiles(nombre)')
+      .order('fecha', { ascending: false })
+      .limit(500);
+    checkinsRecords = data || [];
+    const today = new Date().toISOString().slice(0, 10);
+    const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+    document.getElementById('metTotal').textContent   = checkinsRecords.length;
+    document.getElementById('metSemana').textContent  = checkinsRecords.filter(r => r.fecha >= weekAgo).length;
+    document.getElementById('metHoy').textContent     = checkinsRecords.filter(r => r.fecha === today).length;
+    applyFilter();
+  }
+
+  function applyFilter() {
+    const desde    = document.getElementById('filterDesde').value;
+    const hasta    = document.getElementById('filterHasta').value;
+    let filtered   = checkinsRecords;
+    if (desde) filtered = filtered.filter(r => r.fecha >= desde);
+    if (hasta) filtered = filtered.filter(r => r.fecha <= hasta);
+    document.getElementById('totalCount').textContent = `${filtered.length} registro${filtered.length !== 1 ? 's' : ''}`;
+    renderCheckins(filtered);
+  }
+
+  function clearFilters() {
+    document.getElementById('filterDesde').value = '';
+    document.getElementById('filterHasta').value = '';
+    applyFilter();
+  }
+
+  function renderCheckins(data) {
+    const tbody = document.getElementById('tableCheckins');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="3"><div class="crm-empty"><p>Sin check-ins registrados.</p></div></td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(r => {
+      const nombre = r.profiles?.nombre || '(sin nombre)';
+      const [y, m, d] = (r.fecha || '').split('-');
+      const fechaStr = r.fecha ? `${d}/${m}/${y}` : '—';
+      return `<tr>
+        <td><strong>${nombre}</strong></td>
+        <td><span class="badge badge-blue">${r.servicio || '—'}</span></td>
+        <td class="muted">${fechaStr}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── INIT ─────────────────────────────────────────────────────
+  loadDominical();
+  loadCheckins();
+</script>
+</body>
+</html>

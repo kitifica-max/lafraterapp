@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Frater - Inicio</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fab-menu.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
+</head>
+<body>
+
+  <header class="dashboard-header">
+    <img src="img/LogoFrater_1.png" alt="Logo Frater" class="logo" onerror="this.outerHTML='<h2 style=\'margin-bottom:16px;\'>FRATER</h2>'">
+    <h1 id="greetingName">Hola</h1>
+  </header>
+
+  <section class="calendar-section">
+    <div class="calendar-slider" id="calendarSlider"></div>
+  </section>
+
+  <div class="section-header">
+    <h2>Plan Kairos</h2>
+    <a href="plan_detalles.html">Ver todo</a>
+  </div>
+  <section class="hero-card-container">
+    <div class="hero-card" id="planCard">
+      <h3>Lectura del Día</h3>
+      <p id="planPreview">Cargando lecturas...</p>
+      <a href="plan_detalles.html" class="btn-secondary">Leer ahora</a>
+      <div class="hero-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+    </div>
+  </section>
+
+  <div class="section-header">
+    <h2>Cartelera de Eventos</h2>
+    <a href="explore.html?tab=eventos">Ver todos</a>
+  </div>
+  <section class="events-slider" id="eventsSlider">
+    <div class="event-card-skeleton"></div>
+    <div class="event-card-skeleton"></div>
+  </section>
+
+  <div class="section-header">
+    <h2>Servicios</h2>
+  </div>
+  <section style="padding: 0 24px; display:flex; flex-direction:column; gap:8px;" id="serviciosSection">
+    <div class="event-card-skeleton" style="height:56px;border-radius:12px;"></div>
+    <div class="event-card-skeleton" style="height:56px;border-radius:12px;"></div>
+  </section>
+
+  <div class="section-header" style="margin-top:32px;">
+    <h2>Directorio</h2>
+    <a href="directorio.html">Ver todos</a>
+  </div>
+  <section style="padding: 0 24px;">
+    <a href="directorio.html" style="display:flex;align-items:center;gap:14px;background:var(--color-surface);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:16px;text-decoration:none;color:var(--color-text-main);">
+      <div style="width:44px;height:44px;background:var(--color-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div>
+        <h4 style="font-size:0.95rem;font-weight:600;margin-bottom:2px;">Miembros de Frater</h4>
+        <p style="font-size:0.82rem;color:var(--color-text-muted);">Conoce a la comunidad</p>
+      </div>
+      <svg style="margin-left:auto;stroke:var(--color-text-muted);" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </section>
+
+  <!-- Redes sociales -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:20px;padding:28px 24px 8px;">
+    <a href="https://www.facebook.com/FraterElSalvador/" target="_blank" rel="noopener" style="width:44px;height:44px;border-radius:50%;background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/lafratersv/" target="_blank" rel="noopener" style="width:44px;height:44px;border-radius:50%;background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect width="20" height="20" x="2" y="2" rx="5" ry="5" fill="url(#ig)"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="white"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@lafratersv" target="_blank" rel="noopener" style="width:44px;height:44px;border-radius:50%;background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#010101"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+    </a>
+  </div>
+
+  <div class="content-spacer"></div>
+
+  <nav class="bottom-nav">
+    <a href="app.html" class="nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      Inicio
+    </a>
+    <a href="explore.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+      Explora
+    </a>
+    <a href="#" class="nav-item nav-fab" onclick="toggleFabMenu(); return false;">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </a>
+    <a href="plan_detalles.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+      Plan
+    </a>
+    <a href="profile.html" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      Perfil
+    </a>
+  </nav>
+
+  <div class="fab-overlay" id="fabOverlay" onclick="closeFabMenu()"></div>
+  <div class="fab-sheet" id="fabSheet">
+    <div class="fab-sheet-handle"></div>
+    <p class="fab-sheet-title">Acciones rápidas</p>
+    <a href="oracion.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="fab-action-info"><h4>Solicitar oración</h4><p>Envía tu petición al equipo</p></div></a>
+    <a href="asistencia.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="fab-action-info"><h4>Registrar asistencia</h4><p>Check-in al servicio de hoy</p></div></a>
+    <a href="ofrenda.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="fab-action-info"><h4>Hacer una ofrenda</h4><p>Apoya a la iglesia</p></div></a>
+    <a href="mensajes.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="fab-action-info"><h4>Mensajes</h4><p>Chats de mis ministerios</p></div></a>
+    <a href="https://lafratersv.com/invitacion.html" class="fab-action" target="_blank" rel="noopener"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><div class="fab-action-info"><h4>Invitar a La Frater</h4><p>Comparte con un amigo</p></div></a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth-guard.js"></script>
+  <script src="js/fab-menu.js"></script>
+  <script>
+    const DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    const MESES_CORTO = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    const MESES_LARGO = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+    function getDayOfYear(d) {
+      const start = new Date(d.getFullYear(), 0, 0);
+      return Math.floor((d - start) / 86400000);
+    }
+
+    function buildCalendar() {
+      const today = new Date();
+      const slider = document.getElementById('calendarSlider');
+      slider.innerHTML = '';
+      for (let i = -3; i <= 3; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        const div = document.createElement('div');
+        div.className = 'calendar-day' + (i === 0 ? ' active' : '');
+        div.innerHTML = `<span>${DIAS[d.getDay()]}</span><div class="date">${d.getDate()}</div>`;
+        slider.appendChild(div);
+      }
+    }
+
+    async function loadUser() {
+      const { data: { user } } = await window.supabaseClient.auth.getUser();
+      if (user) {
+        const nombre = user.user_metadata?.nombre || user.email?.split('@')[0] || 'amigo';
+        const hora = new Date().getHours();
+        const saludo = hora < 12 ? 'Buenos días' : hora < 19 ? 'Buenas tardes' : 'Buenas noches';
+        document.getElementById('greetingName').textContent = `${saludo}, ${nombre.split(' ')[0]}`;
+      }
+    }
+
+    async function loadPlan() {
+      const { data: { user } } = await window.supabaseClient.auth.getUser();
+      if (!user) return;
+
+      const { data: sub } = await window.supabaseClient
+        .from('kairos_suscripciones')
+        .select('fecha_inicio, activo')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      const card = document.getElementById('planCard');
+      const bookIcon = `<div class="hero-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>`;
+
+      if (!sub || !sub.activo) {
+        card.innerHTML = `<h3>Biblia Kairós</h3>
+          <p id="planPreview">Lee la Biblia completa en un año. 10 lecturas de ~3 min al día.</p>
+          <a href="kairos-intro.html" class="btn-secondary">Suscribirme gratis</a>${bookIcon}`;
+        return;
+      }
+
+      const inicio = new Date(sub.fecha_inicio + 'T00:00:00');
+      const hoy = new Date(); hoy.setHours(0,0,0,0); inicio.setHours(0,0,0,0);
+      const diaPersonal = Math.min(Math.max(Math.floor((hoy - inicio) / 86400000) + 1, 1), 365);
+
+      const { data: plan } = await window.supabaseClient
+        .from('plan_lectura').select('lecturas').eq('dia', diaPersonal).single();
+
+      const lecturas = plan?.lecturas
+        ? (Array.isArray(plan.lecturas) ? plan.lecturas : JSON.parse(plan.lecturas))
+        : [];
+
+      const preview = lecturas.slice(0, 2).join(' · ') || 'Sin lecturas asignadas';
+      card.innerHTML = `<h3>Lectura del Día ${diaPersonal}</h3>
+        <p id="planPreview">${preview}</p>
+        <a href="plan_detalles.html" class="btn-secondary">Leer ahora</a>${bookIcon}`;
+    }
+
+    async function loadEventos() {
+      const { data: eventos } = await window.supabaseClient
+        .from('eventos')
+        .select('id, titulo, tipo, fecha, hora, lugar, imagen_url')
+        .eq('activo', true)
+        .gte('fecha', new Date().toISOString().split('T')[0])
+        .order('fecha', { ascending: true })
+        .limit(4);
+
+      const slider = document.getElementById('eventsSlider');
+      if (!eventos?.length) {
+        slider.innerHTML = '<p style="color:var(--color-text-muted);font-size:0.9rem;padding:8px 0;">No hay eventos próximos.</p>';
+        return;
+      }
+      slider.innerHTML = eventos.map(e => {
+        const fecha = new Date(e.fecha + 'T00:00:00');
+        const fechaStr = `${DIAS[fecha.getDay()]} ${fecha.getDate()} · ${e.hora || ''}`;
+        if (e.imagen_url) {
+          return `
+            <div class="event-card has-img" onclick="location.href='evento_detalle.html?id=${e.id}'">
+              <img class="event-card-img" src="${e.imagen_url}" alt="${e.titulo}" loading="lazy">
+              <div class="event-card-inner">
+                <span class="event-tag">${e.tipo || 'Evento'}</span>
+                <h4>${e.titulo}</h4>
+                <p>${fechaStr}<br>${e.lugar || ''}</p>
+                <button class="btn-outline">Ver detalles</button>
+              </div>
+            </div>`;
+        }
+        return `
+          <div class="event-card" onclick="location.href='evento_detalle.html?id=${e.id}'">
+            <span class="event-tag">${e.tipo || 'Evento'}</span>
+            <h4>${e.titulo}</h4>
+            <p>${fechaStr}<br>${e.lugar || ''}</p>
+            <button class="btn-outline">Ver detalles</button>
+          </div>`;
+      }).join('');
+    }
+
+    async function loadServicios() {
+      const { data } = await window.supabaseClient
+        .from('servicios')
+        .select('nombre, hora, lugar')
+        .eq('activo', true)
+        .order('orden', { ascending: true });
+
+      const section = document.getElementById('serviciosSection');
+      if (!data?.length) {
+        section.innerHTML = '<p style="color:var(--color-text-muted);font-size:0.88rem;">No hay servicios configurados.</p>';
+        return;
+      }
+      section.innerHTML = data.map(s => `
+        <div style="display:flex;align-items:center;gap:12px;background:var(--color-surface);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow-sm);">
+          <div style="width:36px;height:36px;background:rgba(10,25,49,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div style="flex:1;">
+            <p style="font-size:0.9rem;font-weight:600;color:var(--color-text-main);margin:0 0 1px;">${s.nombre}</p>
+            <p style="font-size:0.78rem;color:var(--color-text-muted);margin:0;">${[s.hora, s.lugar].filter(Boolean).join(' · ')}</p>
+          </div>
+        </div>`).join('');
+    }
+
+    buildCalendar();
+    loadUser();
+    loadPlan();
+    loadEventos();
+    loadServicios();
+
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+  </script>
+</body>
+</html>

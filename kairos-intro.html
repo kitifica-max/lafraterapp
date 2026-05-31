@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Biblia Kairós — Frater</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
+  <style>
+    body { background: var(--color-bg); min-height: 100vh; }
+
+    .kairos-hero {
+      background: linear-gradient(160deg, #0A1931 0%, #1a3a6b 100%);
+      padding: 56px 28px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .kairos-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .kairos-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 160px; height: 160px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 50%;
+    }
+    .kairos-logo {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .kairos-logo span { color: #6aa3f5; }
+    .kairos-tagline {
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+
+    .kairos-body { padding: 0 24px 100px; }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 28px 0;
+    }
+    .stat-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 18px 10px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-blue);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+      display: block;
+      line-height: 1.3;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin: 28px 0 16px;
+    }
+
+    .why-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .why-icon {
+      width: 44px; height: 44px;
+      background: rgba(58,130,246,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-icon svg { stroke: var(--color-blue); }
+    .why-text h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+    }
+    .why-text p {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .plan-preview {
+      background: linear-gradient(135deg, #0A1931, #1a3a6b);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      margin: 28px 0;
+      color: white;
+    }
+    .plan-preview h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .plan-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .plan-step:last-child { margin-bottom: 0; }
+    .step-num {
+      width: 30px; height: 30px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .plan-step p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .plan-step strong { color: #fff; }
+
+    .book-trail {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+    .book-tag {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .book-tag.ot { border-left: 3px solid #6aa3f5; }
+    .book-tag.nt { border-left: 3px solid #4ade80; }
+
+    .subscribe-footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--color-surface);
+      padding: 16px 24px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-subscribe {
+      background: var(--color-blue);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-subscribe:hover { background: #2563eb; }
+    .btn-subscribe:disabled { background: #6b7280; cursor: not-allowed; }
+    .btn-already {
+      background: transparent;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      cursor: pointer;
+    }
+    .sub-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+    }
+
+    .already-banner {
+      background: #d1fae5;
+      border: 1.5px solid #6ee7b7;
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 24px 0 0;
+      display: none;
+    }
+    .already-banner p { font-size: 0.85rem; color: #065f46; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="kairos-hero">
+    <button onclick="history.back()" style="position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.12);border:none;border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="kairos-logo">Biblia <span>Kairós</span></div>
+    <p class="kairos-tagline">Lee la Biblia completa en un año, adaptado a tus hábitos reales</p>
+  </div>
+
+  <div class="kairos-body">
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <span class="stat-num">10</span>
+        <span class="stat-label">lecturas al día</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">3 min</span>
+        <span class="stat-label">por lectura</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">1 año</span>
+        <span class="stat-label">Biblia completa</span>
+      </div>
+    </div>
+
+    <div class="already-banner" id="alreadyBanner">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <p><strong>Ya estás suscrito al Plan Kairós.</strong> ¡Sigue leyendo!</p>
+    </div>
+
+    <p class="section-title">¿Por qué Kairós funciona?</p>
+
+    <div class="why-card">
+      <div class="why-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+      </div>
+      <div class="why-text">
+        <h4>Se adapta a cómo usamos el celular</h4>
+        <p>Revisamos el teléfono ~144 veces al día en sesiones de 1 a 5 minutos. Cada lectura Kairós dura exactamente eso: encaja en los momentos que ya tienes.</p>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="why-text">
+        <h4>Libro por libro, sin saltar</h4>
+        <p>Lees la Biblia en orden narrativo real: Génesis completo → Mateo completo → Éxodo → Marcos… El Antiguo y Nuevo Testamento se entrelazan, dando contexto a cada libro.</p>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      </div>
+      <div class="why-text">
+        <h4>Tu iglesia puede medirlo</h4>
+        <p>El CRM de Frater muestra en tiempo real cuánta congregación está leyendo y hasta dónde han llegado. La Palabra deja de ser un compromiso personal invisible.</p>
+      </div>
+    </div>
+
+    <div class="plan-preview">
+      <h3>Orden de lectura</h3>
+      <div class="plan-step">
+        <div class="step-num">1</div>
+        <p><strong>Génesis</strong> (días 1–18) → <strong>Mateo</strong> (días 19–31)</p>
+      </div>
+      <div class="plan-step">
+        <div class="step-num">2</div>
+        <p><strong>Éxodo</strong> → <strong>Marcos</strong> → <strong>Levítico</strong> → <strong>Lucas</strong>…</p>
+      </div>
+      <div class="plan-step">
+        <div class="step-num">3</div>
+        <p>Los 27 pares AT + NT, luego los <strong>12 profetas menores</strong></p>
+      </div>
+      <div class="book-trail">
+        <span class="book-tag ot">Génesis</span>
+        <span class="book-tag nt">Mateo</span>
+        <span class="book-tag ot">Éxodo</span>
+        <span class="book-tag nt">Marcos</span>
+        <span class="book-tag ot">Levítico</span>
+        <span class="book-tag nt">Lucas</span>
+        <span class="book-tag ot">…</span>
+        <span class="book-tag nt">Apocalipsis</span>
+        <span class="book-tag ot">Oseas…Malaquías</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="subscribe-footer">
+    <div id="subActions">
+      <button class="btn-subscribe" id="btnSubscribe" onclick="suscribirse()">Comenzar Plan Kairós</button>
+      <p class="sub-note">Gratis · Opcional · Puedes pausar cuando quieras</p>
+    </div>
+    <div id="subGo" style="display:none">
+      <a href="plan_detalles.html" class="btn-subscribe" style="display:block;text-align:center;text-decoration:none;">Ir a mi lectura de hoy →</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth-guard.js"></script>
+  <script>
+    const sb = window.supabaseClient;
+    let userId = null;
+
+    async function init() {
+      const { data: { user } } = await sb.auth.getUser();
+      userId = user?.id;
+      if (!userId) return;
+
+      const { data } = await sb.from('kairos_suscripciones').select('id').eq('user_id', userId).maybeSingle();
+      if (data) {
+        document.getElementById('alreadyBanner').style.display = 'flex';
+        document.getElementById('subActions').style.display = 'none';
+        document.getElementById('subGo').style.display = 'block';
+      }
+    }
+
+    async function suscribirse() {
+      const btn = document.getElementById('btnSubscribe');
+      btn.disabled = true;
+      btn.textContent = 'Activando...';
+
+      const { error } = await sb.from('kairos_suscripciones').insert({
+        user_id: userId,
+        fecha_inicio: new Date().toISOString().slice(0, 10),
+        activo: true
+      });
+
+      if (error) {
+        alert('Error al suscribirse: ' + error.message);
+        btn.disabled = false;
+        btn.textContent = 'Comenzar Plan Kairós';
+        return;
+      }
+
+      document.getElementById('subActions').style.display = 'none';
+      document.getElementById('subGo').style.display = 'block';
+    }
+
+    init();
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+  </script>
+</body>
+</html>

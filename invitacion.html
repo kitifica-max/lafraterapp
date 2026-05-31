@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Te invito a La Frater</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:    #0A1931;
+      --navy2:   #1a3a6b;
+      --blue:    #185ADB;
+      --blue2:   #1e6fe8;
+      --gold:    #F59E0B;
+      --bg:      #F0F4FA;
+      --surface: #FFFFFF;
+      --border:  #D1DCF0;
+      --muted:   #5A6E8C;
+      --text:    #0A1931;
+      --font:    'Lexend', sans-serif;
+      --radius:  16px;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ───────────────────────────────────── */
+    .hero {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy2) 100%);
+      padding: 48px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 160px; height: 160px;
+      background: rgba(24,90,219,0.15);
+      border-radius: 50%;
+    }
+
+    .hero-logo {
+      width: 72px; height: 72px;
+      border-radius: 20px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.1);
+      padding: 8px;
+      margin: 0 auto 20px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 999px;
+      padding: 4px 14px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 span { color: #60a5fa; }
+    .hero p {
+      font-size: clamp(0.88rem, 2.5vw, 1rem);
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Content ─────────────────────────────────── */
+    .content {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+
+    /* ── Feature cards ───────────────────────────── */
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: -28px 20px 28px;
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media (max-width: 360px) { .features { grid-template-columns: 1fr; } }
+
+    .feature-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(10,25,49,0.10);
+      border: 1px solid var(--border);
+    }
+    .feature-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: rgba(24,90,219,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .feature-card h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .feature-card p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── About section ───────────────────────────── */
+    .about-section {
+      max-width: 560px;
+      margin: 0 auto 24px;
+      padding: 0 20px;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .about-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .about-section p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Service info ────────────────────────────── */
+    .info-card {
+      max-width: 560px;
+      margin: 0 auto 28px;
+      padding: 0 20px;
+    }
+    .info-card-inner {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(24,90,219,0.08);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-row-text { flex: 1; }
+    .info-row-text strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1px;
+    }
+    .info-row-text span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── Social ──────────────────────────────────── */
+    .social-section {
+      max-width: 560px;
+      margin: 0 auto 28px;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .social-btn {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(10,25,49,0.07);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: transform 0.15s;
+    }
+    .social-btn:active { transform: scale(0.94); }
+
+    /* ── CTA ─────────────────────────────────────── */
+    .cta-section {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 20px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-primary-inv {
+      display: block;
+      text-align: center;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 24px;
+      border-radius: 12px;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    .btn-primary-inv:active { background: #0f3fa5; }
+
+    .btn-share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.15s;
+    }
+    .btn-share:active { background: rgba(24,90,219,0.06); }
+
+    /* ── Footer ──────────────────────────────────── */
+    .inv-footer {
+      text-align: center;
+      padding: 20px 24px 32px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .inv-footer a { color: var(--blue); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="img/LogoFrater_1.png" alt="La Frater" class="hero-logo" onerror="this.style.display='none'">
+    <div class="hero-tag">Invitación especial</div>
+    <h1>Una familia de fe<br><span>en Santa Ana</span></h1>
+    <p>Somos una iglesia cristiana para la familia. Visítanos este domingo.</p>
+  </div>
+
+  <!-- Feature cards -->
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <h4>Oración</h4>
+      <p>Te acompañamos en cada petición</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h4>Comunidad</h4>
+      <p>Ministerios para cada etapa de vida</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <h4>Palabra</h4>
+      <p>Estudios y plan de lectura bíblica</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <h4>Formación</h4>
+      <p>Facultad de Fe y Liderazgo</p>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="about-section">
+    <div class="section-label">Quiénes somos</div>
+    <h2>Una iglesia para la familia desde 1992</h2>
+    <p>Somos una comunidad cristiana en Santa Ana, El Salvador, comprometida a proclamar el amor de Dios y transformar vidas generación tras generación. Predicamos el evangelio de Jesucristo para salvar y transformar vidas, conectar al nuevo creyente y hacer todo con excelencia para la gloria de Dios.</p>
+  </div>
+
+  <!-- Service info -->
+  <div class="info-card">
+    <div class="info-card-inner">
+      <div class="info-row">
+        <div class="info-row-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="info-row-text">
+          <strong>Servicio Dominical</strong>
+          <span>Domingos · 10:00 – 11:30 a.m.</span>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-row-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="info-row-text">
+          <strong>Ubicación</strong>
+          <span>Col. Villas de San Rafael, Carretera Panamericana, Santa Ana</span>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-row-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="info-row-text">
+          <strong>Oficina</strong>
+          <span>Mar–Vie 8:30 a.m. – 5:00 p.m. · Sáb 8:30 a.m. – 12:00 m.d.</span>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-row-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.45 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.64a16 16 0 0 0 5.45 5.45l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="info-row-text">
+          <strong>Teléfono</strong>
+          <span>(+503) 2449-0325</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social -->
+  <div class="social-section">
+    <div class="section-label">Síguenos</div>
+    <div class="social-row">
+      <a href="https://www.facebook.com/FraterElSalvador/" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/lafratersv/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect width="20" height="20" x="2" y="2" rx="5" ry="5" fill="url(#ig2)"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="white"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@lafratersv" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#010101"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- CTAs -->
+  <div class="cta-section">
+    <a href="https://lafratersv.com" class="btn-primary-inv">Visitar sitio web</a>
+    <button class="btn-share" onclick="compartir()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Compartir invitación
+    </button>
+  </div>
+
+  <footer class="inv-footer">
+    © 2026 Fraternidad Cristiana de El Salvador ·
+    <a href="https://lafratersv.com">lafratersv.com</a>
+  </footer>
+
+  <script>
+    function compartir() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Te invito a La Frater',
+          text: '¡Hola! Te invito a conocer La Fraternidad Cristiana de El Salvador. Una comunidad de fe que te cambiará la vida.',
+          url: 'https://lafratersv.com/invitacion.html',
+        }).catch(() => {});
+      } else {
+        navigator.clipboard?.writeText('https://lafratersv.com/invitacion.html')
+          .then(() => alert('Enlace copiado al portapapeles.'))
+          .catch(() => alert('Comparte este enlace: https://lafratersv.com/invitacion.html'));
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre Nosotros — La Frater, Fraternidad Cristiana de El Salvador</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/welcome.css">
+  <link rel="stylesheet" href="css/sobre-nosotros.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
+</head>
+<body class="landing-page">
+
+  <!-- NAVBAR -->
+  <header class="landing-header">
+    <button class="landing-menu-toggle" id="menuToggle" aria-label="Menú" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="landing-nav-left">
+      <a href="index.html" class="landing-nav-link">Inicio</a>
+      <a href="sobre-nosotros.html" class="landing-nav-link active">Nosotros</a>
+      <a href="index.html#features" class="landing-nav-link">Servicios</a>
+      <a href="index.html#series" class="landing-nav-link">Blog</a>
+      <a href="index.html#contacto" class="landing-nav-link">Contacto</a>
+    </nav>
+    <div class="landing-brand">
+      <img src="img/LogoFrater_1.png" alt="Frater" onerror="this.outerHTML='<span class=\'landing-brand-text\'>FRATER</span>'">
+    </div>
+    <div class="landing-nav-right">
+      <a href="app.html" class="landing-btn-outline">Abrir App</a>
+      <a href="app.html" class="landing-btn-primary">Únete</a>
+    </div>
+  </header>
+  <div class="landing-mobile-menu" id="mobileMenu">
+    <a href="index.html" class="landing-nav-link" onclick="closeMobileMenu()">Inicio</a>
+    <a href="sobre-nosotros.html" class="landing-nav-link" onclick="closeMobileMenu()">Nosotros</a>
+    <a href="index.html#features" class="landing-nav-link" onclick="closeMobileMenu()">Servicios</a>
+    <a href="index.html#series" class="landing-nav-link" onclick="closeMobileMenu()">Blog</a>
+    <a href="index.html#contacto" class="landing-nav-link" onclick="closeMobileMenu()">Contacto</a>
+    <div class="mobile-menu-actions">
+      <a href="app.html" class="landing-btn-outline">Abrir App</a>
+      <a href="app.html" class="landing-btn-primary">Únete</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ① HERO ─────────────────────────────────────── -->
+    <section class="sn-hero">
+      <div class="sn-deco sn-deco-1"></div>
+      <div class="sn-deco sn-deco-2"></div>
+      <div class="sn-deco sn-deco-3"></div>
+      <div class="sn-deco-dot"></div>
+      <div class="sn-container sn-hero-inner">
+        <div class="sn-hero-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          Fraternidad Cristiana de El Salvador
+        </div>
+        <h1>Sobre<br><span class="sn-hero-accent">Nosotros</span></h1>
+        <p class="sn-hero-sub">Conoce la historia, propósito y valores de una iglesia que ha servido a las familias de Santa Ana desde 1992.</p>
+        <div class="sn-hero-stats">
+          <div class="sn-stat">
+            <span class="sn-stat-num">1992</span>
+            <span class="sn-stat-label">Año de fundación</span>
+          </div>
+          <div class="sn-stat-sep"></div>
+          <div class="sn-stat">
+            <span class="sn-stat-num">+33<span> años</span></span>
+            <span class="sn-stat-label">Al servicio de la familia salvadoreña</span>
+          </div>
+          <div class="sn-stat-sep"></div>
+          <div class="sn-stat">
+            <span class="sn-stat-num">Km 59½</span>
+            <span class="sn-stat-label">Carretera a San Salvador, Santa Ana</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ② LO QUE SOMOS ───────────────────────────── -->
+    <section class="sn-identity">
+      <div class="sn-container">
+        <div class="sn-identity-grid">
+          <div class="sn-identity-left">
+            <span class="sn-big-num">01</span>
+            <div class="sn-section-label">Identidad</div>
+            <h2>Lo que<br><em>somos</em></h2>
+          </div>
+          <div class="sn-identity-right">
+            <p class="sn-lead-text">La Fráter —como cariñosamente le llamamos— es una congregación formada por personas que reconocen a Jesucristo como el Hijo de Dios y el Salvador de sus vidas.</p>
+            <p>Estamos convencidos de que el cristianismo genuino es la única esperanza para rescatar al hombre y la familia del caos actual. Nos hemos propuesto proclamar, por todos los medios a nuestro alcance, a Jesucristo como el único camino de salvación y al cristianismo como la mejor forma de vida.</p>
+            <div class="sn-cobertura-badge">
+              <div class="sn-cobertura-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div>
+                Bajo la cobertura de<br>
+                <strong>Fraternidad Cristiana de Guatemala</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ NUESTROS PASTORES ──────────────────────── -->
+    <section class="sn-pastores">
+      <div class="sn-pastores-bg-text">PASTORES</div>
+      <div class="sn-container">
+        <div class="sn-pastores-intro">
+          <div class="sn-section-label light">— 02 — Liderazgo</div>
+          <h2>Nuestros Pastores</h2>
+          <p>Llamados por Dios en 1992, dejaron sus carreras profesionales para responder al llamado de pastorear la Fráter.</p>
+        </div>
+        <div class="sn-pastores-grid">
+          <div class="sn-pastor-card">
+            <div class="sn-pastor-avatar">EP</div>
+            <h3>Pastor Elmer Wilson Pineda</h3>
+            <span class="sn-pastor-role">Pastor Principal</span>
+            <p>Administrador de Empresas de formación, respondió el llamado de Dios dejando su carrera profesional para pastorear la Fraternidad Cristiana de El Salvador desde 1992 hasta el día de hoy.</p>
+          </div>
+          <div class="sn-pastor-card">
+            <div class="sn-pastor-avatar">SP</div>
+            <h3>Pastora Sonia Anabel Brizuela de Pineda</h3>
+            <span class="sn-pastor-role">Pastora Principal</span>
+            <p>Ingeniera en Sistemas de formación, respondió junto a su esposo el llamado de Dios y ha servido como pastora de la iglesia desde 1992, apoyando el liderazgo y la visión de la Fráter.</p>
+          </div>
+        </div>
+        <div class="sn-pastores-since">
+          Sirviendo a la iglesia desde <strong>1992</strong> — más de 33 años de ministerio fiel
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ VISIÓN / MISIÓN TRIPTYCH ───────────────── -->
+    <section class="sn-vision">
+      <div class="sn-container">
+        <div class="sn-section-label">— 03 — Propósito</div>
+        <h2 style="font-size:2.4rem;color:var(--color-navy);font-weight:800;margin-bottom:8px;">Visión, Misión<br>y Propósito del Miembro</h2>
+        <p style="color:var(--color-text-muted);max-width:500px;font-size:0.95rem;line-height:1.65;">Tres perspectivas que definen quiénes somos y hacia dónde vamos como iglesia y como individuos.</p>
+        <div class="sn-vision-cards">
+          <div class="sn-vision-card">
+            <div class="sn-vision-card-num">01</div>
+            <div class="sn-vision-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <span class="sn-vision-card-label">Nuestra Visión</span>
+            <p>Ser una iglesia cristiana para la familia que proclame el amor de Dios, manifieste el poder del Cristo resucitado y persevere en el orden dado en la Biblia.</p>
+          </div>
+          <div class="sn-vision-card">
+            <div class="sn-vision-card-num">02</div>
+            <div class="sn-vision-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            </div>
+            <span class="sn-vision-card-label">Nuestra Misión</span>
+            <p>Predicar el evangelio de Jesucristo para salvar y transformar vidas, conectar al nuevo creyente para que tenga una familia espiritual y hacer todo con excelencia para la gloria de Dios.</p>
+          </div>
+          <div class="sn-vision-card">
+            <div class="sn-vision-card-num">03</div>
+            <div class="sn-vision-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <span class="sn-vision-card-label">Visión del Miembro</span>
+            <p>Convertirme en un discípulo de Jesús y multiplicar mi discipulado en otras personas, siendo ejemplo vivo de la fe en cada área de mi vida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑤ TRES PILARES ──────────────────────────── -->
+    <section class="sn-pilares">
+      <div class="sn-container">
+        <div class="sn-section-label">— 04 — Carácter</div>
+        <h2 style="font-size:2.4rem;color:var(--color-navy);font-weight:800;margin-bottom:8px;">Qué nos caracteriza</h2>
+        <p style="color:var(--color-text-muted);max-width:500px;font-size:0.95rem;line-height:1.65;">Tres valores fundamentales que definen la identidad y cultura de la Fráter.</p>
+        <div class="sn-pilares-grid">
+          <div class="sn-pilar">
+            <span class="sn-pilar-bg-num">01</span>
+            <div class="sn-pilar-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h3>El Amor</h3>
+            <p>En la Fráter, sin importar raza o condición económica, todos somos uno en Dios. Nos une nuestra fe y eso basta. Inspirados por el amor de Dios, buscamos reflejar Su amor por los demás, compartiendo la fe y apoyándonos mutuamente. Celebramos juntos en las buenas y nos sostenemos en las malas.</p>
+          </div>
+          <div class="sn-pilar">
+            <span class="sn-pilar-bg-num">02</span>
+            <div class="sn-pilar-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3>El Poder</h3>
+            <p>Un poder que no es nuestro. Dios prometió que recibiríamos poder al recibir al Espíritu Santo. Ese poder transforma la vida del pecador, sana enfermos y nos da vida eterna. Es el poder que nos ha permitido lograr todo lo que tenemos, haciendo grandes cosas a través de hombres pequeños.</p>
+          </div>
+          <div class="sn-pilar">
+            <span class="sn-pilar-bg-num">03</span>
+            <div class="sn-pilar-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </div>
+            <h3>El Orden</h3>
+            <p>Nuestro sello en todo lo que hacemos es la excelencia. Ese deseo continuo por querer hacer las cosas cada vez mejor. No improvisamos nada; todo lo planificamos y lo hacemos como para Dios, en el nombre del Señor Jesús y de buena gana, basados en lo que enseña la Biblia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑥ MISIÓN DEL MIEMBRO (4 pasos) ──────────── -->
+    <section class="sn-miembro">
+      <div class="sn-miembro-dots"></div>
+      <div class="sn-container">
+        <div class="sn-miembro-intro">
+          <div class="sn-section-label light">— 05 — Compromiso</div>
+          <h2>Misión de todo miembro</h2>
+          <p>Cuatro compromisos que definen la vida de un discípulo activo en la Fráter.</p>
+        </div>
+        <div class="sn-steps-track">
+          <div class="sn-step">
+            <div class="sn-step-circle">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              <span class="sn-step-badge">1</span>
+            </div>
+            <h4>Sostener la obra</h4>
+            <p>Diezmar, ofrendar y hacer promesas de fe en obediencia a la Palabra de Dios.</p>
+          </div>
+          <div class="sn-step">
+            <div class="sn-step-circle">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span class="sn-step-badge">2</span>
+            </div>
+            <h4>Servir con excelencia</h4>
+            <p>Asistir a una célula y servir activamente en un ministerio de la iglesia.</p>
+          </div>
+          <div class="sn-step">
+            <div class="sn-step-circle">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              <span class="sn-step-badge">3</span>
+            </div>
+            <h4>Cumplir la comisión</h4>
+            <p>Convertir, conservar, capacitar y comisionar a otros en el evangelio de Cristo.</p>
+          </div>
+          <div class="sn-step">
+            <div class="sn-step-circle">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span class="sn-step-badge">4</span>
+            </div>
+            <h4>Crecer en la Palabra</h4>
+            <p>Estudiar y practicar las enseñanzas de la Biblia en cada área de la vida diaria.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑦ EN QUÉ CREEMOS ────────────────────────── -->
+    <section class="sn-creencias">
+      <div class="sn-container">
+        <div class="sn-section-label">— 06 — Doctrina</div>
+        <h2 style="font-size:2.4rem;color:var(--color-navy);font-weight:800;margin-bottom:8px;">En qué creemos</h2>
+        <p style="color:var(--color-text-muted);max-width:500px;font-size:0.95rem;line-height:1.65;">Las verdades fundamentales de la fe cristiana que nos unen como congregación.</p>
+        <div class="sn-creencias-grid">
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">01</span>
+            <div class="sn-creencia-body"><p>Creemos que la <strong>Biblia es la Palabra de Dios</strong>, escrita bajo la inspiración del Espíritu Santo. Por lo tanto, tiene poder y autoridad y es la única regla infalible de fe y conducta.</p></div>
+          </div>
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">02</span>
+            <div class="sn-creencia-body"><p>Creemos en <strong>Dios el Padre</strong>, Creador y Sustentador del Universo, Eterno y Todopoderoso. Trino y Uno.</p></div>
+          </div>
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">03</span>
+            <div class="sn-creencia-body"><p>Creemos en <strong>Dios el Hijo</strong>, nuestro Señor Jesucristo, quien nació de una virgen, vivió sin pecado, murió en la Cruz para redimirnos y resucitó corporalmente, siendo exaltado a la diestra del Padre.</p></div>
+          </div>
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">04</span>
+            <div class="sn-creencia-body"><p>Creemos en <strong>Dios Espíritu Santo</strong>, a quien Dios el Padre envió para quedarse con nosotros, dándonos poder para vivir una vida santa y triunfal.</p></div>
+          </div>
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">05</span>
+            <div class="sn-creencia-body"><p>Creemos que <strong>todos los hombres han pecado</strong> y por lo tanto, son culpables delante de Dios y están bajo condenación.</p></div>
+          </div>
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">06</span>
+            <div class="sn-creencia-body"><p>Creemos que mediante la muerte de su Hijo, Dios proveyó la <strong>salvación del hombre</strong>, de modo que por el arrepentimiento y la fe en Cristo, le son perdonados sus pecados y renace para vida eterna.</p></div>
+          </div>
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">07</span>
+            <div class="sn-creencia-body"><p>Creemos que la <strong>Iglesia Universal</strong> está formada por todos los cristianos verdaderos, y que su misión es ir y hacer discípulos, enseñando el Evangelio a todas las naciones.</p></div>
+          </div>
+          <div class="sn-creencia">
+            <span class="sn-creencia-num">08</span>
+            <div class="sn-creencia-body"><p>Creemos que <strong>los cristianos son la iglesia</strong>. El edificio es donde la iglesia se reúne. El hogar de Dios es Su pueblo, no una estructura física.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑧ CITA BÍBLICA ───────────────────────────── -->
+    <section class="sn-scripture">
+      <div class="sn-container sn-scripture-inner">
+        <div class="sn-scripture-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <blockquote>
+          "Toda la escritura es inspirada por Dios y útil para enseñar, para reprender, para corregir y para instruir en la justicia, a fin de que el siervo de Dios esté enteramente capacitado para toda buena obra."
+        </blockquote>
+        <cite>2 Timoteo 3:16-17 — Nueva Versión Internacional</cite>
+      </div>
+    </section>
+
+    <!-- CTA ─────────────────────────────────────── -->
+    <section class="landing-cta">
+      <div class="landing-container">
+        <h2>¿Quieres ser parte de la Fráter?</h2>
+        <p>Abre la app, únete a un ministerio y comienza a vivir en comunidad hoy.</p>
+        <a href="app.html" class="landing-btn-primary landing-btn-lg">Abrir la App</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <div class="landing-container landing-footer-inner">
+      <div class="footer-brand">
+        <img src="img/LogoFrater_1.png" alt="Frater" onerror="this.style.display='none'">
+        <span>Fraternidad Cristiana de El Salvador</span>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">Inicio</a>
+        <a href="app.html">App</a>
+        <a href="index.html#contacto">Contacto</a>
+        <a href="sobre-nosotros.html">Nosotros</a>
+      </nav>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/FraterElSalvador/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/lafratersv/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@lafratersv" target="_blank" rel="noopener" class="footer-social-link" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.16 8.16 0 0 0 4.77 1.52V6.76a4.85 4.85 0 0 1-1-.07z"/></svg>
+        </a>
+      </div>
+      <p class="footer-copy">© 2025 Frater El Salvador · Hecho con fe</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+      document.getElementById('menuToggle').classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('menuToggle').classList.remove('open');
+    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+  </script>
+</body>
+</html>

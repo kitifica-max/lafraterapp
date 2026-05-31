@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Facultad</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+</head>
+<body>
+<div class="crm-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="crm-sidebar">
+    <div class="crm-brand">
+      <img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater">
+      <span class="crm-brand-badge">CRM</span>
+    </div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Facultad de Fe y Liderazgo</h1>
+      <span class="crm-topbar-user"></span>
+    </div>
+    <div class="crm-content">
+
+      <!-- Métricas -->
+      <div class="crm-metrics">
+        <div class="crm-metric" style="border-left:4px solid #3b82f6;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <p class="crm-metric-label">Total Inscritos</p>
+            <span style="width:36px;height:36px;background:#eff6ff;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+          </div>
+          <p class="crm-metric-value" id="mTotal">—</p>
+          <p class="crm-metric-sub">alumnos registrados</p>
+        </div>
+
+        <div class="crm-metric" style="border-left:4px solid #f59e0b;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <p class="crm-metric-label">Pendientes</p>
+            <span style="width:36px;height:36px;background:#fffbeb;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+          </div>
+          <p class="crm-metric-value" id="mPendiente">—</p>
+          <p class="crm-metric-sub">por confirmar</p>
+        </div>
+
+        <div class="crm-metric" style="border-left:4px solid #10b981;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <p class="crm-metric-label">Activos</p>
+            <span style="width:36px;height:36px;background:#ecfdf5;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+          </div>
+          <p class="crm-metric-value" id="mInscrito">—</p>
+          <p class="crm-metric-sub">cursando actualmente</p>
+        </div>
+
+        <div class="crm-metric" style="border-left:4px solid #6366f1;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <p class="crm-metric-label">Graduados</p>
+            <span style="width:36px;height:36px;background:#eef2ff;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </span>
+          </div>
+          <p class="crm-metric-value" id="mGraduado">—</p>
+          <p class="crm-metric-sub">módulo completado</p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="crm-tabs" style="margin-bottom:20px;">
+        <button class="crm-tab active" onclick="showTab('tabInscrip', this)">Inscripciones</button>
+        <button class="crm-tab" onclick="showTab('tabCals', this)">Calificaciones</button>
+      </div>
+
+      <!-- Tab: Inscripciones -->
+      <div id="tabInscrip" class="tab-pane active">
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <span style="font-weight:700;">Inscripciones</span>
+            <div class="crm-filter-bar">
+              <select id="filtroEstado" class="crm-input" style="width:auto;" onchange="loadInscrip()">
+                <option value="">Todos los estados</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="inscrito">Inscrito</option>
+                <option value="graduado">Graduado</option>
+                <option value="retirado">Retirado</option>
+              </select>
+              <select id="filtroModulo" class="crm-input" style="width:auto;" onchange="loadInscrip()">
+                <option value="">Todos los módulos</option>
+                <option>Módulo 1 – Fundamentos de Fe</option>
+                <option>Módulo 2 – Vida en el Espíritu</option>
+                <option>Módulo 3 – Identidad en Cristo</option>
+                <option>Módulo 4 – Liderazgo Cristiano</option>
+                <option>Módulo 5 – Misión y Evangelismo</option>
+              </select>
+            </div>
+          </div>
+          <div class="crm-card-body" style="padding:0;">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Teléfono</th>
+                  <th>Módulo</th>
+                  <th class="th-center">Estado</th>
+                  <th class="th-center">Fecha</th>
+                  <th class="th-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="inscripTbody">
+                <tr><td colspan="7" class="muted td-center" style="padding:24px;">Cargando…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Calificaciones -->
+      <div id="tabCals" class="tab-pane">
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <span style="font-weight:700;">Calificaciones registradas</span>
+          </div>
+          <div class="crm-card-body" style="padding:0;">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th>Alumno</th>
+                  <th>Módulo (inscripción)</th>
+                  <th>Módulo (calificación)</th>
+                  <th class="th-center">Nota</th>
+                  <th>Observaciones</th>
+                  <th class="th-center">Fecha</th>
+                </tr>
+              </thead>
+              <tbody id="calsTbody">
+                <tr><td colspan="6" class="muted td-center" style="padding:24px;">Cargando…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Cambiar estado -->
+<div class="crm-modal-overlay" id="estadoOverlay" onclick="closeEstadoModal()"></div>
+<div class="crm-modal" id="estadoModal">
+  <div class="crm-modal-header">
+    <h3>Cambiar estado</h3>
+    <button class="crm-modal-close" onclick="closeEstadoModal()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="crm-modal-body">
+    <input type="hidden" id="estadoInscripId">
+    <div style="margin-bottom:14px;">
+      <label class="crm-label">Alumno</label>
+      <p id="estadoNombreDisplay" style="font-weight:600;color:#111827;margin:0;"></p>
+    </div>
+    <div>
+      <label class="crm-label">Nuevo estado</label>
+      <select id="estadoSelect" class="crm-input">
+        <option value="pendiente">Pendiente</option>
+        <option value="inscrito">Inscrito</option>
+        <option value="graduado">Graduado</option>
+        <option value="retirado">Retirado</option>
+      </select>
+    </div>
+    <div style="margin-top:12px;">
+      <label class="crm-label">Notas internas (opcional)</label>
+      <textarea id="estadoNotas" class="crm-input" rows="3" style="resize:vertical;" placeholder="Observaciones internas…"></textarea>
+    </div>
+  </div>
+  <div class="crm-modal-footer">
+    <button class="btn-crm btn-crm-secondary" onclick="closeEstadoModal()">Cancelar</button>
+    <button class="btn-crm btn-crm-primary" onclick="saveEstado()">Guardar</button>
+  </div>
+</div>
+
+<!-- Modal: Agregar / editar calificación -->
+<div class="crm-modal-overlay" id="calOverlay" onclick="closeCalModal()"></div>
+<div class="crm-modal" id="calModal">
+  <div class="crm-modal-header">
+    <h3>Calificación</h3>
+    <button class="crm-modal-close" onclick="closeCalModal()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="crm-modal-body">
+    <input type="hidden" id="calInscripId">
+    <input type="hidden" id="calUserId">
+    <input type="hidden" id="calExistingId">
+    <div style="margin-bottom:12px;">
+      <label class="crm-label">Alumno</label>
+      <p id="calNombreDisplay" style="font-weight:600;color:#111827;margin:0;"></p>
+    </div>
+    <div style="margin-bottom:12px;">
+      <label class="crm-label">Módulo a calificar</label>
+      <select id="calModulo" class="crm-input">
+        <option value="">Selecciona un módulo…</option>
+        <option>Módulo 1 – Fundamentos de Fe</option>
+        <option>Módulo 2 – Vida en el Espíritu</option>
+        <option>Módulo 3 – Identidad en Cristo</option>
+        <option>Módulo 4 – Liderazgo Cristiano</option>
+        <option>Módulo 5 – Misión y Evangelismo</option>
+      </select>
+    </div>
+    <div style="margin-bottom:12px;">
+      <label class="crm-label">Calificación (0 – 100)</label>
+      <input type="number" id="calNota" class="crm-input" min="0" max="100" step="0.5" placeholder="85.5">
+    </div>
+    <div>
+      <label class="crm-label">Observaciones</label>
+      <textarea id="calObs" class="crm-input" rows="3" style="resize:vertical;" placeholder="Comentarios sobre el desempeño…"></textarea>
+    </div>
+    <p id="calError" style="color:#EF4444;font-size:0.82rem;margin:8px 0 0;display:none;"></p>
+  </div>
+  <div class="crm-modal-footer">
+    <button class="btn-crm btn-crm-secondary" onclick="closeCalModal()">Cancelar</button>
+    <button class="btn-crm btn-crm-primary" onclick="saveCal()">Guardar calificación</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-auth.js"></script>
+<script>
+  const sb = window.supabaseClient;
+  let adminId = null;
+
+  const ESTADO_COLORS = {
+    pendiente: { color:'#92400e', bg:'#fef3c7' },
+    inscrito:  { color:'#065f46', bg:'#d1fae5' },
+    graduado:  { color:'#1e3a8a', bg:'#dbeafe' },
+    retirado:  { color:'#991b1b', bg:'#fee2e2' },
+  };
+
+  function estadoBadge(estado) {
+    const c = ESTADO_COLORS[estado] || { color:'#374151', bg:'#f3f4f6' };
+    return `<span class="status-badge" style="color:${c.color};background:${c.bg};">${estado}</span>`;
+  }
+
+  function showTab(id, btn) {
+    document.querySelectorAll('.crm-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(id).classList.add('active');
+    if (id === 'tabCals') loadCals();
+  }
+
+  // ── MÉTRICAS ──────────────────────────────────────────────
+  async function loadMetrics() {
+    const [
+      { count: total },
+      { count: pendiente },
+      { count: inscrito },
+      { count: graduado },
+    ] = await Promise.all([
+      sb.from('facultad_inscripciones').select('id', { count:'exact', head:true }),
+      sb.from('facultad_inscripciones').select('id', { count:'exact', head:true }).eq('estado','pendiente'),
+      sb.from('facultad_inscripciones').select('id', { count:'exact', head:true }).eq('estado','inscrito'),
+      sb.from('facultad_inscripciones').select('id', { count:'exact', head:true }).eq('estado','graduado'),
+    ]);
+    document.getElementById('mTotal').textContent    = total    ?? 0;
+    document.getElementById('mPendiente').textContent = pendiente ?? 0;
+    document.getElementById('mInscrito').textContent  = inscrito  ?? 0;
+    document.getElementById('mGraduado').textContent  = graduado  ?? 0;
+  }
+
+  // ── INSCRIPCIONES ─────────────────────────────────────────
+  async function loadInscrip() {
+    const estado = document.getElementById('filtroEstado').value;
+    const modulo = document.getElementById('filtroModulo').value;
+
+    let q = sb.from('facultad_inscripciones').select('*').order('created_at', { ascending: false });
+    if (estado) q = q.eq('estado', estado);
+    if (modulo) q = q.eq('modulo', modulo);
+
+    const { data, error } = await q;
+    const tbody = document.getElementById('inscripTbody');
+    if (error || !data?.length) {
+      tbody.innerHTML = `<tr><td colspan="7" class="muted td-center" style="padding:24px;">${error ? error.message : 'Sin inscripciones.'}</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.map(r => {
+      const fecha = new Date(r.created_at);
+      const fechaStr = `${fecha.getDate()}/${fecha.getMonth()+1}/${fecha.getFullYear()}`;
+      return `
+        <tr>
+          <td><strong>${r.nombre}</strong></td>
+          <td class="muted">${r.correo}</td>
+          <td class="muted">${r.telefono || '—'}</td>
+          <td style="font-size:0.82rem;">${r.modulo}</td>
+          <td class="td-center">${estadoBadge(r.estado)}</td>
+          <td class="td-center muted" style="font-size:0.8rem;">${fechaStr}</td>
+          <td class="td-center">
+            <div style="display:flex;gap:6px;justify-content:center;">
+              <button class="btn-crm btn-crm-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="openEstadoModal('${r.id}','${r.nombre}','${r.estado}','${(r.notas||'').replace(/'/g,"\\'")}')">Estado</button>
+              <button class="btn-crm btn-crm-primary" style="padding:5px 10px;font-size:0.78rem;" onclick="openCalModal('${r.id}','${r.user_id || ''}','${r.nombre.replace(/'/g,"\\'")}')">Calificar</button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  // ── ESTADO MODAL ──────────────────────────────────────────
+  function openEstadoModal(id, nombre, estado, notas) {
+    document.getElementById('estadoInscripId').value = id;
+    document.getElementById('estadoNombreDisplay').textContent = nombre;
+    document.getElementById('estadoSelect').value = estado;
+    document.getElementById('estadoNotas').value = notas;
+    document.getElementById('estadoOverlay').classList.add('active');
+    document.getElementById('estadoModal').classList.add('active');
+  }
+  function closeEstadoModal() {
+    document.getElementById('estadoOverlay').classList.remove('active');
+    document.getElementById('estadoModal').classList.remove('active');
+  }
+  async function saveEstado() {
+    const id    = document.getElementById('estadoInscripId').value;
+    const estado = document.getElementById('estadoSelect').value;
+    const notas = document.getElementById('estadoNotas').value.trim();
+    await sb.from('facultad_inscripciones').update({ estado, notas: notas || null }).eq('id', id);
+    closeEstadoModal();
+    loadInscrip();
+    loadMetrics();
+  }
+
+  // ── CALIFICACIONES MODAL ──────────────────────────────────
+  function openCalModal(inscripId, userId, nombre) {
+    document.getElementById('calInscripId').value  = inscripId;
+    document.getElementById('calUserId').value     = userId;
+    document.getElementById('calExistingId').value = '';
+    document.getElementById('calNombreDisplay').textContent = nombre;
+    document.getElementById('calModulo').value = '';
+    document.getElementById('calNota').value   = '';
+    document.getElementById('calObs').value    = '';
+    document.getElementById('calError').style.display = 'none';
+    document.getElementById('calOverlay').classList.add('active');
+    document.getElementById('calModal').classList.add('active');
+  }
+  function closeCalModal() {
+    document.getElementById('calOverlay').classList.remove('active');
+    document.getElementById('calModal').classList.remove('active');
+  }
+  async function saveCal() {
+    const inscripId = document.getElementById('calInscripId').value;
+    const userId    = document.getElementById('calUserId').value;
+    const modulo    = document.getElementById('calModulo').value;
+    const nota      = parseFloat(document.getElementById('calNota').value);
+    const obs       = document.getElementById('calObs').value.trim();
+    const errEl     = document.getElementById('calError');
+
+    errEl.style.display = 'none';
+    if (!modulo) { errEl.textContent = 'Selecciona un módulo.'; errEl.style.display = 'block'; return; }
+    if (isNaN(nota) || nota < 0 || nota > 100) { errEl.textContent = 'Ingresa una nota válida (0–100).'; errEl.style.display = 'block'; return; }
+
+    const { error } = await sb.from('facultad_calificaciones').upsert({
+      inscripcion_id: inscripId,
+      user_id: userId || null,
+      modulo,
+      calificacion: nota,
+      observaciones: obs || null,
+      created_by: adminId,
+    }, { onConflict: 'inscripcion_id,modulo' });
+
+    if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+    closeCalModal();
+    if (document.getElementById('tabCals').classList.contains('active')) loadCals();
+  }
+
+  // ── CALIFICACIONES TAB ────────────────────────────────────
+  async function loadCals() {
+    const { data, error } = await sb
+      .from('facultad_calificaciones')
+      .select('*, facultad_inscripciones(nombre, modulo)')
+      .order('created_at', { ascending: false });
+
+    const tbody = document.getElementById('calsTbody');
+    if (error || !data?.length) {
+      tbody.innerHTML = `<tr><td colspan="6" class="muted td-center" style="padding:24px;">${error ? error.message : 'Sin calificaciones.'}</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = data.map(c => {
+      const fecha = new Date(c.created_at);
+      const fechaStr = `${fecha.getDate()}/${fecha.getMonth()+1}/${fecha.getFullYear()}`;
+      const notaColor = c.calificacion >= 70 ? '#065f46' : '#991b1b';
+      return `
+        <tr>
+          <td><strong>${c.facultad_inscripciones?.nombre || '—'}</strong></td>
+          <td style="font-size:0.82rem;">${c.facultad_inscripciones?.modulo || '—'}</td>
+          <td style="font-size:0.82rem;">${c.modulo}</td>
+          <td class="td-center"><span style="font-weight:700;color:${notaColor};">${c.calificacion ?? '—'}</span></td>
+          <td class="muted" style="font-size:0.82rem;">${c.observaciones || '—'}</td>
+          <td class="td-center muted" style="font-size:0.8rem;">${fechaStr}</td>
+        </tr>`;
+    }).join('');
+  }
+
+  // ── INIT ──────────────────────────────────────────────────
+  async function init() {
+    const { data: { user } } = await sb.auth.getUser();
+    adminId = user?.id ?? null;
+    await Promise.all([loadMetrics(), loadInscrip()]);
+  }
+
+  init();
+</script>
+</body>
+</html>

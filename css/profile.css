@@ -130,3 +130,74 @@
 .settings-item.logout .settings-icon {
   background-color: rgba(229, 62, 62, 0.1);
 }
+
+/* ── Historial Académico ──────────────────────── */
+.academic-section {
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+.academic-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  color: var(--color-text-main);
+}
+.academic-item {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+  overflow: hidden;
+  border-left: 4px solid #185ADB;
+}
+.academic-item-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14px 16px;
+  gap: 8px;
+}
+.academic-modulo {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 2px;
+}
+.academic-fecha {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.academic-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.academic-cals {
+  border-top: 1px solid var(--color-border);
+  padding: 10px 16px 14px;
+}
+.academic-cal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+.academic-cal-mod {
+  font-size: 0.82rem;
+  color: var(--color-text-main);
+}
+.academic-cal-nota {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #185ADB;
+}
+.academic-cal-obs {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin: 2px 0 6px;
+  line-height: 1.5;
+}

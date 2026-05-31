@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lectura Kairós</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
+  <style>
+    body { background: var(--color-bg); }
+
+    /* ── Header ───────────────────────────────────── */
+    .reader-header {
+      background: #0A1931;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .btn-icon {
+      background: rgba(255,255,255,0.12);
+      border: none;
+      border-radius: 10px;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .btn-icon:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn-icon svg { stroke: white; }
+    .reader-ref { flex: 1; min-width: 0; }
+    .reader-ref h2 {
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .reader-ref small {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.75rem;
+    }
+
+    /* ── Verses ───────────────────────────────────── */
+    .reader-content {
+      padding: 22px 22px 0;
+    }
+    .verse-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: baseline;
+    }
+    .verse-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--color-blue);
+      min-width: 22px;
+      text-align: right;
+      flex-shrink: 0;
+      padding-top: 3px;
+    }
+    .verse-text {
+      font-size: 1.05rem;
+      line-height: 1.78;
+      color: var(--color-text-main);
+    }
+    .chapter-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--color-text-muted);
+      margin: 24px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .loading-msg { text-align:center; color:var(--color-text-muted); padding:60px 0; }
+    .error-msg   { text-align:center; color:#ef4444; padding:40px 0; font-size:0.9rem; }
+
+    /* ── Comments Section ─────────────────────────── */
+    .comments-section {
+      margin: 28px 0 0;
+      border-top: 1px solid var(--color-border);
+    }
+    .comments-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px 14px;
+    }
+    .comments-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .comments-count {
+      background: rgba(24,90,219,0.1);
+      color: var(--color-blue);
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .comment-list { padding: 0 22px; display: flex; flex-direction: column; gap: 14px; }
+
+    .comment-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .comment-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .comment-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #185ADB, #1a3a6b);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+    .comment-meta { flex: 1; min-width: 0; }
+    .comment-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+    .comment-time {
+      font-size: 0.73rem;
+      color: var(--color-text-muted);
+    }
+    .comment-text {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--color-text-main);
+      margin-bottom: 10px;
+    }
+    .comment-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-like {
+      background: none;
+      border: 1.5px solid var(--color-border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      font-family: var(--font-main);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      transition: all 0.15s;
+    }
+    .btn-like.liked {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: rgba(239,68,68,0.06);
+    }
+    .btn-like svg { transition: all 0.15s; }
+    .btn-like.liked svg { stroke: #ef4444; fill: #ef4444; }
+    .btn-delete-comment {
+      background: none;
+      border: none;
+      padding: 5px 8px;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      font-size: 0.78rem;
+      margin-left: auto;
+    }
+    .btn-delete-comment:hover { color: #ef4444; }
+
+    .comments-empty {
+      text-align: center;
+      padding: 24px;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+    }
+    .comments-empty svg { margin-bottom: 8px; opacity: 0.3; }
+
+    /* ── Compose box ──────────────────────────────── */
+    .compose-wrap {
+      padding: 16px 22px 100px;
+      margin-top: 20px;
+    }
+    .compose-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--color-border);
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      padding: 10px 12px;
+      transition: border-color 0.2s;
+    }
+    .compose-box:focus-within { border-color: var(--color-blue); }
+    .compose-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #185ADB, #1a3a6b);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+    .compose-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      color: var(--color-text-main);
+      resize: none;
+      outline: none;
+      min-height: 36px;
+      max-height: 120px;
+      line-height: 1.5;
+    }
+    .compose-input::placeholder { color: var(--color-text-muted); }
+    .btn-send {
+      background: var(--color-blue);
+      border: none;
+      border-radius: 9px;
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+    .btn-send:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-send svg { stroke: white; }
+
+    /* ── Footer toolbar ───────────────────────────── */
+    .reader-footer {
+      position: fixed;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: var(--color-surface);
+      padding: 10px 16px 14px;
+      box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      z-index: 15;
+    }
+    .btn-font {
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: 9px;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .btn-mark {
+      flex: 1;
+      padding: 0 12px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-main);
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-mark.unread { background: var(--color-blue); color: white; }
+    .btn-mark.done   { background: #d1fae5; color: #065f46; border: 1.5px solid #6ee7b7; }
+    .btn-scroll-comments {
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: 9px;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .btn-scroll-comments svg { stroke: var(--color-text-muted); }
+    .comment-badge {
+      position: absolute;
+      top: -5px; right: -5px;
+      background: #ef4444;
+      color: white;
+      border-radius: 10px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      min-width: 16px;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reader-header">
+    <button class="btn-icon" onclick="history.back()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="reader-ref">
+      <h2 id="refTitle">Cargando…</h2>
+      <small id="refSub">Plan Kairós</small>
+    </div>
+    <button class="btn-icon" id="btnPrev" onclick="navReading(-1)" disabled>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="btn-icon" id="btnNext" onclick="navReading(1)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- Verses -->
+  <div class="reader-content" id="readerContent">
+    <p class="loading-msg">Abriendo la Biblia…</p>
+  </div>
+
+  <!-- Comments -->
+  <div class="comments-section" id="commentsSection">
+    <div class="comments-header">
+      <h3>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Reflexiones
+        <span class="comments-count" id="commentsCount">0</span>
+      </h3>
+    </div>
+    <div class="comment-list" id="commentList">
+      <div class="comments-empty">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 8px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Cargando comentarios…
+      </div>
+    </div>
+
+    <!-- Compose -->
+    <div class="compose-wrap">
+      <div class="compose-box">
+        <div class="compose-avatar" id="composeAvatar">?</div>
+        <textarea class="compose-input" id="composeInput" placeholder="Comparte una reflexión con tu iglesia…" rows="1"
+          oninput="autoResize(this); checkSend()"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendComment();}"></textarea>
+        <button class="btn-send" id="btnSend" onclick="sendComment()" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed footer toolbar -->
+  <div class="reader-footer">
+    <button class="btn-font" onclick="changeFontSize(-1)" title="Reducir letra">A−</button>
+    <button class="btn-font" onclick="changeFontSize(1)"  title="Aumentar letra">A+</button>
+    <button class="btn-mark unread" id="btnMark" onclick="marcarLeido()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Marcar leída
+    </button>
+    <button class="btn-scroll-comments" onclick="scrollToComments()" title="Ver reflexiones">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="comment-badge" id="commentBadge"></span>
+    </button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth-guard.js"></script>
+  <script>
+    const sb = window.supabaseClient;
+    const params = new URLSearchParams(location.search);
+    const DIA = parseInt(params.get('dia')) || 1;
+    const IDX = parseInt(params.get('idx')) || 0;
+
+    let userId = null;
+    let userNombre = '';
+    let progresoLeidas = [];
+    let fontSize = parseInt(localStorage.getItem('kairos_font')) || 16;
+    let allReadings = [];
+    let likedSet = new Set();
+
+    const BOOK_FILE_MAP = {
+      'Génesis':'genesis','Éxodo':'exodo','Levítico':'levitico','Números':'numeros',
+      'Deuteronomio':'deuteronomio','Josué':'josue','Jueces':'jueces','Rut':'rut',
+      '1 Samuel':'1_samuel','2 Samuel':'2_samuel','1 Reyes':'1_reyes','2 Reyes':'2_reyes',
+      '1 Crónicas':'1_cronicas','2 Crónicas':'2_cronicas','Esdras':'esdras',
+      'Nehemías':'nehemias','Ester':'ester','Job':'job','Salmos':'salmos',
+      'Proverbios':'proverbios','Eclesiastés':'eclesiastes','Cantares':'cantares',
+      'Isaías':'isaias','Jeremías':'jeremias','Lamentaciones':'lamentaciones',
+      'Ezequiel':'ezequiel','Daniel':'daniel','Oseas':'oseas','Joel':'joel',
+      'Amós':'amos','Abdías':'abdias','Jonás':'jonas','Miqueas':'miqueas',
+      'Nahúm':'nahum','Habacuc':'habacuc','Sofonías':'sofonias','Hageo':'hageo',
+      'Zacarías':'zacarias','Malaquías':'malaquias','Mateo':'mateo','Marcos':'marcos',
+      'Lucas':'lucas','Juan':'juan','Hechos':'hechos','Romanos':'romanos',
+      '1 Corintios':'1_corintios','2 Corintios':'2_corintios','Gálatas':'galatas',
+      'Efesios':'efesios','Filipenses':'filipenses','Colosenses':'colosenses',
+      '1 Tesalonicenses':'1_tesalonicenses','2 Tesalonicenses':'2_tesalonicenses',
+      '1 Timoteo':'1_timoteo','2 Timoteo':'2_timoteo','Tito':'tito',
+      'Filemón':'filemon','Hebreos':'hebreos','Santiago':'santiago',
+      '1 Pedro':'1_pedro','2 Pedro':'2_pedro','1 Juan':'1_juan',
+      '2 Juan':'2_juan','3 Juan':'3_juan','Judas':'judas','Apocalipsis':'apocalipsis'
+    };
+
+    function parseRef(label) {
+      const names = Object.keys(BOOK_FILE_MAP).sort((a, b) => b.length - a.length);
+      let bookName = null, rest = '';
+      for (const name of names) {
+        if (label.startsWith(name + ' ')) { bookName = name; rest = label.slice(name.length + 1).trim(); break; }
+      }
+      if (!bookName) return null;
+      if (rest.includes(' - ')) {
+        const [a, b] = rest.split(' - ');
+        const [ch1, v1] = a.split(':').map(Number);
+        const [ch2, v2] = b.split(':').map(Number);
+        return { bookName, ch1, v1, ch2, v2 };
+      }
+      const [cv, v2s] = rest.split('-');
+      const [ch1, v1] = cv.split(':').map(Number);
+      return { bookName, ch1, v1, ch2: ch1, v2: v2s ? parseInt(v2s) : v1 };
+    }
+
+    async function loadBookData(bookName) {
+      const file = BOOK_FILE_MAP[bookName];
+      if (!file) throw new Error('Libro no encontrado: ' + bookName);
+      const res = await fetch(`/bible-json-master/procesados/${file}.js`);
+      if (!res.ok) throw new Error('No se pudo cargar ' + file);
+      const text = await res.text();
+      return new Function('return ' + text.replace(/^export\s+default\s+/, ''))();
+    }
+
+    function applyFontSize() {
+      document.querySelectorAll('.verse-text').forEach(el => el.style.fontSize = fontSize + 'px');
+    }
+    function changeFontSize(d) {
+      fontSize = Math.min(24, Math.max(13, fontSize + d));
+      localStorage.setItem('kairos_font', fontSize);
+      applyFontSize();
+    }
+
+    async function renderReading(label, idx) {
+      const content = document.getElementById('readerContent');
+      content.innerHTML = '<p class="loading-msg">Cargando…</p>';
+      document.getElementById('refTitle').textContent = label;
+      document.getElementById('refSub').textContent = `Día ${DIA} · Lectura ${idx + 1} de ${allReadings.length}`;
+      document.getElementById('btnPrev').disabled = idx === 0;
+      document.getElementById('btnNext').disabled = idx === allReadings.length - 1;
+
+      const ref = parseRef(label);
+      if (!ref) { content.innerHTML = '<p class="error-msg">No se pudo interpretar la referencia.</p>'; return; }
+
+      try {
+        const chapters = await loadBookData(ref.bookName);
+        let html = '';
+        for (let ch = ref.ch1; ch <= ref.ch2; ch++) {
+          const chData = chapters[ch - 1];
+          if (!chData) continue;
+          const vStart = ch === ref.ch1 ? ref.v1 : 1;
+          const vEnd   = ch === ref.ch2 ? ref.v2 : chData.length;
+          if (ref.ch1 !== ref.ch2) html += `<div class="chapter-heading">${ref.bookName} ${ch}</div>`;
+          for (let vi = vStart; vi <= vEnd; vi++) {
+            html += `<div class="verse-row"><span class="verse-num">${vi}</span><span class="verse-text" style="font-size:${fontSize}px">${chData[vi-1]||''}</span></div>`;
+          }
+        }
+        content.innerHTML = html || '<p class="error-msg">Sin versículos.</p>';
+      } catch (e) {
+        content.innerHTML = `<p class="error-msg">${e.message}</p>`;
+      }
+    }
+
+    function navReading(delta) {
+      const n = IDX + delta;
+      if (n >= 0 && n < allReadings.length) location.href = `kairos-leer.html?dia=${DIA}&idx=${n}`;
+    }
+
+    async function marcarLeido() {
+      progresoLeidas[IDX] = !progresoLeidas[IDX];
+      const completado = progresoLeidas.every(Boolean);
+      const btn = document.getElementById('btnMark');
+      if (progresoLeidas[IDX]) {
+        btn.className = 'btn-mark done';
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Leída';
+      } else {
+        btn.className = 'btn-mark unread';
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Marcar leída';
+      }
+      await sb.from('progreso_lectura').upsert({
+        user_id: userId, dia: DIA, leidas: progresoLeidas, completado,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'user_id,dia' });
+    }
+
+    /* ── Comments ─────────────────────────────────── */
+    function timeAgo(ts) {
+      const diff = (Date.now() - new Date(ts)) / 1000;
+      if (diff < 60)   return 'ahora';
+      if (diff < 3600) return Math.floor(diff/60) + ' min';
+      if (diff < 86400) return Math.floor(diff/3600) + ' h';
+      return Math.floor(diff/86400) + ' d';
+    }
+
+    function getInitial(name) {
+      return (name || '?').charAt(0).toUpperCase();
+    }
+
+    function scrollToComments() {
+      document.getElementById('commentsSection').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => document.getElementById('composeInput').focus(), 400);
+    }
+
+    async function loadComments() {
+      const { data: comments } = await sb
+        .from('kairos_comentarios')
+        .select('*')
+        .eq('dia', DIA).eq('lectura_idx', IDX)
+        .order('created_at', { ascending: true });
+
+      const list = comments || [];
+
+      // Fetch profile names for all unique user_ids
+      if (list.length) {
+        const userIds = [...new Set(list.map(c => c.user_id))];
+        const { data: profiles } = await sb
+          .from('profiles')
+          .select('id, nombre')
+          .in('id', userIds);
+        const profileMap = Object.fromEntries((profiles || []).map(p => [p.id, p.nombre]));
+        list.forEach(c => { c._nombre = profileMap[c.user_id] || 'Hermano/a'; });
+
+        const ids = list.map(c => c.id);
+        const { data: myLikes } = await sb
+          .from('kairos_likes')
+          .select('comentario_id')
+          .eq('user_id', userId)
+          .in('comentario_id', ids);
+        likedSet = new Set((myLikes || []).map(l => l.comentario_id));
+      }
+
+      renderComments(list);
+    }
+
+    function renderComments(comments) {
+      const list = document.getElementById('commentList');
+      const count = document.getElementById('commentsCount');
+      const badge = document.getElementById('commentBadge');
+
+      count.textContent = comments.length;
+      if (comments.length > 0) {
+        badge.textContent = comments.length;
+        badge.style.display = 'block';
+      }
+
+      if (!comments.length) {
+        list.innerHTML = `<div class="comments-empty">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 8px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Sé el primero en compartir una reflexión
+        </div>`;
+        return;
+      }
+
+      list.innerHTML = comments.map(c => {
+        const nombre = c._nombre || 'Hermano/a';
+        const initial = getInitial(nombre);
+        const liked = likedSet.has(c.id);
+        const isOwn = c.user_id === userId;
+        return `<div class="comment-card" id="cmt-${c.id}">
+          <div class="comment-top">
+            <div class="comment-avatar">${initial}</div>
+            <div class="comment-meta">
+              <div class="comment-name">${nombre}</div>
+              <div class="comment-time">${timeAgo(c.created_at)}</div>
+            </div>
+          </div>
+          <p class="comment-text">${escapeHtml(c.texto)}</p>
+          <div class="comment-actions">
+            <button class="btn-like ${liked ? 'liked' : ''}" onclick="toggleLike('${c.id}', this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span class="like-count">${c.likes_count}</span>
+            </button>
+            ${isOwn ? `<button class="btn-delete-comment" onclick="deleteComment('${c.id}')">Borrar</button>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                .replace(/"/g,'&quot;').replace(/\n/g,'<br>');
+    }
+
+    async function toggleLike(commentId, btn) {
+      btn.disabled = true;
+      const { data } = await sb.rpc('toggle_kairos_like', { p_comentario_id: commentId });
+      btn.disabled = false;
+      if (!data) return;
+      const liked = data.liked;
+      const countEl = btn.querySelector('.like-count');
+      const svgEl = btn.querySelector('svg');
+      const current = parseInt(countEl.textContent) || 0;
+      countEl.textContent = liked ? current + 1 : Math.max(0, current - 1);
+      btn.className = liked ? 'btn-like liked' : 'btn-like';
+      svgEl.setAttribute('fill', liked ? 'currentColor' : 'none');
+      if (liked) likedSet.add(commentId); else likedSet.delete(commentId);
+    }
+
+    async function deleteComment(id) {
+      if (!confirm('¿Borrar esta reflexión?')) return;
+      await sb.from('kairos_comentarios').delete().eq('id', id);
+      document.getElementById('cmt-' + id)?.remove();
+      const count = document.getElementById('commentsCount');
+      count.textContent = parseInt(count.textContent) - 1;
+    }
+
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+    }
+    function checkSend() {
+      document.getElementById('btnSend').disabled = !document.getElementById('composeInput').value.trim();
+    }
+
+    async function sendComment() {
+      const input = document.getElementById('composeInput');
+      const text = input.value.trim();
+      if (!text) return;
+      const btn = document.getElementById('btnSend');
+      btn.disabled = true;
+
+      const { error } = await sb.from('kairos_comentarios').insert({
+        user_id: userId, dia: DIA, lectura_idx: IDX, texto: text
+      });
+
+      if (error) { alert('Error: ' + error.message); btn.disabled = false; return; }
+      input.value = '';
+      input.style.height = 'auto';
+      btn.disabled = true;
+      await loadComments();
+    }
+
+    /* ── Init ─────────────────────────────────────── */
+    async function init() {
+      const { data: { user } } = await sb.auth.getUser();
+      userId = user?.id;
+
+      const { data: prof } = await sb.from('profiles').select('nombre').eq('id', userId).maybeSingle();
+      userNombre = prof?.nombre || '';
+      const initial = getInitial(userNombre);
+      document.getElementById('composeAvatar').textContent = initial;
+
+      const { data: plan } = await sb.from('plan_lectura').select('lecturas').eq('dia', DIA).single();
+      allReadings = plan?.lecturas
+        ? (Array.isArray(plan.lecturas) ? plan.lecturas : JSON.parse(plan.lecturas))
+        : [];
+
+      const { data: prog } = await sb.from('progreso_lectura')
+        .select('leidas').eq('user_id', userId).eq('dia', DIA).maybeSingle();
+      progresoLeidas = prog?.leidas
+        ? (Array.isArray(prog.leidas) ? prog.leidas : JSON.parse(prog.leidas))
+        : allReadings.map(() => false);
+
+      const btn = document.getElementById('btnMark');
+      if (progresoLeidas[IDX]) {
+        btn.className = 'btn-mark done';
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Leída';
+      }
+
+      if (allReadings[IDX]) await renderReading(allReadings[IDX], IDX);
+      else document.getElementById('readerContent').innerHTML = '<p class="error-msg">Lectura no encontrada.</p>';
+
+      loadComments();
+    }
+
+    init();
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+  </script>
+</body>
+</html>

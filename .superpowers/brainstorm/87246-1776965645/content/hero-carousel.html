@@ -1,0 +1,77 @@
+<h2>Hero — Carrusel de comunidad</h2>
+<p class="subtitle">Reemplaza el mockup de celular. Máximo 6 cards en loop automático.</p>
+
+<div style="max-width:560px;margin:0 auto;">
+
+  <!-- HERO MOCKUP -->
+  <div style="background:linear-gradient(135deg,#0A1931,#1e3a8a);border-radius:12px;padding:32px 28px;color:#fff;">
+    <div style="display:flex;align-items:center;gap:32px;">
+
+      <!-- Texto del hero -->
+      <div style="flex:1;">
+        <div style="font-size:.65rem;color:#93c5fd;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;">FRATERNIDAD CRISTIANA DE EL SALVADOR</div>
+        <div style="font-size:1.4rem;font-weight:700;line-height:1.2;margin-bottom:10px;">Una familia de fe en Santa Ana</div>
+        <div style="font-size:.82rem;opacity:.75;margin-bottom:20px;">Todos son bienvenidos. Ven a ser parte de nuestra comunidad.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <span style="background:#185ADB;padding:9px 18px;border-radius:20px;font-weight:600;font-size:.78rem;">Visítanos →</span>
+          <span style="border:1.5px solid rgba(255,255,255,.45);padding:9px 18px;border-radius:20px;font-size:.78rem;">Instalar App</span>
+        </div>
+      </div>
+
+      <!-- Carrusel visual -->
+      <div style="flex:0 0 220px;">
+        <div style="font-size:.62rem;color:#93c5fd;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;text-align:center;">Nuestra comunidad</div>
+        <!-- Card activa -->
+        <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;overflow:hidden;margin-bottom:8px;">
+          <div style="height:130px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));display:flex;align-items:center;justify-content:center;font-size:.75rem;opacity:.7;">📷 Foto/video miembro</div>
+          <div style="padding:8px 10px;font-size:.7rem;opacity:.8;">Nombre del miembro</div>
+        </div>
+        <!-- Dots indicadores -->
+        <div style="display:flex;gap:5px;justify-content:center;margin-bottom:6px;">
+          <div style="width:18px;height:4px;background:#fff;border-radius:2px;"></div>
+          <div style="width:6px;height:4px;background:rgba(255,255,255,.3);border-radius:2px;"></div>
+          <div style="width:6px;height:4px;background:rgba(255,255,255,.3);border-radius:2px;"></div>
+          <div style="width:6px;height:4px;background:rgba(255,255,255,.3);border-radius:2px;"></div>
+          <div style="width:6px;height:4px;background:rgba(255,255,255,.3);border-radius:2px;"></div>
+          <div style="width:6px;height:4px;background:rgba(255,255,255,.3);border-radius:2px;"></div>
+        </div>
+        <div style="font-size:.62rem;opacity:.5;text-align:center;">← avanza automático cada 4s →</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ESPECIFICACIONES -->
+  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
+
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;">
+      <div style="font-weight:700;color:#0A1931;margin-bottom:8px;">Contenido de cada card</div>
+      <ul style="color:#64748b;padding-left:16px;line-height:1.8;">
+        <li>Foto <strong>o</strong> video corto (ambos)</li>
+        <li>Nombre del miembro / familia</li>
+        <li>Opcional: frase breve</li>
+      </ul>
+    </div>
+
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;">
+      <div style="font-weight:700;color:#0A1931;margin-bottom:8px;">Comportamiento</div>
+      <ul style="color:#64748b;padding-left:16px;line-height:1.8;">
+        <li>Auto-avance cada 4 segundos</li>
+        <li>Loop continuo</li>
+        <li>Máximo 6 cards</li>
+        <li>Touch/swipe en móvil</li>
+      </ul>
+    </div>
+
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:14px;grid-column:1/-1;">
+      <div style="font-weight:700;color:#185ADB;margin-bottom:6px;">¿Dónde viven los archivos?</div>
+      <p style="color:#1e40af;font-size:.78rem;line-height:1.6;">Las fotos/videos se guardan en <code style="background:#dbeafe;padding:1px 5px;border-radius:3px;">img/comunidad/</code>. Los datos del carrusel se definen directamente en el HTML como un array JS (sin base de datos — contenido manual, fácil de actualizar).</p>
+    </div>
+
+  </div>
+
+  <div style="margin-top:12px;background:#fef9c3;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:.78rem;color:#78350f;">
+    <strong>En móvil:</strong> El carrusel se coloca debajo del texto del hero (apilado verticalmente), no al lado. El mockup de celular desaparece completamente.
+  </div>
+
+</div>

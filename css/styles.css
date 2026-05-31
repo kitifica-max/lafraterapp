@@ -218,7 +218,18 @@ p { line-height: 1.5; }
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
+.event-card.has-img { padding: 0; }
+.event-card-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+.event-card.has-img .event-card-inner { padding: 16px 18px 18px; display: flex; flex-direction: column; }
+.event-card.has-img .event-tag { margin-top: 0; }
 .event-tag {
   align-self: flex-start;
   background-color: rgba(24, 90, 219, 0.1);
@@ -324,4 +335,84 @@ p { line-height: 1.5; }
   width: 28px;
   height: 28px;
   stroke: currentColor;
+}
+
+/* =========================================
+   COMPARTIDO — PÁGINAS DE DETALLE
+   ========================================= */
+.detail-header {
+  background-color: var(--color-navy);
+  color: var(--color-surface);
+  padding: 50px 24px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.detail-header h1 {
+  font-size: 1.3rem;
+  flex: 1;
+}
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.btn-back svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.detail-body {
+  padding: 24px;
+}
+.feedback-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 60vh;
+}
+.feedback-center h2 {
+  font-size: 1.4rem;
+  color: var(--color-text-main);
+  margin-bottom: 12px;
+}
+.feedback-center p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 280px;
+}
+/* ── WhatsApp flotante (global) ─────────────── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 58px;
+  height: 58px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  z-index: 9000;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(37,211,102,0.55);
 }

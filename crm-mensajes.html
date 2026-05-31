@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Mensajes</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <style>
+    .msg-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+      height: calc(100vh - 120px);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .msg-sidebar {
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+    }
+    .msg-sidebar-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--color-text-muted);
+    }
+    .msg-min-list { flex: 1; overflow-y: auto; }
+    .msg-min-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      transition: background 0.15s;
+    }
+    .msg-min-item:hover { background: rgba(10,25,49,0.04); }
+    .msg-min-item.active { background: rgba(10,25,49,0.08); }
+    .msg-min-avatar {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--color-blue);
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; font-weight: 700; flex-shrink: 0;
+    }
+    .msg-min-name { font-size: 0.9rem; font-weight: 600; color: var(--color-text-main); }
+    .msg-min-sub { font-size: 0.75rem; color: var(--color-text-muted); margin-top: 1px; }
+    .msg-chat {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .msg-chat-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .msg-chat-title { font-size: 1rem; font-weight: 700; color: var(--color-text-main); }
+    .msg-chat-sub { font-size: 0.78rem; color: var(--color-text-muted); }
+    .msg-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .msg-empty {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.88rem;
+      margin: auto;
+    }
+    .msg-bubble {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      max-width: 75%;
+    }
+    .msg-bubble.mine { flex-direction: row-reverse; margin-left: auto; }
+    .msg-avatar {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--color-blue);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .msg-bubble.mine .msg-avatar { background: #059669; }
+    .msg-body {}
+    .msg-sender { font-size: 0.72rem; color: var(--color-text-muted); margin-bottom: 3px; font-weight: 600; }
+    .msg-bubble.mine .msg-sender { text-align: right; }
+    .msg-text {
+      background: var(--color-bg);
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      color: var(--color-text-main);
+      line-height: 1.5;
+    }
+    .msg-bubble.mine .msg-text { background: var(--color-blue); color: white; }
+    .msg-time { font-size: 0.68rem; color: var(--color-text-muted); margin-top: 3px; }
+    .msg-bubble.mine .msg-time { text-align: right; }
+    .msg-input-row {
+      padding: 12px 24px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .msg-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      font-family: var(--font-main);
+      font-size: 0.88rem;
+      resize: none;
+      background: var(--color-bg);
+      color: var(--color-text-main);
+      max-height: 100px;
+    }
+    .msg-input:focus { outline: none; border-color: var(--color-blue); }
+    .msg-send {
+      padding: 10px 18px;
+      background: var(--color-blue);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .msg-send:hover { opacity: 0.85; }
+    .msg-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--color-text-muted);
+      gap: 12px;
+    }
+    .msg-placeholder svg { opacity: 0.3; }
+    .msg-placeholder p { font-size: 0.88rem; }
+  </style>
+</head>
+<body>
+<div class="crm-layout">
+
+  <aside class="crm-sidebar">
+    <div class="crm-brand"><img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater"><span class="crm-brand-badge">CRM</span></div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Mensajes por Ministerio</h1>
+      <span class="crm-topbar-user"></span>
+    </div>
+    <div class="crm-content" style="padding:0;">
+
+      <div class="msg-layout">
+        <!-- Lista de ministerios -->
+        <div class="msg-sidebar">
+          <div class="msg-sidebar-header">Ministerios</div>
+          <div class="msg-min-list" id="minList">
+            <div style="padding:20px;color:var(--color-text-muted);font-size:0.85rem;">Cargando...</div>
+          </div>
+        </div>
+
+        <!-- Panel de chat -->
+        <div class="msg-chat" id="chatPanel">
+          <div class="msg-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <p>Selecciona un ministerio para ver sus mensajes</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
+<script>
+  let sb, currentUser, selectedMinId = null, realtimeChannel = null;
+  const profileCache = {};
+
+  async function init() {
+    sb = window.supabaseClient;
+    const { data: { user } } = await sb.auth.getUser();
+    currentUser = user;
+
+    const { data: mins } = await sb.from('ministerios').select('id, nombre').order('nombre');
+    const list = document.getElementById('minList');
+    if (!mins?.length) {
+      list.innerHTML = '<div style="padding:20px;color:var(--color-text-muted);font-size:0.85rem;">Sin ministerios.</div>';
+      return;
+    }
+    list.innerHTML = mins.map(m => `
+      <div class="msg-min-item" onclick="selectMin('${m.id}','${m.nombre.replace(/'/g,'&#39;')}')">
+        <div class="msg-min-avatar">${m.nombre.charAt(0).toUpperCase()}</div>
+        <div>
+          <div class="msg-min-name">${m.nombre}</div>
+          <div class="msg-min-sub">Chat del ministerio</div>
+        </div>
+      </div>`).join('');
+  }
+
+  async function selectMin(id, nombre) {
+    selectedMinId = id;
+    document.querySelectorAll('.msg-min-item').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    if (realtimeChannel) { sb.removeChannel(realtimeChannel); realtimeChannel = null; }
+
+    document.getElementById('chatPanel').innerHTML = `
+      <div class="msg-chat-header">
+        <div class="msg-min-avatar" style="width:36px;height:36px;border-radius:10px;">${nombre.charAt(0).toUpperCase()}</div>
+        <div>
+          <div class="msg-chat-title">${nombre}</div>
+          <div class="msg-chat-sub">Chat del ministerio</div>
+        </div>
+      </div>
+      <div class="msg-messages" id="msgBox"><div class="msg-empty">Cargando...</div></div>
+      <div class="msg-input-row">
+        <textarea class="msg-input" id="msgInput" placeholder="Escribe un mensaje..." rows="1"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();enviar();}"></textarea>
+        <button class="msg-send" onclick="enviar()">Enviar</button>
+      </div>`;
+
+    await cargarMensajes(id);
+    suscribir(id);
+  }
+
+  async function getNombre(uid) {
+    if (profileCache[uid]) return profileCache[uid];
+    const { data } = await sb.from('profiles').select('nombre').eq('id', uid).single();
+    profileCache[uid] = data?.nombre || 'Usuario';
+    return profileCache[uid];
+  }
+
+  function formatHora(ts) {
+    const d = new Date(ts);
+    return d.toLocaleString('es-SV', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' });
+  }
+
+  function bubbleHtml(m, nombre) {
+    const esMio = m.user_id === currentUser?.id;
+    const inicial = (nombre || 'U').charAt(0).toUpperCase();
+    return `<div class="msg-bubble ${esMio ? 'mine' : ''}">
+      <div class="msg-avatar">${inicial}</div>
+      <div class="msg-body">
+        <div class="msg-sender">${esMio ? 'Tú (admin)' : nombre}</div>
+        <div class="msg-text">${m.contenido.replace(/</g,'&lt;')}</div>
+        <div class="msg-time">${formatHora(m.created_at)}</div>
+      </div>
+    </div>`;
+  }
+
+  async function cargarMensajes(minId) {
+    const box = document.getElementById('msgBox');
+    const { data } = await sb.from('mensajes_ministerio')
+      .select('id, user_id, contenido, created_at')
+      .eq('ministerio_id', minId)
+      .order('created_at', { ascending: true })
+      .limit(100);
+
+    if (!data?.length) {
+      box.innerHTML = '<div class="msg-empty">Sin mensajes aún.</div>';
+      return;
+    }
+    const nombres = await Promise.all(data.map(m => getNombre(m.user_id)));
+    box.innerHTML = data.map((m, i) => bubbleHtml(m, nombres[i])).join('');
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function suscribir(minId) {
+    realtimeChannel = sb.channel(`crm-chat-${minId}`)
+      .on('postgres_changes', {
+        event: 'INSERT', schema: 'public',
+        table: 'mensajes_ministerio',
+        filter: `ministerio_id=eq.${minId}`
+      }, async (payload) => {
+        const m = payload.new;
+        const nombre = await getNombre(m.user_id);
+        const box = document.getElementById('msgBox');
+        if (!box) return;
+        const empty = box.querySelector('.msg-empty');
+        if (empty) empty.remove();
+        box.innerHTML += bubbleHtml(m, nombre);
+        box.scrollTop = box.scrollHeight;
+      }).subscribe();
+  }
+
+  async function enviar() {
+    const input = document.getElementById('msgInput');
+    const texto = input.value.trim();
+    if (!texto || !selectedMinId) return;
+    input.value = '';
+    await sb.from('mensajes_ministerio').insert({
+      ministerio_id: selectedMinId,
+      user_id: currentUser.id,
+      contenido: texto
+    });
+  }
+
+  init();
+</script>
+</body>
+</html>

@@ -1,53 +1,57 @@
-.detail-header {
-  background-color: var(--color-navy);
-  color: var(--color-surface);
-  padding: 50px 24px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.detail-header h1 {
-  font-size: 1.3rem;
-  flex: 1;
-}
-.btn-back {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  flex-shrink: 0;
-  text-decoration: none;
-}
-.btn-back svg {
-  width: 20px;
-  height: 20px;
-  stroke: white;
-  fill: none;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
+/* ── Hero unificado ───────────────────────── */
 .event-hero {
   position: relative;
-  background: linear-gradient(135deg, var(--color-blue), #3b82f6);
-  height: 180px;
+  height: 300px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0A1931, #1a3a6b);
+  flex-shrink: 0;
+}
+.event-hero-img-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Gradiente: sutil en top (legibilidad botón), opaco en bottom (legibilidad tag) */
+.event-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,25,49,0.55) 0%,
+    rgba(10,25,49,0.0) 38%,
+    rgba(10,25,49,0.0) 52%,
+    rgba(10,25,49,0.75) 80%,
+    rgba(10,25,49,0.92) 100%
+  );
+  pointer-events: none;
+}
+.event-hero-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 50px 20px 16px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 14px;
+  z-index: 2;
 }
-.event-hero-img {
-  font-size: 72px;
-  opacity: 0.8;
+.event-hero-top h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  flex: 1;
+  line-height: 1.3;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 .event-tag {
   position: absolute;
-  bottom: 16px;
-  left: 24px;
-  background-color: rgba(255, 255, 255, 0.9);
+  bottom: 18px;
+  left: 20px;
+  z-index: 2;
+  background: rgba(255,255,255,0.92);
   color: var(--color-blue);
   padding: 4px 12px;
   border-radius: var(--radius-full);
@@ -55,9 +59,28 @@
   font-weight: 700;
 }
 
-.detail-body {
-  padding: 24px;
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  flex-shrink: 0;
+  text-decoration: none;
+  backdrop-filter: blur(4px);
 }
+.btn-back svg {
+  width: 20px; height: 20px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Body ─────────────────────────────────── */
+.detail-body { padding: 24px; }
 
 .info-grid {
   display: grid;
@@ -69,14 +92,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background-color: var(--color-surface);
+  background: var(--color-surface);
   padding: 14px;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
 }
-.info-icon {
-  font-size: 20px;
-}
+.info-icon { display: flex; align-items: center; }
 .info-label {
   font-size: 0.7rem;
   color: var(--color-text-muted);
@@ -88,9 +109,41 @@
   color: var(--color-text-main);
 }
 
-.detail-section {
-  margin-bottom: 28px;
+/* ── Ministerio organizador ───────────────── */
+.ministerio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
 }
+.ministerio-row svg { stroke: var(--color-blue); flex-shrink: 0; }
+.ministerio-row span {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.ministerio-row strong {
+  font-size: 0.88rem;
+  color: var(--color-text-main);
+  font-weight: 600;
+}
+
+/* ── Cupos badge ──────────────────────────── */
+.cupos-badge-warn {
+  font-size: 0.78rem;
+  color: #b45309;
+  background: #fef3c7;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.detail-section { margin-bottom: 28px; }
 .detail-section h2 {
   font-size: 1.1rem;
   color: var(--color-text-main);
@@ -101,3 +154,41 @@
   font-size: 0.95rem;
   line-height: 1.6;
 }
+
+/* ── Botón cancelar registro ─────────────── */
+.btn-cancelar {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  background: transparent;
+  color: #EF4444;
+  border: 1.5px solid #fecaca;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-cancelar:active { background: #fef2f2; }
+
+/* ── Botón Google Calendar ────────────────── */
+.btn-gcal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  background: #fff;
+  color: #1a73e8;
+  border: 1.5px solid #d2e3fc;
+  border-radius: var(--radius-lg);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-gcal:active { background: #f0f6ff; }

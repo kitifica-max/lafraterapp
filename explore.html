@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Frater - Explora</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fab-menu.css">
   <link rel="stylesheet" href="css/explore.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
 </head>
 <body>
 
@@ -16,73 +19,120 @@
   </header>
 
   <div class="tabs-container">
-    <button class="tab-btn active" onclick="switchTab('grupos')">Ministerios</button>
-    <button class="tab-btn" onclick="switchTab('blog')">Blog & Noticias</button>
+    <button class="tab-btn active" id="tabBtnGrupos" onclick="switchTab('grupos', this)">Ministerios</button>
+    <button class="tab-btn" id="tabBtnBlog" onclick="switchTab('blog', this)">Blog & Noticias</button>
+    <button class="tab-btn" id="tabBtnEventos" onclick="switchTab('eventos', this)">Eventos</button>
   </div>
 
   <main id="grupos" class="explore-section active">
-    
-    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
-      <div class="group-icon">👥</div>
-      <div class="group-info">
-        <h4>Jóvenes Universitarios</h4>
-        <p>Sábados 6:00 PM • Salón 2</p>
+
+    <!-- Facultad de Fe y Liderazgo -->
+    <div class="facultad-hero-card" onclick="openFacultadModal()">
+      <div class="facultad-hero-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
       </div>
+      <div class="facultad-hero-info">
+        <span class="facultad-hero-tag">Formación</span>
+        <h3>Facultad de Fe y Liderazgo</h3>
+        <p>Crece en tu fe y desarrolla tu potencial de liderazgo.</p>
+      </div>
+      <button class="facultad-hero-cta" onclick="openFacultadModal(); event.stopPropagation()">
+        Inscribirme
+      </button>
     </div>
 
-    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
-      <div class="group-icon">🎸</div>
-      <div class="group-info">
-        <h4>Ministerio de Alabanza</h4>
-        <p>Ensayos martes y jueves</p>
-      </div>
-    </div>
-
-    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
-      <div class="group-icon">👧🏻</div>
-      <div class="group-info">
-        <h4>Frater Kids (Voluntariado)</h4>
-        <p>Apoyo en servicios dominicales</p>
-      </div>
-    </div>
-
-    <div class="group-card" onclick="location.href='ministerio_detalle.html'">
-      <div class="group-icon">☕</div>
-      <div class="group-info">
-        <h4>Círculo de Mujeres</h4>
-        <p>Reuniones mensuales</p>
-      </div>
+    <div id="ministeriosList">
+      <div class="group-card-skeleton"></div>
+      <div class="group-card-skeleton"></div>
     </div>
   </main>
 
+  <!-- Modal inscripción Facultad -->
+  <div class="crm-modal-overlay" id="facultadOverlay" onclick="closeFacultadModal()"></div>
+  <div class="facultad-modal" id="facultadModal">
+    <div class="facultad-modal-header">
+      <h3>Inscripción – Facultad de Fe y Liderazgo</h3>
+      <button onclick="closeFacultadModal()" style="background:none;border:none;cursor:pointer;padding:4px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="facultad-modal-body">
+      <div class="facultad-form-group">
+        <label class="facultad-label">Nombre completo</label>
+        <input type="text" id="fiNombre" class="facultad-input" placeholder="Tu nombre completo">
+      </div>
+      <div class="facultad-form-group">
+        <label class="facultad-label">Teléfono</label>
+        <input type="tel" id="fiTelefono" class="facultad-input" placeholder="+503 0000-0000">
+      </div>
+      <div class="facultad-form-group">
+        <label class="facultad-label">Correo electrónico</label>
+        <input type="email" id="fiCorreo" class="facultad-input" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="facultad-form-group">
+        <label class="facultad-label">Módulo al que te inscribes</label>
+        <select id="fiModulo" class="facultad-input">
+          <option value="">Selecciona un módulo…</option>
+          <option>Módulo 1 – Fundamentos de Fe</option>
+          <option>Módulo 2 – Vida en el Espíritu</option>
+          <option>Módulo 3 – Identidad en Cristo</option>
+          <option>Módulo 4 – Liderazgo Cristiano</option>
+          <option>Módulo 5 – Misión y Evangelismo</option>
+        </select>
+      </div>
+      <div class="facultad-form-group">
+        <label class="facultad-label">¿Has cursado módulos anteriormente?</label>
+        <div class="facultad-radio-group">
+          <label class="facultad-radio"><input type="radio" name="fiCurso" value="no" checked onchange="toggleModuloHasta(false)"> No</label>
+          <label class="facultad-radio"><input type="radio" name="fiCurso" value="si" onchange="toggleModuloHasta(true)"> Sí</label>
+        </div>
+      </div>
+      <div class="facultad-form-group" id="fiModuloHastaGroup" style="display:none;">
+        <label class="facultad-label">¿Hasta qué módulo llegaste?</label>
+        <select id="fiModuloHasta" class="facultad-input">
+          <option value="">Selecciona…</option>
+          <option>Módulo 1 – Fundamentos de Fe</option>
+          <option>Módulo 2 – Vida en el Espíritu</option>
+          <option>Módulo 3 – Identidad en Cristo</option>
+          <option>Módulo 4 – Liderazgo Cristiano</option>
+          <option>Módulo 5 – Misión y Evangelismo</option>
+        </select>
+      </div>
+      <p id="fiError" style="color:#EF4444;font-size:0.82rem;margin:0 0 8px;display:none;"></p>
+      <button class="facultad-btn-submit" id="fiBtnSubmit" onclick="submitInscripcion()">Enviar inscripción</button>
+    </div>
+  </div>
+
   <main id="blog" class="explore-section">
-    
-    <article class="blog-card" onclick="location.href='articulo_detalle.html'">
-      <div class="blog-image">Imagen del Retiro</div>
-      <div class="blog-content">
-        <span class="blog-tag">Comunidad</span>
-        <h4>Resumen del Retiro Anual</h4>
-        <p>Revive los mejores momentos de nuestro campamento de verano y escucha los testimonios.</p>
-        <button class="btn-outline">Leer artículo</button>
-      </div>
-    </article>
+    <div id="articulosList">
+      <div class="group-card-skeleton"></div>
+      <div class="group-card-skeleton"></div>
+    </div>
+  </main>
 
-    <article class="blog-card" onclick="location.href='articulo_detalle.html'">
-      <div class="blog-image">Imagen de Voluntarios</div>
-      <div class="blog-content">
-        <span class="blog-tag">Obras Sociales</span>
-        <h4>Jornada Médica en la Comunidad</h4>
-        <p>Gracias a todos los que donaron su tiempo, logramos atender a más de 150 familias este mes.</p>
-        <button class="btn-outline">Ver galería</button>
+  <main id="eventos" class="explore-section">
+    <div class="eventos-section">
+      <!-- Navegación de mes -->
+      <div class="cal-nav">
+        <button class="cal-nav-btn" onclick="cambiarMes(-1)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="cal-month-label" id="calMonthLabel"></span>
+        <button class="cal-nav-btn" onclick="cambiarMes(1)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
-    </article>
-
+      <!-- Grilla del calendario -->
+      <div class="cal-grid" id="calGrid"></div>
+      <!-- Lista de eventos -->
+      <div class="cal-eventos-list" id="calEventosList"></div>
+    </div>
   </main>
 
   <div class="content-spacer"></div>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item">
+    <a href="app.html" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       Inicio
     </a>
@@ -90,7 +140,7 @@
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
       Explora
     </a>
-    <a href="#" class="nav-item nav-fab">
+    <a href="#" class="nav-item nav-fab" onclick="toggleFabMenu(); return false;">
       <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
     </a>
     <a href="plan_detalles.html" class="nav-item">
@@ -103,27 +153,252 @@
     </a>
   </nav>
 
-  <script>
-    function switchTab(tabId) {
-      // Remover 'active' de todos los botones y secciones
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.explore-section').forEach(sec => sec.classList.remove('active'));
-      
-      // Agregar 'active' al botón clickeado (buscando el evento de forma indirecta o usando el tabId)
-      event.target.classList.add('active');
-      
-      // Mostrar la sección correspondiente
-      document.getElementById(tabId).classList.add('active');
-    }
-  </script>
+  <div class="fab-overlay" id="fabOverlay" onclick="closeFabMenu()"></div>
+  <div class="fab-sheet" id="fabSheet">
+    <div class="fab-sheet-handle"></div>
+    <p class="fab-sheet-title">Acciones rápidas</p>
+    <a href="oracion.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="fab-action-info"><h4>Solicitar oración</h4><p>Envía tu petición al equipo</p></div></a>
+    <a href="asistencia.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="fab-action-info"><h4>Registrar asistencia</h4><p>Check-in al servicio de hoy</p></div></a>
+    <a href="ofrenda.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="fab-action-info"><h4>Hacer una ofrenda</h4><p>Apoya a la iglesia</p></div></a>
+    <a href="https://lafratersv.com/invitacion.html" class="fab-action" target="_blank" rel="noopener"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><div class="fab-action-info"><h4>Invitar a La Frater</h4><p>Comparte con un amigo</p></div></a>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/auth-guard.js"></script>
+  <script src="js/fab-menu.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+    const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    const DIAS_CAL = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+    let calYear, calMonth, calEventos = [], calSelectedDay = null;
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.explore-section').forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+      if (tabId === 'eventos') initCalendario();
     }
+
+    // ── CALENDARIO ───────────────────────────────────────────
+    function initCalendario() {
+      if (calYear) { renderCalendario(); return; }
+      const hoy = new Date();
+      calYear  = hoy.getFullYear();
+      calMonth = hoy.getMonth();
+      calSelectedDay = null;
+      fetchEventosMes();
+    }
+
+    async function fetchEventosMes() {
+      const desde = `${calYear}-${String(calMonth+1).padStart(2,'0')}-01`;
+      const ultimo = new Date(calYear, calMonth+1, 0).getDate();
+      const hasta  = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${ultimo}`;
+
+      const { data } = await window.supabaseClient
+        .from('eventos')
+        .select('id, titulo, tipo, fecha, hora, lugar, imagen_url')
+        .eq('activo', true)
+        .gte('fecha', desde)
+        .lte('fecha', hasta)
+        .order('fecha', { ascending: true });
+
+      calEventos = data || [];
+      renderCalendario();
+      renderEventosList(calEventos);
+    }
+
+    function renderCalendario() {
+      document.getElementById('calMonthLabel').textContent = `${MESES[calMonth]} ${calYear}`;
+
+      const primerDia = new Date(calYear, calMonth, 1).getDay();
+      const totalDias = new Date(calYear, calMonth+1, 0).getDate();
+      const hoy = new Date();
+      const esHoy = (d) => hoy.getFullYear()===calYear && hoy.getMonth()===calMonth && hoy.getDate()===d;
+
+      const diasConEventos = new Set(calEventos.map(e => parseInt(e.fecha.split('-')[2])));
+
+      let html = DIAS_CAL.map(d => `<div class="cal-day-name">${d}</div>`).join('');
+      for (let i = 0; i < primerDia; i++) html += `<div class="cal-day empty"></div>`;
+      for (let d = 1; d <= totalDias; d++) {
+        const tieneEvento = diasConEventos.has(d);
+        const selected = calSelectedDay === d;
+        const today = esHoy(d);
+        html += `<div class="cal-day${today?' today':''}${selected?' selected':''}" onclick="seleccionarDia(${d})">
+          ${d}
+          ${tieneEvento ? `<span class="cal-dot"></span>` : ''}
+        </div>`;
+      }
+      document.getElementById('calGrid').innerHTML = html;
+    }
+
+    function seleccionarDia(d) {
+      if (calSelectedDay === d) {
+        calSelectedDay = null;
+        renderCalendario();
+        renderEventosList(calEventos);
+        return;
+      }
+      calSelectedDay = d;
+      renderCalendario();
+      const filtrados = calEventos.filter(e => parseInt(e.fecha.split('-')[2]) === d);
+      renderEventosList(filtrados);
+    }
+
+    function renderEventosList(lista) {
+      const el = document.getElementById('calEventosList');
+      if (!lista.length) {
+        el.innerHTML = `<p class="cal-empty-msg">${calSelectedDay ? 'Sin eventos este día.' : 'Sin eventos este mes.'}</p>`;
+        return;
+      }
+      el.innerHTML = lista.map(e => {
+        const fecha = new Date(e.fecha + 'T00:00:00');
+        const fechaStr = `${DIAS_CAL[fecha.getDay()]} ${fecha.getDate()} · ${e.hora || ''}`;
+        const imgHtml = e.imagen_url
+          ? `<img class="cal-event-img" src="${e.imagen_url}" alt="${e.titulo}" loading="lazy">`
+          : `<div class="cal-event-img-placeholder"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>`;
+        return `<div class="cal-event-card" onclick="location.href='evento_detalle.html?id=${e.id}'">
+          ${imgHtml}
+          <div class="cal-event-body">
+            <div class="cal-event-meta">
+              <span class="cal-event-tag">${e.tipo || 'Evento'}</span>
+              <span class="cal-event-date">${fechaStr}</span>
+            </div>
+            <p class="cal-event-title">${e.titulo}</p>
+            ${e.lugar ? `<p class="cal-event-lugar">📍 ${e.lugar}</p>` : ''}
+            <button class="cal-event-btn" onclick="event.stopPropagation(); location.href='evento_detalle.html?id=${e.id}'">Ver detalles</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function cambiarMes(delta) {
+      calMonth += delta;
+      if (calMonth < 0)  { calMonth = 11; calYear--; }
+      if (calMonth > 11) { calMonth = 0;  calYear++; }
+      calSelectedDay = null;
+      fetchEventosMes();
+    }
+
+    async function loadMinisterios() {
+      const { data } = await window.supabaseClient
+        .from('ministerios')
+        .select('id, nombre, horario, icono')
+        .eq('activo', true)
+        .neq('nombre', 'Facultad de Fe y Liderazgo')
+        .order('nombre');
+
+      const el = document.getElementById('ministeriosList');
+      if (!data?.length) { el.innerHTML = '<p style="color:var(--color-text-muted);font-size:0.9rem;">Sin ministerios disponibles.</p>'; return; }
+      el.innerHTML = data.map(m => `
+        <div class="group-card" onclick="location.href='ministerio_detalle.html?id=${m.id}'">
+          <div class="group-icon">${m.icono || ''}</div>
+          <div class="group-info">
+            <h4>${m.nombre}</h4>
+            <p>${m.horario || ''}</p>
+          </div>
+        </div>`).join('');
+    }
+
+    async function loadArticulos() {
+      const { data } = await window.supabaseClient
+        .from('articulos')
+        .select('id, titulo, resumen, categoria, imagen_emoji, created_at')
+        .eq('publicado', true)
+        .order('created_at', { ascending: false });
+
+      const el = document.getElementById('articulosList');
+      if (!data?.length) { el.innerHTML = '<p style="color:var(--color-text-muted);font-size:0.9rem;">Sin artículos publicados.</p>'; return; }
+      el.innerHTML = data.map(a => `
+        <article class="blog-card" onclick="location.href='articulo_detalle.html?id=${a.id}'">
+          <div class="blog-image">${a.imagen_emoji || ''}</div>
+          <div class="blog-content">
+            <span class="blog-tag">${a.categoria || 'Noticias'}</span>
+            <h4>${a.titulo}</h4>
+            <p>${a.resumen || ''}</p>
+            <button class="btn-outline">Leer artículo</button>
+          </div>
+        </article>`).join('');
+    }
+
+    // ── FACULTAD ─────────────────────────────────────────────
+    let _facultadUserId = null;
+    let _facultadUserEmail = null;
+
+    function openFacultadModal() {
+      document.getElementById('facultadOverlay').classList.add('active');
+      document.getElementById('facultadModal').classList.add('active');
+      if (_facultadUserEmail) document.getElementById('fiCorreo').value = _facultadUserEmail;
+    }
+    function closeFacultadModal() {
+      document.getElementById('facultadOverlay').classList.remove('active');
+      document.getElementById('facultadModal').classList.remove('active');
+    }
+    function toggleModuloHasta(show) {
+      document.getElementById('fiModuloHastaGroup').style.display = show ? 'block' : 'none';
+    }
+
+    async function submitInscripcion() {
+      const nombre   = document.getElementById('fiNombre').value.trim();
+      const telefono = document.getElementById('fiTelefono').value.trim();
+      const correo   = document.getElementById('fiCorreo').value.trim();
+      const modulo   = document.getElementById('fiModulo').value;
+      const haCursado = document.querySelector('input[name="fiCurso"]:checked').value === 'si';
+      const moduloHasta = haCursado ? document.getElementById('fiModuloHasta').value : null;
+      const errEl    = document.getElementById('fiError');
+
+      errEl.style.display = 'none';
+      if (!nombre) { errEl.textContent = 'El nombre es obligatorio.'; errEl.style.display = 'block'; return; }
+      if (!correo) { errEl.textContent = 'El correo es obligatorio.'; errEl.style.display = 'block'; return; }
+      if (!modulo) { errEl.textContent = 'Selecciona un módulo.'; errEl.style.display = 'block'; return; }
+
+      const btn = document.getElementById('fiBtnSubmit');
+      btn.disabled = true;
+      btn.textContent = 'Enviando…';
+
+      const { data: ins, error } = await window.supabaseClient
+        .from('facultad_inscripciones')
+        .insert({ nombre, telefono, correo, modulo, ha_cursado_antes: haCursado, modulo_hasta: moduloHasta, user_id: _facultadUserId })
+        .select('id').single();
+
+      if (error) {
+        errEl.textContent = 'Error al enviar. Intenta nuevamente.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Enviar inscripción';
+        return;
+      }
+
+      try {
+        await window.supabaseClient.functions.invoke('facultad-inscripcion-email', {
+          body: { inscripcion_id: ins.id },
+        });
+      } catch (_) { /* non-fatal */ }
+
+      closeFacultadModal();
+      alert('¡Inscripción enviada! Pronto nos pondremos en contacto contigo.');
+      btn.disabled = false;
+      btn.textContent = 'Enviar inscripción';
+    }
+
+    // Pre-fill user email
+    (async () => {
+      const { data: { user } } = await window.supabaseClient.auth.getUser();
+      if (user) { _facultadUserId = user.id; _facultadUserEmail = user.email; }
+    })();
+
+    loadMinisterios();
+    loadArticulos();
+
+    // Auto-activar tab por URL param: explore.html?tab=eventos
+    const tabParam = new URLSearchParams(window.location.search).get('tab');
+    if (tabParam === 'eventos') {
+      const btn = document.getElementById('tabBtnEventos');
+      switchTab('eventos', btn);
+    }
+
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
   </script>
 </body>
 </html>

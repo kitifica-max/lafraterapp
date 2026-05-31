@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Eventos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+</head>
+<body>
+<div class="crm-layout">
+
+  <aside class="crm-sidebar">
+    <div class="crm-brand"><img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater"><span class="crm-brand-badge">CRM</span></div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>  Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Eventos</h1>
+      <span class="crm-topbar-user"></span>
+    </div>
+    <div class="crm-content">
+      <div class="crm-metrics">
+        <div class="crm-metric">
+          <div class="crm-metric-label">Eventos activos</div>
+          <div class="crm-metric-value" id="metActivos">—</div>
+          <div class="crm-metric-sub">eventos publicados</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Total asistentes</div>
+          <div class="crm-metric-value" id="metAsistentes">—</div>
+          <div class="crm-metric-sub">registros activos</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Ministerios con eventos</div>
+          <div class="crm-metric-value" id="metMinisterios">—</div>
+          <div class="crm-metric-sub">ministerios organizando</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Cancelaciones</div>
+          <div class="crm-metric-value" id="metCancelaciones">—</div>
+          <div class="crm-metric-sub">"Ya no iré" registrados</div>
+        </div>
+      </div>
+      <div class="crm-card">
+        <div class="crm-card-header">
+          <span class="crm-card-title">Todos los eventos</span>
+          <button class="btn-crm btn-crm-primary" onclick="openModal()">+ Nuevo evento</button>
+        </div>
+        <div class="crm-table-wrap">
+          <table class="crm-table">
+            <thead>
+              <tr><th>Título</th><th>Fecha</th><th>Hora</th><th>Lugar</th><th>Tipo</th><th>Asistentes</th><th>Estado</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="crm-modal-overlay" id="crmModal">
+  <div class="crm-modal">
+    <div class="crm-modal-header">
+      <h3 id="modalTitle">Nuevo evento</h3>
+      <button class="crm-modal-close" onclick="closeModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <div class="crm-field-row">
+        <div class="crm-field" style="grid-column:1/-1"><label>Título *</label><input id="f-titulo" placeholder="Ej. Noche de Adoración"></div>
+      </div>
+      <div class="crm-field"><label>Descripción</label><textarea id="f-descripcion" rows="3" placeholder="Describe el evento..."></textarea></div>
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Fecha *</label><input type="date" id="f-fecha"></div>
+        <div class="crm-field"><label>Hora</label><input id="f-hora" placeholder="Ej. 6:00 PM"></div>
+      </div>
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Lugar</label><input id="f-lugar" placeholder="Ej. Auditorio Principal"></div>
+        <div class="crm-field"><label>Tipo</label>
+          <select id="f-tipo">
+            <option value="General">General</option>
+            <option value="Jóvenes">Jóvenes</option>
+            <option value="Mujeres">Mujeres</option>
+            <option value="Familia">Familia</option>
+            <option value="Niños">Niños</option>
+            <option value="Retiro">Retiro</option>
+          </select>
+        </div>
+      </div>
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Ícono (emoji)</label><input id="f-icono" placeholder="📅" maxlength="4"></div>
+        <div class="crm-field"><label>Cupos <span style="font-weight:400;color:#aaa;">(vacío = abierto)</span></label><input type="number" id="f-cupos" placeholder="Ej. 20" min="0"></div>
+      </div>
+      <div class="crm-field">
+        <label>Ministerio organizador <span style="font-weight:400;color:#aaa;">(opcional)</span></label>
+        <select id="f-ministerio">
+          <option value="">— Sin ministerio —</option>
+        </select>
+      </div>
+      <div class="crm-field">
+        <label>Arte del evento <span style="font-weight:400;color:#aaa;">(1080×1080, max 2 MB)</span></label>
+        <div id="imgPreviewWrap" style="margin-bottom:10px;display:none;">
+          <img id="imgPreview" style="width:120px;height:120px;object-fit:cover;border-radius:10px;border:1px solid #eee;">
+          <button type="button" onclick="removeImage()" style="display:block;margin-top:6px;background:none;border:none;color:#EF4444;font-size:0.8rem;cursor:pointer;">✕ Quitar imagen</button>
+        </div>
+        <label style="display:flex;align-items:center;gap:10px;padding:12px 16px;border:2px dashed #ddd;border-radius:10px;cursor:pointer;font-weight:400;color:#888;font-size:0.88rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Seleccionar imagen
+          <input type="file" id="f-imagen" accept="image/jpeg,image/png,image/webp" style="display:none;" onchange="previewImagen(this)">
+        </label>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm btn-crm-secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn-crm btn-crm-primary" id="saveBtn" onclick="saveRecord()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
+<script>
+  const sb = window.supabaseClient;
+  let records = [];
+  let currentId = null;
+
+  const DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+  async function loadMinisterios() {
+    const { data } = await sb.from('ministerios').select('id, nombre').order('nombre');
+    const sel = document.getElementById('f-ministerio');
+    (data || []).forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.id; opt.textContent = m.nombre;
+      sel.appendChild(opt);
+    });
+  }
+
+  let asistentesMap = {};
+
+  async function load() {
+    const [{ data }, { data: regs }] = await Promise.all([
+      sb.from('eventos').select('*').order('fecha', { ascending: true }),
+      sb.from('registros_evento').select('evento_id').eq('estado', 'activo')
+    ]);
+    records = data || [];
+    asistentesMap = {};
+    (regs || []).forEach(r => { asistentesMap[r.evento_id] = (asistentesMap[r.evento_id] || 0) + 1; });
+    render(records);
+  }
+
+  async function loadMetrics() {
+    const [
+      { count: activos },
+      { count: totalAsistentes },
+      { data: eventosConMin },
+      { count: totalCancelaciones }
+    ] = await Promise.all([
+      sb.from('eventos').select('id', { count: 'exact', head: true }).eq('activo', true),
+      sb.from('registros_evento').select('id', { count: 'exact', head: true }).eq('estado', 'activo'),
+      sb.from('eventos').select('ministerio_id').eq('activo', true).not('ministerio_id', 'is', null),
+      sb.from('registros_evento').select('id', { count: 'exact', head: true }).eq('estado', 'cancelado')
+    ]);
+    const minIds = new Set((eventosConMin || []).map(e => e.ministerio_id));
+    document.getElementById('metActivos').textContent = activos ?? 0;
+    document.getElementById('metAsistentes').textContent = totalAsistentes ?? 0;
+    document.getElementById('metMinisterios').textContent = minIds.size;
+    document.getElementById('metCancelaciones').textContent = totalCancelaciones ?? 0;
+  }
+
+  function render(data) {
+    const tbody = document.getElementById('tableBody');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="8"><div class="crm-empty"><div class="crm-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><p>Sin eventos. Crea el primero.</p></div></td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(e => {
+      const f = new Date(e.fecha + 'T00:00:00');
+      const fechaStr = `${DIAS[f.getDay()]} ${f.getDate()}/${f.getMonth()+1}/${f.getFullYear()}`;
+      const badge = e.activo
+        ? '<span class="badge badge-green">Activo</span>'
+        : '<span class="badge badge-gray">Inactivo</span>';
+      const count = asistentesMap[e.id] || 0;
+      return `<tr>
+        <td><strong>${e.titulo}</strong></td>
+        <td class="muted">${fechaStr}</td>
+        <td class="muted">${e.hora || '—'}</td>
+        <td class="muted truncate">${e.lugar || '—'}</td>
+        <td><span class="badge badge-blue">${e.tipo || '—'}</span></td>
+        <td class="muted">${count > 0 ? `<strong>${count}</strong>` : '—'}</td>
+        <td>${badge}</td>
+        <td><div class="crm-td-actions">
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="openModal('${e.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Editar</button>
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="toggleActivo('${e.id}', ${e.activo})">${e.activo ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Desactivar' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg> Activar'}</button>
+          <button class="btn-crm btn-crm-danger btn-crm-sm" onclick="deleteRecord('${e.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  let currentImagenUrl = null;
+
+  function previewImagen(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { alert('La imagen no puede superar 2 MB.'); input.value = ''; return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('imgPreview').src = e.target.result;
+      document.getElementById('imgPreviewWrap').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeImage() {
+    document.getElementById('f-imagen').value = '';
+    document.getElementById('imgPreviewWrap').style.display = 'none';
+    currentImagenUrl = null;
+  }
+
+  function openModal(id = null) {
+    currentId = id;
+    currentImagenUrl = null;
+    document.getElementById('f-imagen').value = '';
+    document.getElementById('imgPreviewWrap').style.display = 'none';
+    if (id) {
+      const r = records.find(r => r.id === id);
+      document.getElementById('modalTitle').textContent = 'Editar evento';
+      document.getElementById('f-titulo').value = r.titulo || '';
+      document.getElementById('f-descripcion').value = r.descripcion || '';
+      document.getElementById('f-fecha').value = r.fecha || '';
+      document.getElementById('f-hora').value = r.hora || '';
+      document.getElementById('f-lugar').value = r.lugar || '';
+      document.getElementById('f-tipo').value = r.tipo || 'General';
+      document.getElementById('f-icono').value = r.icono || '';
+      document.getElementById('f-cupos').value = r.cupos || '';
+      document.getElementById('f-ministerio').value = r.ministerio_id || '';
+      if (r.imagen_url) {
+        currentImagenUrl = r.imagen_url;
+        document.getElementById('imgPreview').src = r.imagen_url;
+        document.getElementById('imgPreviewWrap').style.display = 'block';
+      }
+    } else {
+      document.getElementById('modalTitle').textContent = 'Nuevo evento';
+      document.getElementById('f-titulo').value = '';
+      document.getElementById('f-descripcion').value = '';
+      document.getElementById('f-fecha').value = '';
+      document.getElementById('f-hora').value = '';
+      document.getElementById('f-lugar').value = '';
+      document.getElementById('f-tipo').value = 'General';
+      document.getElementById('f-icono').value = '📅';
+      document.getElementById('f-cupos').value = '';
+      document.getElementById('f-ministerio').value = '';
+    }
+    document.getElementById('crmModal').classList.add('active');
+  }
+
+  function closeModal() { document.getElementById('crmModal').classList.remove('active'); currentId = null; }
+
+  async function saveRecord() {
+    const titulo = document.getElementById('f-titulo').value.trim();
+    const fecha = document.getElementById('f-fecha').value;
+    if (!titulo || !fecha) { alert('Título y fecha son obligatorios.'); return; }
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+
+    // Upload imagen si hay nueva
+    let imagen_url = currentImagenUrl;
+    const fileInput = document.getElementById('f-imagen');
+    if (fileInput.files[0]) {
+      const file = fileInput.files[0];
+      const ext = file.name.split('.').pop();
+      const path = `${Date.now()}.${ext}`;
+      const { data: up, error: upErr } = await sb.storage.from('eventos-arte').upload(path, file, { upsert: true });
+      if (upErr) { alert('Error subiendo imagen: ' + upErr.message); btn.disabled = false; btn.textContent = 'Guardar'; return; }
+      const { data: { publicUrl } } = sb.storage.from('eventos-arte').getPublicUrl(path);
+      imagen_url = publicUrl;
+    }
+
+    const payload = {
+      titulo,
+      descripcion: document.getElementById('f-descripcion').value.trim(),
+      fecha,
+      hora: document.getElementById('f-hora').value.trim(),
+      lugar: document.getElementById('f-lugar').value.trim(),
+      tipo: document.getElementById('f-tipo').value,
+      icono: document.getElementById('f-icono').value.trim() || '📅',
+      cupos: document.getElementById('f-cupos').value.trim() || null,
+      ministerio_id: document.getElementById('f-ministerio').value || null,
+      imagen_url: imagen_url || null
+    };
+    const { error } = currentId
+      ? await sb.from('eventos').update(payload).eq('id', currentId)
+      : await sb.from('eventos').insert({ ...payload, activo: true });
+    btn.disabled = false; btn.textContent = 'Guardar';
+    if (error) { alert('Error: ' + error.message); return; }
+    closeModal(); load();
+  }
+
+  async function toggleActivo(id, current) {
+    await sb.from('eventos').update({ activo: !current }).eq('id', id);
+    load();
+  }
+
+  async function deleteRecord(id) {
+    if (!confirm('¿Eliminar este evento? Esta acción no se puede deshacer.')) return;
+    await sb.from('eventos').delete().eq('id', id);
+    load();
+  }
+
+  load();
+  loadMinisterios();
+  loadMetrics();
+</script>
+</body>
+</html>

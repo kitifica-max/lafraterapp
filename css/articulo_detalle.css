@@ -1,22 +1,78 @@
+/* ── Hero / Carousel ──────────────────────────── */
 .article-hero {
   position: relative;
-  height: 220px;
+  height: 260px;
+  overflow: hidden;
+  background: var(--color-navy);
+  flex-shrink: 0;
 }
-.article-hero-img {
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-border);
+.article-hero.hero-no-image {
+  background: linear-gradient(135deg, #0A1931, #1a3a6b);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
 }
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+.carousel-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100%;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.45);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+.carousel-dot.active {
+  background: #fff;
+  transform: scale(1.25);
+}
+
+/* Gradiente bottom */
+.article-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10,25,49,0.0) 40%, rgba(10,25,49,0.55) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.article-hero .carousel-dots { z-index: 2; }
+
+/* ── Back button ───────────────────────────────── */
 .btn-back-overlay {
   position: absolute;
   top: 50px;
   left: 16px;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(0,0,0,0.35);
   backdrop-filter: blur(4px);
   border-radius: 50%;
   width: 36px;
@@ -37,9 +93,8 @@
   stroke-linejoin: round;
 }
 
-.detail-body {
-  padding: 24px;
-}
+/* ── Body ──────────────────────────────────────── */
+.detail-body { padding: 24px; }
 
 .article-meta {
   display: flex;
@@ -54,16 +109,18 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-.article-date {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-}
+.article-date { font-size: 0.8rem; color: var(--color-text-muted); }
 
 .article-title {
   font-size: 1.5rem;
   color: var(--color-text-main);
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   line-height: 1.3;
+}
+.article-autor {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
 }
 
 .article-content p {
@@ -72,6 +129,48 @@
   line-height: 1.7;
   margin-bottom: 16px;
 }
-.article-content strong {
-  color: var(--color-text-main);
+.article-content strong { color: var(--color-text-main); }
+
+/* ── Engagement bar ────────────────────────────── */
+.article-engagement {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
 }
+.btn-like {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-like:active { transform: scale(0.95); }
+.btn-like.liked {
+  border-color: #fecaca;
+  color: #EF4444;
+  background: #fef2f2;
+}
+.article-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+.stat-item svg { flex-shrink: 0; }

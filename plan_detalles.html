@@ -5,62 +5,152 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Frater - Plan Kairos</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fab-menu.css">
   <link rel="stylesheet" href="css/plan_detalles.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
+  <style>
+    .not-subscribed {
+      margin: 28px 24px;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .not-subscribed .ns-icon {
+      width: 64px; height: 64px;
+      background: rgba(58,130,246,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .not-subscribed h3 { font-size: 1.2rem; color: var(--color-text-main); margin-bottom: 8px; }
+    .not-subscribed p { font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 20px; line-height: 1.5; }
+    .btn-join {
+      background: var(--color-blue);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .reading-item {
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+    }
+    .reading-item:hover { opacity: 0.85; }
+    .reading-arrow {
+      margin-left: auto;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+    }
+    .reading-book-badge {
+      font-size: 0.7rem;
+      background: rgba(58,130,246,0.12);
+      color: var(--color-blue);
+      border-radius: 6px;
+      padding: 2px 6px;
+      margin-left: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .reading-text-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .reading-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text-main);
+    }
+    .reading-check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      margin-right: 14px;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .reading-check.done {
+      background: var(--color-blue);
+      border-color: var(--color-blue);
+    }
+    .reading-item.completed .reading-label { text-decoration: line-through; color: var(--color-text-muted); }
+    .reading-item.completed .reading-check { background: var(--color-blue); border-color: var(--color-blue); }
+
+    .day-book-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--color-text-muted);
+      padding: 6px 0 10px;
+    }
+  </style>
 </head>
 <body>
 
   <header class="dashboard-header plan-header">
-    <h1>Plan Kairos</h1>
-    <p class="plan-header-sub">Día 112 • Semana 16</p>
+    <h1>Plan Kairós</h1>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+      <button id="btnPrev" onclick="navDay(-1)" disabled style="background:rgba(255,255,255,0.15);border:none;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <p class="plan-header-sub" id="planSubtitle" style="flex:1;text-align:center;margin:0;">Cargando...</p>
+      <button id="btnNext" onclick="navDay(1)" disabled style="background:rgba(255,255,255,0.15);border:none;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;opacity:0.4;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
   </header>
 
   <div class="progress-card">
     <div class="progress-header">
       <h3>Tu Progreso Anual</h3>
-      <span class="progress-percentage">31%</span>
+      <span class="progress-percentage" id="progressPct">0%</span>
     </div>
     <div class="progress-bar-bg">
-      <div class="progress-bar-fill"></div>
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
     </div>
-    <p>Has completado 111 días de 365. ¡Sigue así!</p>
+    <p id="progressMsg">Cargando progreso...</p>
   </div>
 
-  <div class="notification-card">
-    <div class="notification-info">
-      <h4>Recordatorio Diario</h4>
-      <p>Recibe una alerta para tu lectura</p>
+  <!-- Pantalla: no suscrito -->
+  <div id="panelNoSub" style="display:none">
+    <div class="not-subscribed">
+      <div class="ns-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <h3>Lee la Biblia en un año</h3>
+      <p>El Plan Kairós te ayuda a leer la Biblia completa adaptándose a tus hábitos reales. 10 lecturas de ~3 minutos al día.</p>
+      <a href="kairos-intro.html" class="btn-join">Conocer y suscribirse</a>
     </div>
-    <label class="switch">
-      <input type="checkbox" checked>
-      <span class="slider"></span>
-    </label>
   </div>
 
-  <main class="reading-section">
-    <h2>Lectura de hoy</h2>
-    
-    <div class="reading-item">
-      <input type="checkbox" id="lectura1">
-      <label for="lectura1">Juan 1:1-14</label>
-    </div>
-
-    <div class="reading-item">
-      <input type="checkbox" id="lectura2">
-      <label for="lectura2">Salmos 23</label>
-    </div>
-
-    <div class="reading-item">
-      <input type="checkbox" id="lectura3">
-      <label for="lectura3">Proverbios 3:1-6</label>
+  <!-- Pantalla: suscrito -->
+  <main class="reading-section" id="panelSub" style="display:none">
+    <h2 id="readingHeading">Lectura de hoy</h2>
+    <div id="readingList">
+      <p style="color:var(--color-text-muted);">Cargando lecturas...</p>
     </div>
   </main>
 
   <div class="content-spacer"></div>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item">
+    <a href="app.html" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       Inicio
     </a>
@@ -68,7 +158,7 @@
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
       Explora
     </a>
-    <a href="#" class="nav-item nav-fab">
+    <a href="#" class="nav-item nav-fab" onclick="toggleFabMenu(); return false;">
       <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
     </a>
     <a href="plan_detalles.html" class="nav-item active">
@@ -81,28 +171,146 @@
     </a>
   </nav>
 
-  <script>
-    const checkboxes = document.querySelectorAll('.reading-item input[type="checkbox"]');
-    
-    checkboxes.forEach(box => {
-      box.addEventListener('change', function() {
-        const parentDiv = this.parentElement;
-        if (this.checked) {
-          parentDiv.classList.add('completed');
-        } else {
-          parentDiv.classList.remove('completed');
-        }
-      });
-    });
-  </script>
+  <div class="fab-overlay" id="fabOverlay" onclick="closeFabMenu()"></div>
+  <div class="fab-sheet" id="fabSheet">
+    <div class="fab-sheet-handle"></div>
+    <p class="fab-sheet-title">Acciones rápidas</p>
+    <a href="oracion.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="fab-action-info"><h4>Solicitar oración</h4><p>Envía tu petición al equipo</p></div></a>
+    <a href="asistencia.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="fab-action-info"><h4>Registrar asistencia</h4><p>Check-in al servicio de hoy</p></div></a>
+    <a href="ofrenda.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="fab-action-info"><h4>Hacer una ofrenda</h4><p>Apoya a la iglesia</p></div></a>
+    <a href="https://lafratersv.com/invitacion.html" class="fab-action" target="_blank" rel="noopener"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><div class="fab-action-info"><h4>Invitar a La Frater</h4><p>Comparte con un amigo</p></div></a>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/auth-guard.js"></script>
+  <script src="js/fab-menu.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+    const sb = window.supabaseClient;
+    let userId = null;
+    let diaActual = 1;
+    let diaViendo = 1;
+    let lecturasHoy = [];
+    let progresoLeidas = [];
+
+    function getWeekOfYear(dia) { return Math.ceil(dia / 7); }
+
+    async function init() {
+      const { data: { user } } = await sb.auth.getUser();
+      userId = user?.id;
+
+      const { data: sub } = await sb.from('kairos_suscripciones')
+        .select('fecha_inicio, activo').eq('user_id', userId).maybeSingle();
+
+      if (!sub || !sub.activo) {
+        document.getElementById('panelNoSub').style.display = 'block';
+        document.getElementById('progressMsg').textContent = 'Suscríbete para empezar';
+        document.getElementById('planSubtitle').textContent = '';
+        return;
+      }
+
+      const inicio = new Date(sub.fecha_inicio + 'T00:00:00');
+      const hoy = new Date(); hoy.setHours(0,0,0,0); inicio.setHours(0,0,0,0);
+      const diffDays = Math.floor((hoy - inicio) / 86400000);
+      diaActual = Math.min(Math.max(diffDays + 1, 1), 365);
+      diaViendo = diaActual;
+
+      document.getElementById('panelSub').style.display = 'block';
+
+      // Progreso total
+      const { count: diasCompletados } = await sb.from('progreso_lectura')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', userId).eq('completado', true);
+
+      const pct = Math.round(((diasCompletados || 0) / 365) * 100);
+      document.getElementById('progressPct').textContent = pct + '%';
+      document.getElementById('progressBar').style.width = pct + '%';
+      document.getElementById('progressMsg').textContent =
+        `${diasCompletados || 0} días completados de 365`;
+
+      await loadDia(diaActual);
     }
+
+    async function navDay(delta) {
+      const nuevo = diaViendo + delta;
+      if (nuevo < 1 || nuevo > diaActual) return;
+      diaViendo = nuevo;
+      await loadDia(diaViendo);
+    }
+
+    async function loadDia(dia) {
+      const esPasado = dia < diaActual;
+      const esFuturo = dia > diaActual;
+      const label = dia === diaActual
+        ? `Día ${dia} · Semana ${getWeekOfYear(dia)} · Hoy`
+        : esPasado
+          ? `Día ${dia} · ${diaActual - dia} día${diaActual - dia > 1 ? 's' : ''} pendiente${diaActual - dia > 1 ? 's' : ''}`
+          : `Día ${dia}`;
+
+      document.getElementById('planSubtitle').textContent = label;
+      document.getElementById('readingHeading').textContent = `Lectura del Día ${dia}`;
+
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      btnPrev.disabled = dia <= 1;
+      btnPrev.style.opacity = dia <= 1 ? '0.3' : '1';
+      btnNext.disabled = dia >= diaActual;
+      btnNext.style.opacity = dia >= diaActual ? '0.3' : '1';
+
+      const { data: plan } = await sb.from('plan_lectura')
+        .select('lecturas').eq('dia', dia).single();
+      lecturasHoy = plan?.lecturas
+        ? (Array.isArray(plan.lecturas) ? plan.lecturas : JSON.parse(plan.lecturas))
+        : [];
+
+      const { data: prog } = await sb.from('progreso_lectura')
+        .select('leidas').eq('user_id', userId).eq('dia', dia).maybeSingle();
+      progresoLeidas = prog?.leidas
+        ? (Array.isArray(prog.leidas) ? prog.leidas : JSON.parse(prog.leidas))
+        : lecturasHoy.map(() => false);
+
+      renderLecturas(dia);
+    }
+
+    function getBookFromRef(ref) {
+      const parts = ref.match(/^(.+?)\s+\d/);
+      return parts ? parts[1] : '';
+    }
+
+    function renderLecturas(dia) {
+      const container = document.getElementById('readingList');
+      let lastBook = '';
+      container.innerHTML = lecturasHoy.map((texto, i) => {
+        const book = getBookFromRef(texto);
+        let bookHeader = '';
+        if (book && book !== lastBook) {
+          bookHeader = `<div class="day-book-header">${book}</div>`;
+          lastBook = book;
+        }
+        return `${bookHeader}<a href="kairos-leer.html?dia=${dia}&idx=${i}" class="reading-item ${progresoLeidas[i] ? 'completed' : ''}">
+          <div class="reading-check ${progresoLeidas[i] ? 'done' : ''}">
+            ${progresoLeidas[i] ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+          </div>
+          <div class="reading-text-wrap">
+            <span class="reading-label">${texto}</span>
+          </div>
+          <div class="reading-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </a>`;
+      }).join('');
+    }
+
+    function shareVerse() {
+      const first = lecturasHoy[0];
+      if (first && navigator.share) {
+        navigator.share({ title: 'Plan Kairós', text: `Hoy leo: ${first}`, url: location.href });
+      }
+      closeFabMenu();
+    }
+
+    init();
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
   </script>
 </body>
 </html>

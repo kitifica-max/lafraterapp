@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Frater CRM - Acceso Administrativo</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm-login.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
+</head>
+<body>
+
+  <div class="crm-wrap">
+    <div class="crm-card">
+
+      <img src="img/LogoFrater_1.png" alt="Frater" class="crm-logo">
+      <div style="text-align:center;">
+        <span class="crm-badge">Panel Administrativo</span>
+      </div>
+
+      <div class="crm-error" id="errorMsg"></div>
+      <div class="crm-success" id="successMsg"></div>
+
+      <!-- ── LOGIN ───────────────────────────────────── -->
+      <div id="viewLogin">
+        <h2>Acceso al Sistema</h2>
+        <p class="subtitle">Solo para personal autorizado de la iglesia.</p>
+
+        <form id="crmLoginForm" autocomplete="off">
+          <div class="crm-field">
+            <label>Correo electrónico</label>
+            <input type="email" id="loginEmail" placeholder="admin@fraternidad.sv" required autocomplete="username">
+          </div>
+          <div class="crm-field">
+            <label>Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn-primary" id="loginBtn" style="margin-top:8px;">Ingresar</button>
+        </form>
+
+        <hr class="crm-divider">
+        <p class="crm-switch-note">
+          ¿Registrar nuevo administrador?
+          <button class="crm-link" onclick="showView('register')">Crear cuenta</button>
+        </p>
+      </div>
+
+      <!-- ── REGISTRO ────────────────────────────────── -->
+      <div id="viewRegister" style="display:none;">
+        <h2>Crear Administrador</h2>
+        <p class="subtitle">Ingresa el código de invitación y los datos del nuevo administrador.</p>
+
+        <form id="crmRegisterForm" autocomplete="off">
+          <div class="crm-field">
+            <label>Código de invitación</label>
+            <input type="password" id="inviteCode" placeholder="Código secreto" required>
+          </div>
+          <div class="crm-field">
+            <label>Nombre completo</label>
+            <input type="text" id="regNombre" placeholder="Ej. Carlos López" required>
+          </div>
+          <div class="crm-field">
+            <label>Correo electrónico</label>
+            <input type="email" id="regEmail" placeholder="admin@fraternidad.sv" required autocomplete="username">
+          </div>
+          <div class="crm-field">
+            <label>Contraseña</label>
+            <input type="password" id="regPassword" placeholder="Mínimo 8 caracteres" required autocomplete="new-password">
+          </div>
+          <div class="crm-field">
+            <label>Confirmar contraseña</label>
+            <input type="password" id="regConfirm" placeholder="Repite la contraseña" required autocomplete="new-password">
+          </div>
+          <button type="submit" class="btn-primary" id="registerBtn" style="margin-top:8px;">Registrar administrador</button>
+        </form>
+
+        <hr class="crm-divider">
+        <p class="crm-switch-note">
+          ¿Ya tienes cuenta?
+          <button class="crm-link" onclick="showView('login')">Iniciar sesión</button>
+        </p>
+      </div>
+
+    </div>
+
+    <footer class="crm-footer">
+      <span>© 2025 Fraternidad Cristiana de El Salvador</span>
+      <span class="crm-footer-sep">·</span>
+      <span>Frater v1.0</span>
+      <span class="crm-footer-sep">·</span>
+      <a href="app.html">Ir a la app</a>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    const INVITE_CODE = 'FRATER-ADMIN-2025';
+
+    function showView(view) {
+      document.getElementById('viewLogin').style.display = view === 'login' ? 'block' : 'none';
+      document.getElementById('viewRegister').style.display = view === 'register' ? 'block' : 'none';
+      hideMessages();
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('errorMsg');
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById('successMsg').style.display = 'none';
+    }
+
+    function showSuccess(msg) {
+      const el = document.getElementById('successMsg');
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    function hideMessages() {
+      document.getElementById('errorMsg').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'none';
+    }
+
+    document.getElementById('crmLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideMessages();
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.textContent = 'Verificando...';
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        showError('Credenciales incorrectas o sin acceso administrativo.');
+        btn.disabled = false;
+        btn.textContent = 'Ingresar';
+        return;
+      }
+
+      const role = data.user?.user_metadata?.role || data.user?.app_metadata?.role;
+      if (role !== 'admin') {
+        await window.supabaseClient.auth.signOut();
+        showError('Tu cuenta no tiene permisos de administrador.');
+        btn.disabled = false;
+        btn.textContent = 'Ingresar';
+        return;
+      }
+
+      window.location.replace('crm-dashboard.html');
+    });
+
+    document.getElementById('crmRegisterForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideMessages();
+      const btn = document.getElementById('registerBtn');
+
+      const invite = document.getElementById('inviteCode').value;
+      if (invite !== INVITE_CODE) {
+        showError('Código de invitación incorrecto.');
+        return;
+      }
+
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirm').value;
+      if (password !== confirm) {
+        showError('Las contraseñas no coinciden.');
+        return;
+      }
+      if (password.length < 8) {
+        showError('La contraseña debe tener al menos 8 caracteres.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creando cuenta...';
+
+      const email = document.getElementById('regEmail').value.trim();
+      const nombre = document.getElementById('regNombre').value.trim();
+
+      const { error } = await window.supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { nombre, role: 'admin' }
+        }
+      });
+
+      btn.disabled = false;
+      btn.textContent = 'Registrar administrador';
+
+      if (error) {
+        showError('Error al crear la cuenta: ' + error.message);
+        return;
+      }
+
+      showSuccess('Cuenta creada. Revisa el correo para confirmar y luego inicia sesión.');
+      document.getElementById('crmRegisterForm').reset();
+      setTimeout(() => showView('login'), 3000);
+    });
+  </script>
+</body>
+</html>

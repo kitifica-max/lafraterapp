@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartelera de Eventos — Frater</title>
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:    #0A1931;
+      --blue:    #185ADB;
+      --gold:    #F59E0B;
+      --bg:      #F0F4FA;
+      --surface: #FFFFFF;
+      --border:  #D1DCF0;
+      --muted:   #5A6E8C;
+      --text:    #0A1931;
+      --font:    'Lexend', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .grid-area { flex: 1; }
+
+    /* ── Header ─────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      gap: 12px;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+    .header-logo {
+      width: 44px; height: 44px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .header-text { min-width: 0; }
+    .header-title {
+      font-size: 1.3rem; font-weight: 700; color: #fff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .header-sub {
+      font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .header-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.4);
+      border-radius: 999px;
+      padding: 6px 16px;
+      flex-shrink: 0;
+    }
+    .header-pill span {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .pill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    .header-clock {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 1px;
+      min-width: 80px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ── Grid ────────────────────────────────── */
+    .grid-area {
+      padding: 36px 48px 48px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── Event Card ──────────────────────────── */
+    .event-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 12px rgba(10,25,49,0.08);
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #1a3a6b, #0f2444);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .card-body {
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(24,90,219,0.1);
+      color: var(--blue);
+      border: 1px solid rgba(24,90,219,0.2);
+    }
+    .tag-date {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 16px;
+    }
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── QR Section ──────────────────────────── */
+    .qr-section {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #EEF3FB;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+    .qr-box {
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 10px;
+      padding: 6px;
+      width: 104px;
+      height: 104px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .qr-box img { width: 92px; height: 92px; display: block; }
+    .qr-label p      { font-size: 0.7rem; color: var(--muted); margin-bottom: 3px; }
+    .qr-label strong { font-size: 0.88rem; font-weight: 600; color: var(--text); display: block; margin-bottom: 4px; }
+    .qr-label small  { font-size: 0.65rem; color: var(--muted); line-height: 1.4; display: block; }
+    .gcal-icon {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      color: var(--blue);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* ── States ──────────────────────────────── */
+    .state-box {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--muted);
+    }
+    .state-box h3 { font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+
+    /* ── Footer ──────────────────────────────── */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 48px;
+      border-top: 1px solid var(--border);
+      background: var(--navy);
+      flex-shrink: 0;
+      position: sticky;
+      bottom: 0;
+    }
+    .footer img  { width: 22px; opacity: 0.6; flex-shrink: 0; }
+    .footer span { font-size: 0.78rem; color: rgba(255,255,255,0.55); text-align: center; }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — Tablet  (≤ 768px)
+    ══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .header         { padding: 14px 20px; }
+      .header-logo    { width: 34px; height: 34px; }
+      .header-title   { font-size: 1rem; }
+      .header-sub     { font-size: 0.7rem; }
+      .header-pill    { padding: 5px 12px; }
+      .header-pill span { font-size: 0.7rem; }
+      .header-clock   { font-size: 1.1rem; min-width: 56px; }
+
+      .grid-area      { padding: 20px 16px 28px; }
+      .events-grid    { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+      .footer         { padding: 12px 20px; }
+      .footer span    { font-size: 0.7rem; }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — Mobile  (≤ 480px)
+    ══════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      /* Header: comprime en dos grupos flotantes */
+      .header         { padding: 11px 14px; gap: 8px; flex-wrap: wrap; }
+      .header-left    { flex: 1; min-width: 0; }
+      .header-logo    { width: 28px; height: 28px; }
+      .header-title   { font-size: 0.88rem; }
+      .header-sub     { display: none; }           /* ocultar subtítulo */
+      .header-pill    { padding: 4px 10px; gap: 5px; }
+      .header-pill span { font-size: 0.62rem; letter-spacing: 0; }
+      .pill-dot       { width: 6px; height: 6px; }
+      .header-clock   { font-size: 0.95rem; min-width: auto; letter-spacing: 0.5px; }
+
+      /* Grid: 1 columna */
+      .grid-area      { padding: 12px 12px 20px; }
+      .events-grid    { grid-template-columns: 1fr; gap: 12px; }
+
+      /* Tarjeta */
+      .card-body      { padding: 14px; }
+      .card-title     { font-size: 0.97rem; }
+      .card-desc      { -webkit-line-clamp: 3; }
+
+      /* QR compacto */
+      .qr-section     { gap: 12px; padding: 11px 13px; border-radius: 14px; }
+      .qr-box         { width: 72px; height: 72px; padding: 4px; border-radius: 8px; }
+      .qr-box img     { width: 64px; height: 64px; }
+      .qr-label p     { font-size: 0.62rem; }
+      .qr-label strong{ font-size: 0.78rem; }
+      .qr-label small { font-size: 0.58rem; }
+      .gcal-icon      { font-size: 0.62rem; }
+
+      /* Footer */
+      .footer         { padding: 9px 14px; gap: 8px; }
+      .footer img     { width: 18px; }
+      .footer span    { font-size: 0.62rem; }
+
+      .state-box      { padding: 48px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <img src="img/LogoFrater_1.png" class="header-logo" alt="Frater" onerror="this.style.display='none'">
+      <div class="header-text">
+        <div class="header-title">Cartelera de Eventos</div>
+        <div class="header-sub">Fraternidad Cristiana de El Salvador</div>
+      </div>
+    </div>
+    <div class="header-pill">
+      <div class="pill-dot"></div>
+      <span>Próximos eventos</span>
+    </div>
+    <div class="header-clock" id="clock">--:--</div>
+  </header>
+
+  <!-- Grid -->
+  <div class="grid-area">
+    <div class="events-grid" id="eventsGrid">
+      <!-- injected by JS -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <img src="img/LogoFrater_1.png" alt="Frater">
+    <span>lafratersv.com · Escanea el código QR para ver el evento y confirmar tu asistencia en la app</span>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script>
+  const SUPABASE_URL      = 'https://dsbsizmmvvqzhmxcuhoj.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzYnNpem1tdnZxemhteGN1aG9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MjE0NzQsImV4cCI6MjA5MjQ5NzQ3NH0.UtjaGLWSmKIr609OVs1Bx_RG9eCrBxA_eB4FDLscrgk';
+
+  const DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+  // Reloj
+  function updateClock() {
+    const n = new Date();
+    document.getElementById('clock').textContent =
+      `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+  }
+  updateClock();
+  setInterval(updateClock, 5000);
+
+  async function fetchEventos() {
+    const hoy = new Date().toISOString().split('T')[0];
+    const url = `${SUPABASE_URL}/rest/v1/eventos?activo=eq.true&fecha=gte.${hoy}&order=fecha.asc&select=id,titulo,descripcion,fecha,hora,lugar,tipo,icono,imagen_url,cupos`;
+    const res = await fetch(url, {
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  }
+
+  function buildAppUrl(e) {
+    return `https://lafratersv.com/evento_detalle.html?id=${e.id}`;
+  }
+
+  function formatFecha(e) {
+    const f = new Date(e.fecha+'T00:00:00');
+    const hora = e.hora ? ` · ${e.hora}` : '';
+    return `${DIAS[f.getDay()]} ${f.getDate()} de ${MESES[f.getMonth()]}${hora}`;
+  }
+
+  async function load() {
+    const grid = document.getElementById('eventsGrid');
+    let eventos;
+    try {
+      eventos = await fetchEventos();
+    } catch (err) {
+      grid.innerHTML = `<div class="state-box"><h3>Error al cargar</h3><p>${err.message}</p></div>`;
+      return;
+    }
+
+    if (!eventos?.length) {
+      grid.innerHTML = `<div class="state-box"><h3>Sin eventos próximos</h3><p>Pronto anunciaremos nuevas actividades.</p></div>`;
+      return;
+    }
+
+    grid.innerHTML = eventos.map((e, i) => {
+      const imgHtml = e.imagen_url
+        ? `<img class="card-img" src="${e.imagen_url}" alt="${e.titulo}" loading="lazy">`
+        : `<div class="card-img-placeholder"><span>${e.icono || '📅'}</span></div>`;
+
+      return `
+        <div class="event-card">
+          ${imgHtml}
+          <div class="card-body">
+            <div class="card-meta">
+              <span class="tag">${e.tipo || 'Evento'}</span>
+              <span class="tag-date">${formatFecha(e)}</span>
+            </div>
+            <h2 class="card-title">${e.titulo}</h2>
+            ${e.descripcion ? `<p class="card-desc">${e.descripcion}</p>` : ''}
+            <div class="card-info">
+              ${e.lugar ? `<div class="info-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${e.lugar}
+              </div>` : ''}
+              ${e.cupos ? `<div class="info-row">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#185ADB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                Cupos: ${e.cupos}
+              </div>` : ''}
+            </div>
+            <div class="qr-section">
+              <div class="qr-box" id="qr-${i}"></div>
+              <div class="qr-label">
+                <p>Escanea para abrir en</p>
+                <strong>La App Frater</strong>
+                <small>Confirma tu asistencia y<br>guarda en Google Calendar</small>
+                <div class="gcal-icon">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  Confirmar asistencia
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+
+    // Generar QR codes
+    eventos.forEach((e, i) => {
+      QRCode.toDataURL(buildAppUrl(e), {
+        width: 92, margin: 1,
+        color: { dark: '#0A1931', light: '#ffffff' },
+        errorCorrectionLevel: 'M',
+      }).then(url => {
+        const img = document.createElement('img');
+        img.src = url; img.width = 92; img.height = 92;
+        document.getElementById(`qr-${i}`).appendChild(img);
+      });
+    });
+  }
+
+  load();
+  setInterval(load, 5 * 60 * 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+.settings-section-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin: 28px 0 8px;
+  padding: 0 4px;
+}
+
+/* FAQ */
+.faq-group {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  font-weight: 500;
+  user-select: none;
+}
+.faq-arrow {
+  font-size: 1.4rem;
+  color: var(--color-text-muted);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+.faq-item.open .faq-arrow {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  display: none;
+  padding: 0 16px 16px;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+/* Contact */
+.contact-group {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+}
+.contact-row:last-child {
+  border-bottom: none;
+}
+.contact-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.contact-info {
+  flex: 1;
+}
+.contact-info h4 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-main);
+  margin-bottom: 2px;
+}
+.contact-info p {
+  font-size: 0.82rem;
+  color: var(--color-blue);
+}
+.row-arrow {
+  font-size: 1.4rem;
+  color: var(--color-text-muted);
+}
+
+/* About */
+.about-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+}
+.about-row:last-child {
+  border-bottom: none;
+}
+.about-val {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+}

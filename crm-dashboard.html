@@ -3,810 +3,175 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frater CRM — Administración</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:         #0A1931;
-      --bg2:        #0F2240;
-      --bg3:        #162E54;
-      --accent:     #F5A623;
-      --accent2:    #E8943A;
-      --text:       #FFFFFF;
-      --text-muted: #8FAECF;
-      --border:     #1E3A5F;
-      --danger:     #E74C3C;
-      --success:    #2ECC71;
-      --radius:     12px;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    /* ── TOPBAR ── */
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 24px;
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .topbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .topbar-brand img {
-      height: 36px;
-    }
-    .topbar-brand .crm-label {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-    .topbar-user {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--bg);
-    }
-    .user-info { text-align: right; }
-    .user-name { font-size: 14px; font-weight: 600; }
-    .user-rol  { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
-    .btn-logout {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      transition: all .2s;
-    }
-    .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
-
-    /* ── MAIN LAYOUT ── */
-    .main-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 24px;
-    }
-
-    /* ── PAGE HEADER ── */
-    .page-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .page-title { font-size: 24px; font-weight: 700; }
-    .page-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      padding: 12px 22px;
-      border-radius: var(--radius);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: background .2s, transform .1s;
-    }
-    .btn-primary:hover  { background: var(--accent2); }
-    .btn-primary:active { transform: scale(.97); }
-
-    /* ── STATS ROW ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-    .stat-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-    }
-    .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-    .stat-value { font-size: 28px; font-weight: 700; margin-top: 6px; }
-    .stat-value.accent { color: var(--accent); }
-
-    /* ── SEARCH BAR ── */
-    .search-bar {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 12px 16px 12px 44px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .search-bar input:focus { border-color: var(--accent); }
-    .search-bar input::placeholder { color: var(--text-muted); }
-    .search-bar .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 18px;
-    }
-
-    /* ── TABLE ── */
-    .table-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .table-scroll { overflow-x: auto; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    thead { background: var(--bg3); }
-    th {
-      padding: 12px 16px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-    td {
-      padding: 14px 16px;
-      border-top: 1px solid var(--border);
-      vertical-align: middle;
-    }
-    tr:hover td { background: rgba(255,255,255,.03); }
-    .member-name { font-weight: 600; }
-    .member-email { color: var(--text-muted); font-size: 12px; }
-
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-    .badge-super_admin { background: rgba(245,166,35,.2); color: var(--accent); }
-    .badge-admin       { background: rgba(46,204,113,.2); color: #2ECC71; }
-    .badge-lider       { background: rgba(52,152,219,.2); color: #3498DB; }
-    .badge-miembro     { background: rgba(143,174,207,.15); color: var(--text-muted); }
-
-    .status-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
-    .status-dot.active   { background: var(--success); }
-    .status-dot.inactive { background: var(--text-muted); }
-
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-muted);
-    }
-    .empty-state p { margin-top: 10px; font-size: 14px; }
-
-    /* ── MODAL OVERLAY ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.65);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      padding: 20px;
-    }
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 480px;
-      padding: 32px;
-      animation: slideUp .25s ease;
-    }
-    @keyframes slideUp {
-      from { opacity:0; transform: translateY(20px); }
-      to   { opacity:1; transform: translateY(0); }
-    }
-
-    .modal-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .modal-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
-
-    .form-group { margin-bottom: 18px; }
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px 14px;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .form-group input:focus,
-    .form-group select:focus  { border-color: var(--accent); }
-    .form-group select option  { background: var(--bg3); }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-    }
-    .btn-cancel {
-      flex: 1;
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 12px;
-      border-radius: var(--radius);
-      font-size: 14px;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .btn-cancel:hover { border-color: var(--text-muted); color: var(--text); }
-    .btn-submit {
-      flex: 2;
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      padding: 12px;
-      border-radius: var(--radius);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .2s;
-      position: relative;
-    }
-    .btn-submit:hover    { background: var(--accent2); }
-    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
-    .btn-submit .spinner-inline {
-      display: none;
-      width: 16px; height: 16px;
-      border: 2px solid rgba(10,25,49,.3);
-      border-top-color: var(--bg);
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-      margin: 0 auto;
-    }
-    .btn-submit.loading .spinner-inline { display: block; }
-    .btn-submit.loading .btn-text      { display: none; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── SUCCESS MODAL ── */
-    .success-modal .success-icon-big {
-      font-size: 52px;
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .success-modal .modal-title { text-align: center; }
-    .success-modal .modal-subtitle { text-align: center; }
-
-    .code-box {
-      background: var(--bg3);
-      border: 2px dashed var(--accent);
-      border-radius: var(--radius);
-      padding: 20px;
-      text-align: center;
-      margin: 20px 0;
-    }
-    .code-box .code-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-    .code-value {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: 8px;
-      color: var(--accent);
-      font-family: 'Courier New', monospace;
-    }
-    .code-warning {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 8px;
-    }
-    .btn-copy {
-      width: 100%;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 11px;
-      border-radius: var(--radius);
-      font-size: 13px;
-      cursor: pointer;
-      transition: all .2s;
-      margin-bottom: 10px;
-    }
-    .btn-copy:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* ── LOADING SCREEN ── */
-    #loadingScreen {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    .spinner-large {
-      width: 48px; height: 48px;
-      border: 4px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin .8s linear infinite;
-      margin-bottom: 16px;
-    }
-    #loadingScreen p { color: var(--text-muted); font-size: 14px; }
-
-    /* ── TOAST ── */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 20px;
-      border-radius: 50px;
-      font-size: 14px;
-      z-index: 9998;
-      transition: transform .3s ease;
-      white-space: nowrap;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-    .toast.error { border-color: var(--danger); color: var(--danger); }
-
-    @media (max-width: 600px) {
-      .form-row { grid-template-columns: 1fr; }
-      .topbar { padding: 12px 16px; }
-      .main-content { padding: 20px 16px; }
-      .code-value { font-size: 26px; letter-spacing: 5px; }
-    }
-  </style>
+  <title>Frater CRM — Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
 </head>
 <body>
+<div class="crm-layout">
 
-<!-- Loading Screen -->
-<div id="loadingScreen">
-  <div class="spinner-large"></div>
-  <p>Verificando acceso...</p>
-</div>
-
-<!-- Toast notifications -->
-<div class="toast" id="toast"></div>
-
-<!-- TOP BAR -->
-<nav class="topbar" id="topbar" style="display:none;">
-  <div class="topbar-brand">
-    <img src="img/LogoFrater_1.png" alt="Frater" onerror="this.style.display='none'">
-    <span class="crm-label">CRM</span>
-  </div>
-  <div class="topbar-user">
-    <div class="user-info">
-      <div class="user-name" id="adminName">—</div>
-      <div class="user-rol"  id="adminRol">—</div>
+  <!-- SIDEBAR -->
+  <aside class="crm-sidebar">
+    <div class="crm-brand">
+      <img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater">
+      <span class="crm-brand-badge">CRM</span>
     </div>
-    <div class="avatar" id="adminAvatar">?</div>
-    <button class="btn-logout" onclick="logout()">Salir</button>
-  </div>
-</nav>
-
-<!-- MAIN CONTENT -->
-<div class="main-content" id="mainContent" style="display:none;">
-
-  <div class="page-header">
-    <div>
-      <div class="page-title">Gestión de Miembros</div>
-      <div class="page-subtitle">Administra los miembros de Fraternidad Cristiana</div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>  Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item" data-only-admin><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
     </div>
-    <button class="btn-primary" onclick="openAddModal()">
-      <span>+</span> Agregar Miembro
-    </button>
-  </div>
+  </aside>
 
-  <!-- Stats -->
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-label">Total Miembros</div>
-      <div class="stat-value accent" id="statTotal">—</div>
+  <!-- MAIN -->
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Dashboard</h1>
+      <span class="crm-topbar-user"></span>
     </div>
-    <div class="stat-card">
-      <div class="stat-label">Activos</div>
-      <div class="stat-value" id="statActivos">—</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Líderes</div>
-      <div class="stat-value" id="statLideres">—</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Admins</div>
-      <div class="stat-value" id="statAdmins">—</div>
-    </div>
-  </div>
+    <div class="crm-content">
 
-  <!-- Search -->
-  <div class="search-bar">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="Buscar por nombre o correo..." oninput="filterTable()">
-  </div>
-
-  <!-- Members Table -->
-  <div class="table-card">
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>Miembro</th>
-            <th>Rol</th>
-            <th>Ministerio</th>
-            <th>Ingreso</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody id="membersTable">
-          <tr>
-            <td colspan="5">
-              <div class="empty-state">
-                <div class="spinner-large" style="margin:0 auto;"></div>
-                <p>Cargando miembros...</p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- ── MODAL: AGREGAR MIEMBRO ── -->
-<div class="modal-overlay" id="addModal">
-  <div class="modal">
-    <div class="modal-title">Nuevo Miembro</div>
-    <div class="modal-subtitle">Completa los datos para crear la cuenta de acceso.</div>
-
-    <form id="addMemberForm" onsubmit="submitNewMember(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Nombre *</label>
-          <input type="text" id="f_nombre" placeholder="Juan Pérez" required autocomplete="off">
+      <!-- Métricas -->
+      <div class="crm-metrics">
+        <div class="crm-metric">
+          <div class="crm-metric-label">Miembros registrados</div>
+          <div class="crm-metric-value" id="metUsers">—</div>
+          <div class="crm-metric-sub">Cuentas en la app</div>
         </div>
-        <div class="form-group">
-          <label>Correo *</label>
-          <input type="email" id="f_email" placeholder="juan@email.com" required autocomplete="off">
+        <div class="crm-metric">
+          <div class="crm-metric-label">Eventos activos</div>
+          <div class="crm-metric-value" id="metEventos">—</div>
+          <div class="crm-metric-sub">Próximos programados</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Ministerios activos</div>
+          <div class="crm-metric-value" id="metMinisterios">—</div>
+          <div class="crm-metric-sub" id="metMinisteriosSub">Total ministerios</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Último domingo</div>
+          <div class="crm-metric-value" id="metUltimoDom">—</div>
+          <div class="crm-metric-sub" id="metUltimoDomFecha">Asistencia dominical</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Peticiones de oración</div>
+          <div class="crm-metric-value" id="metOraciones">—</div>
+          <div class="crm-metric-sub">Total recibidas</div>
+        </div>
+        <div class="crm-metric">
+          <div class="crm-metric-label">Comprobantes pendientes</div>
+          <div class="crm-metric-value" id="metComprobantes">—</div>
+          <div class="crm-metric-sub">Ofrendas por revisar</div>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>Rol</label>
-          <select id="f_rol">
-            <option value="miembro">Miembro</option>
-            <option value="lider">Líder</option>
-            <option value="Admin">Admin</option>
-            <option value="Super_Admin">Super Admin</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Teléfono</label>
-          <input type="tel" id="f_telefono" placeholder="+503 1234-5678" autocomplete="off">
+      <!-- Accesos rápidos -->
+      <p class="crm-section-title">Gestión de contenido</p>
+      <div class="crm-quick-grid" style="margin-bottom:28px;">
+        <a href="crm-eventos.html" class="crm-quick-card">
+          <div class="crm-quick-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="crm-quick-info"><h4>Eventos</h4><p>Crear y gestionar eventos</p></div>
+        </a>
+        <a href="crm-ministerios.html" class="crm-quick-card">
+          <div class="crm-quick-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="crm-quick-info"><h4>Ministerios</h4><p>Grupos y ministerios</p></div>
+        </a>
+        <a href="crm-articulos.html" class="crm-quick-card">
+          <div class="crm-quick-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg></div>
+          <div class="crm-quick-info"><h4>Artículos</h4><p>Blog y noticias</p></div>
+        </a>
+        <a href="crm-plan.html" class="crm-quick-card" data-only-admin>
+          <div class="crm-quick-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="crm-quick-info"><h4>Plan de Lectura</h4><p>Lecturas diarias</p></div>
+        </a>
+      </div>
+
+      <!-- Peticiones recientes -->
+      <p class="crm-section-title">Últimas peticiones de oración</p>
+      <div class="crm-card">
+        <div class="crm-table-wrap">
+          <table class="crm-table">
+            <thead><tr><th>Nombre</th><th>Categoría</th><th>Petición</th><th>Fecha</th></tr></thead>
+            <tbody id="oracionesRecientes"><tr><td colspan="4" class="muted" style="text-align:center;padding:20px;">Cargando...</td></tr></tbody>
+          </table>
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Ministerio</label>
-        <select id="f_ministerio">
-          <option value="">Sin asignar</option>
-          <option value="Jóvenes Universitarios">Jóvenes Universitarios</option>
-          <option value="Ministerio de Alabanza">Ministerio de Alabanza</option>
-          <option value="Frater Kids">Frater Kids Voluntariado</option>
-          <option value="Círculo de Mujeres">Círculo de Mujeres</option>
-        </select>
-      </div>
-
-      <div class="modal-actions">
-        <button type="button" class="btn-cancel" onclick="closeAddModal()">Cancelar</button>
-        <button type="submit" class="btn-submit" id="submitBtn">
-          <span class="btn-text">Crear Miembro</span>
-          <div class="spinner-inline"></div>
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 
-<!-- ── MODAL: CÓDIGO DE ACCESO ── -->
-<div class="modal-overlay" id="successModal">
-  <div class="modal success-modal">
-    <div class="success-icon-big">✅</div>
-    <div class="modal-title">¡Miembro Creado!</div>
-    <div class="modal-subtitle">
-      Comparte este código de acceso con <strong id="s_nombre"></strong>.<br>
-      Solo se mostrará una vez.
-    </div>
-
-    <div class="code-box">
-      <div class="code-label">Código de Acceso</div>
-      <div class="code-value" id="s_codigo">——</div>
-    </div>
-    <p class="code-warning">⚠️ El usuario deberá ingresar su correo y este código para acceder a la app.</p>
-
-    <button class="btn-copy" onclick="copyCode()">📋 Copiar código</button>
-    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="closeSuccessModal()">
-      Listo
-    </button>
-  </div>
-</div>
-
-
-<!-- ── SCRIPTS ── -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
 <script>
-  let allMembers = [];
-  let currentCode = '';
+  const sb = window.supabaseClient;
 
-  // ── INIT: verificar sesión y rol ──
-  (async () => {
-    const { data: { session } } = await window.supabaseClient.auth.getSession();
+  async function loadStats() {
+    const [users, eventos, ministerios, oraciones, comprobantes, ultimoDom] = await Promise.all([
+      sb.from('profiles').select('*', { count: 'exact', head: true }),
+      sb.from('eventos').select('*', { count: 'exact', head: true }).eq('activo', true),
+      sb.from('ministerios').select('*', { count: 'exact', head: true }).eq('activo', true),
+      sb.from('peticiones_oracion').select('*', { count: 'exact', head: true }),
+      sb.from('comprobantes_ofrenda').select('*', { count: 'exact', head: true }).eq('estado', 'pendiente'),
+      sb.from('asistencia_dominical').select('fecha, total').order('fecha', { ascending: false }).limit(1)
+    ]);
+    document.getElementById('metUsers').textContent       = users.count ?? '—';
+    document.getElementById('metEventos').textContent     = eventos.count ?? '—';
+    document.getElementById('metMinisterios').textContent = ministerios.count ?? '—';
+    document.getElementById('metOraciones').textContent   = oraciones.count ?? '—';
+    document.getElementById('metComprobantes').textContent = comprobantes.count ?? '—';
 
-    if (!session) {
-      window.location.replace('/login.html');
-      return;
+    if (ultimoDom.data?.length) {
+      const d = ultimoDom.data[0];
+      document.getElementById('metUltimoDom').textContent = d.total ?? '—';
+      const [y, m, dd] = (d.fecha || '').split('-');
+      document.getElementById('metUltimoDomFecha').textContent = d.fecha ? `${dd}/${m}/${y}` : 'Sin registros';
+    } else {
+      document.getElementById('metUltimoDom').textContent = '—';
+      document.getElementById('metUltimoDomFecha').textContent = 'Sin registros aún';
     }
-
-    const { data: profile, error } = await window.supabaseClient
-      .from('miembros')
-      .select('nombre, rol')
-      .eq('id', session.user.id)
-      .single();
-
-    if (error || !profile || !['Super_Admin', 'Admin'].includes(profile.rol)) {
-      await window.supabaseClient.auth.signOut();
-      window.location.replace('/login.html');
-      return;
-    }
-
-    // Mostrar info del admin
-    document.getElementById('adminName').textContent   = profile.nombre;
-    document.getElementById('adminRol').textContent    = profile.rol;
-    document.getElementById('adminAvatar').textContent = profile.nombre.charAt(0).toUpperCase();
-
-    document.getElementById('loadingScreen').style.display = 'none';
-    document.getElementById('topbar').style.display       = 'flex';
-    document.getElementById('mainContent').style.display  = 'block';
-
-    await loadMembers();
-  })();
-
-  // ── CARGAR MIEMBROS ──
-  async function loadMembers() {
-    const { data, error } = await window.supabaseClient
-      .from('miembros')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) { showToast('Error al cargar miembros: ' + error.message, true); return; }
-
-    allMembers = data || [];
-    renderStats(allMembers);
-    renderTable(allMembers);
   }
 
-  function renderStats(members) {
-    document.getElementById('statTotal').textContent   = members.length;
-    document.getElementById('statActivos').textContent = members.filter(m => m.activo).length;
-    document.getElementById('statLideres').textContent = members.filter(m => m.rol === 'lider').length;
-    document.getElementById('statAdmins').textContent  = members.filter(m => ['Admin','Super_Admin'].includes(m.rol)).length;
+  async function loadOraciones() {
+    const { data } = await sb.from('peticiones_oracion')
+      .select('nombre, categoria, peticion, created_at')
+      .order('created_at', { ascending: false })
+      .limit(5);
+    const tbody = document.getElementById('oracionesRecientes');
+    if (!data?.length) { tbody.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center;padding:20px;">Sin peticiones aún.</td></tr>'; return; }
+    tbody.innerHTML = data.map(r => {
+      const f = new Date(r.created_at);
+      const fecha = `${f.getDate()}/${f.getMonth()+1}/${f.getFullYear()}`;
+      return `<tr>
+        <td>${r.nombre || 'Anónimo'}</td>
+        <td><span class="badge badge-blue">${r.categoria || '—'}</span></td>
+        <td class="truncate">${r.peticion}</td>
+        <td class="muted">${fecha}</td>
+      </tr>`;
+    }).join('');
   }
 
-  function renderTable(members) {
-    const tbody = document.getElementById('membersTable');
-    if (!members.length) {
-      tbody.innerHTML = `<tr><td colspan="5">
-        <div class="empty-state">
-          <div style="font-size:40px;">👥</div>
-          <p>No hay miembros registrados aún.</p>
-        </div></td></tr>`;
-      return;
-    }
-    tbody.innerHTML = members.map(m => `
-      <tr>
-        <td>
-          <div class="member-name">${escHtml(m.nombre)}</div>
-          <div class="member-email">${escHtml(m.email)}</div>
-        </td>
-        <td><span class="badge badge-${m.rol.toLowerCase()}">${m.rol}</span></td>
-        <td>${m.ministerio ? escHtml(m.ministerio) : '<span style="color:var(--text-muted)">—</span>'}</td>
-        <td style="color:var(--text-muted);font-size:13px;">
-          ${m.fecha_ingreso ? new Date(m.fecha_ingreso).toLocaleDateString('es-SV') : '—'}
-        </td>
-        <td>
-          <span class="status-dot ${m.activo ? 'active' : 'inactive'}"></span>
-          ${m.activo ? 'Activo' : 'Inactivo'}
-        </td>
-      </tr>`).join('');
-  }
-
-  // ── FILTRO BÚSQUEDA ──
-  function filterTable() {
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    const filtered = allMembers.filter(m =>
-      m.nombre.toLowerCase().includes(q) || m.email.toLowerCase().includes(q)
-    );
-    renderTable(filtered);
-  }
-
-  // ── MODAL AGREGAR ──
-  function openAddModal() {
-    document.getElementById('addMemberForm').reset();
-    document.getElementById('addModal').classList.add('open');
-  }
-  function closeAddModal() {
-    document.getElementById('addModal').classList.remove('open');
-  }
-
-  // ── SUBMIT NUEVO MIEMBRO ──
-  async function submitNewMember(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.classList.add('loading');
-    btn.disabled = true;
-
-    const payload = {
-      nombre:     document.getElementById('f_nombre').value.trim(),
-      email:      document.getElementById('f_email').value.trim(),
-      rol:        document.getElementById('f_rol').value,
-      telefono:   document.getElementById('f_telefono').value.trim() || null,
-      ministerio: document.getElementById('f_ministerio').value || null,
-    };
-
-    const { data, error } = await window.supabaseClient.rpc('crear_miembro', {
-      p_nombre:     payload.nombre,
-      p_email:      payload.email,
-      p_rol:        payload.rol,
-      p_telefono:   payload.telefono,
-      p_ministerio: payload.ministerio,
-    });
-
-    btn.classList.remove('loading');
-    btn.disabled = false;
-
-    if (error || (data && data.error)) {
-      showToast('Error: ' + (data?.error || error.message), true);
-      return;
-    }
-
-    closeAddModal();
-    currentCode = data.codigo_acceso;
-    document.getElementById('s_nombre').textContent = data.nombre;
-    document.getElementById('s_codigo').textContent = data.codigo_acceso;
-    document.getElementById('successModal').classList.add('open');
-
-    // Recargar la tabla
-    await loadMembers();
-  }
-
-  // ── MODAL ÉXITO ──
-  function closeSuccessModal() {
-    document.getElementById('successModal').classList.remove('open');
-    currentCode = '';
-  }
-
-  function copyCode() {
-    navigator.clipboard.writeText(currentCode).then(() => {
-      showToast('✅ Código copiado al portapapeles');
-    }).catch(() => {
-      showToast('Código: ' + currentCode);
-    });
-  }
-
-  // ── LOGOUT ──
-  async function logout() {
-    await window.supabaseClient.auth.signOut();
-    window.location.replace('/login.html');
-  }
-
-  // ── CERRAR MODALES CON ESCAPE ──
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      closeAddModal();
-      // No cierra successModal con ESC para forzar que guarden el código
-    }
-  });
-
-  // ── CERRAR MODAL AL CLICK FUERA ──
-  document.getElementById('addModal').addEventListener('click', function(e) {
-    if (e.target === this) closeAddModal();
-  });
-
-  // ── TOAST ──
-  let toastTimer;
-  function showToast(msg, isError = false) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast show' + (isError ? ' error' : '');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3500);
-  }
-
-  // ── ESCAPE HTML ──
-  function escHtml(str) {
-    return String(str)
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;');
-  }
+  loadStats();
+  loadOraciones();
 </script>
 </body>
 </html>

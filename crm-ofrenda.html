@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Ofrenda</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <style>
+    /* Access gate overlay */
+    #accessGate {
+      position:fixed;inset:0;z-index:9999;
+      background:rgba(10,25,49,0.97);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .gate-box {
+      background:#fff;border-radius:16px;padding:36px 32px;max-width:380px;width:90%;text-align:center;
+    }
+    .gate-icon { font-size:2.2rem; margin-bottom:12px; }
+    .gate-title { font-size:1.15rem;font-weight:700;color:#0A1931;margin-bottom:6px; }
+    .gate-sub { font-size:0.85rem;color:#64748b;margin-bottom:24px;line-height:1.5; }
+    .gate-input {
+      width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;
+      font-size:1rem;font-family:monospace;letter-spacing:0.12em;text-align:center;
+      margin-bottom:12px;outline:none;box-sizing:border-box;
+    }
+    .gate-input:focus { border-color:#0A1931; }
+    .gate-btn {
+      width:100%;padding:13px;background:#0A1931;color:#fff;border:none;
+      border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;
+    }
+    .gate-btn:hover { background:#163563; }
+    .gate-error { color:#dc2626;font-size:0.82rem;margin-bottom:10px;display:none; }
+    /* Colectas */
+    .colecta-totales {
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px;
+    }
+    .colecta-stat {
+      background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;
+    }
+    .colecta-stat-label { font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px; }
+    .colecta-stat-val { font-size:1.4rem;font-weight:800;color:#0A1931; }
+  </style>
+</head>
+<body>
+
+<!-- ── ACCESS GATE ───────────────────────────────────────────── -->
+<div id="accessGate">
+  <div class="gate-box">
+    <div class="gate-icon">🔐</div>
+    <h2 class="gate-title">Área de Contabilidad</h2>
+    <p class="gate-sub">Esta sección es exclusiva para personal autorizado de La Frater. Ingresa el código de acceso.</p>
+    <input type="password" id="gateInput" class="gate-input" placeholder="XXXX-XXXX-XXXX"
+      onkeydown="if(event.key==='Enter') verificarCodigo()">
+    <p class="gate-error" id="gateError">Código incorrecto. Contacta al administrador.</p>
+    <button class="gate-btn" onclick="verificarCodigo()">Acceder</button>
+    <a href="crm-dashboard.html" style="display:block;margin-top:14px;font-size:0.83rem;color:#64748b;text-decoration:none;">← Regresar al Dashboard</a>
+  </div>
+</div>
+
+<div class="crm-layout" id="crmLayout" style="display:none;">
+
+  <aside class="crm-sidebar">
+    <div class="crm-brand"><img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater"><span class="crm-brand-badge">CRM</span></div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Ofrenda</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Ofrenda</h1>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="crm-topbar-user"></span>
+        <button onclick="cerrarSesionContabilidad()" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:#fee2e2;color:#991b1b;border:none;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="11" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Bloquear
+        </button>
+      </div>
+    </div>
+    <div class="crm-content">
+
+      <div class="crm-tabs">
+        <button class="crm-tab active" onclick="switchTab('comprobantes', this)">Comprobantes</button>
+        <button class="crm-tab" onclick="switchTab('colectas', this)">Colectas Efectivo</button>
+        <button class="crm-tab" onclick="switchTab('tipos', this)">Tipos</button>
+        <button class="crm-tab" onclick="switchTab('cuentas', this)">Cuentas bancarias</button>
+      </div>
+
+      <!-- TAB: COMPROBANTES -->
+      <div class="tab-pane active" id="tab-comprobantes">
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <span class="crm-card-title">Comprobantes recibidos</span>
+            <select id="filtroEstado" onchange="cargarComprobantes()" class="crm-input" style="width:auto;">
+              <option value="">Todos</option>
+              <option value="pendiente">Pendientes</option>
+              <option value="verificado">Verificados</option>
+              <option value="rechazado">Rechazados</option>
+            </select>
+          </div>
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead><tr><th>Fecha</th><th>Tipo</th><th>Banco</th><th>Monto</th><th>Referencia</th><th>Miembro / DUI</th><th>Estado</th><th>Acción</th></tr></thead>
+              <tbody id="tbComprobantes"><tr><td colspan="8" class="muted" style="text-align:center;padding:24px;">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: COLECTAS EFECTIVO -->
+      <div class="tab-pane" id="tab-colectas">
+        <div class="colecta-totales" id="colectaTotales"></div>
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <span class="crm-card-title">Colectas en efectivo</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input type="month" id="filtroMes" class="crm-input" style="width:auto;" onchange="cargarColectas()">
+              <button class="btn-crm btn-crm-primary" onclick="openModal('colecta')">+ Registrar colecta</button>
+            </div>
+          </div>
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead><tr><th>Fecha servicio</th><th>Tipo</th><th>Monto</th><th>Contado por</th><th>Notas</th><th>Registrado</th><th>Acciones</th></tr></thead>
+              <tbody id="tbColectas"><tr><td colspan="7" class="muted" style="text-align:center;padding:24px;">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: TIPOS -->
+      <div class="tab-pane" id="tab-tipos">
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <span class="crm-card-title">Tipos de ofrenda</span>
+            <button class="btn-crm btn-crm-primary" onclick="openModal('tipo')">+ Nuevo tipo</button>
+          </div>
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead><tr><th>Ícono</th><th>Nombre</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <tbody id="tbTipos"><tr><td colspan="4" class="muted" style="text-align:center;padding:24px;">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: CUENTAS -->
+      <div class="tab-pane" id="tab-cuentas">
+        <div class="crm-card">
+          <div class="crm-card-header">
+            <span class="crm-card-title">Cuentas bancarias</span>
+            <button class="btn-crm btn-crm-primary" onclick="openModal('cuenta')">+ Nueva cuenta</button>
+          </div>
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead><tr><th>Banco</th><th>Número</th><th>Titular</th><th>Tipo</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <tbody id="tbCuentas"><tr><td colspan="6" class="muted" style="text-align:center;padding:24px;">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal tipo -->
+<div class="crm-modal-overlay" id="modalTipo">
+  <div class="crm-modal">
+    <div class="crm-modal-header">
+      <h3 id="titleTipo">Nuevo tipo</h3>
+      <button class="crm-modal-close" onclick="closeModal('tipo')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <div id="errTipo" class="crm-form-error" style="display:none;"></div>
+      <input type="hidden" id="tipo-id">
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Nombre *</label><input id="tipo-nombre" placeholder="Ej. Diezmo"></div>
+        <div class="crm-field"><label>Ícono (emoji)</label><input id="tipo-icono" placeholder="💰" maxlength="4"></div>
+      </div>
+      <div class="crm-field"><label>Estado</label>
+        <select id="tipo-activo"><option value="true">Activo</option><option value="false">Inactivo</option></select>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm" onclick="closeModal('tipo')">Cancelar</button>
+      <button class="btn-crm btn-crm-primary" onclick="guardarTipo()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal cuenta -->
+<div class="crm-modal-overlay" id="modalCuenta">
+  <div class="crm-modal">
+    <div class="crm-modal-header">
+      <h3 id="titleCuenta">Nueva cuenta bancaria</h3>
+      <button class="crm-modal-close" onclick="closeModal('cuenta')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <div id="errCuenta" class="crm-form-error" style="display:none;"></div>
+      <input type="hidden" id="cuenta-id">
+      <div class="crm-field"><label>Banco *</label><input id="cuenta-banco" placeholder="Ej. Banco Agrícola"></div>
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Número de cuenta *</label><input id="cuenta-numero" placeholder="0000-0000-00"></div>
+        <div class="crm-field"><label>Tipo de cuenta</label><input id="cuenta-tipo" placeholder="Corriente / Ahorros"></div>
+      </div>
+      <div class="crm-field"><label>Titular *</label><input id="cuenta-titular" placeholder="Nombre completo"></div>
+      <div class="crm-field"><label>Estado</label>
+        <select id="cuenta-activo"><option value="true">Activo</option><option value="false">Inactivo</option></select>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm" onclick="closeModal('cuenta')">Cancelar</button>
+      <button class="btn-crm btn-crm-primary" onclick="guardarCuenta()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal colecta efectivo -->
+<div class="crm-modal-overlay" id="modalColecta">
+  <div class="crm-modal">
+    <div class="crm-modal-header">
+      <h3 id="titleColecta">Registrar Colecta</h3>
+      <button class="crm-modal-close" onclick="closeModal('colecta')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <div id="errColecta" class="crm-form-error" style="display:none;"></div>
+      <input type="hidden" id="col-id">
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Fecha del servicio *</label><input type="date" id="col-fecha"></div>
+        <div class="crm-field"><label>Monto total ($) *</label><input type="number" step="0.01" id="col-monto" placeholder="0.00"></div>
+      </div>
+      <div class="crm-field"><label>Tipo de ofrenda *</label>
+        <select id="col-tipo">
+          <option value="Ofrenda General">Ofrenda General</option>
+          <option value="Diezmo">Diezmo</option>
+          <option value="Misiones">Misiones</option>
+          <option value="Especial">Especial</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="crm-field"><label>Contado por</label><input id="col-contado" placeholder="Nombre del tesorero / diácono"></div>
+      <div class="crm-field"><label>Notas</label><textarea id="col-notas" rows="2" placeholder="Observaciones adicionales..." style="width:100%;padding:10px;border:1.5px solid var(--color-border);border-radius:8px;font-family:var(--font-main);font-size:0.88rem;resize:vertical;"></textarea></div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm" onclick="closeModal('colecta')">Cancelar</button>
+      <button class="btn-crm btn-crm-primary" onclick="guardarColecta()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal comprobante detalle + edición -->
+<div class="crm-modal-overlay" id="modalComprobante">
+  <div class="crm-modal" style="max-width:520px;">
+    <div class="crm-modal-header">
+      <h3>Comprobante</h3>
+      <button class="crm-modal-close" onclick="closeModal('comprobante')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <input type="hidden" id="cmp-edit-id">
+      <!-- Info fija -->
+      <div id="cmpDetalleBody"></div>
+      <!-- Editable -->
+      <div style="border-top:1px solid var(--color-border);margin:16px 0 12px;"></div>
+      <p style="font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Editar información</p>
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Nombre del remitente</label><input id="cmp-edit-nombre" type="text" placeholder="Nombre completo"></div>
+        <div class="crm-field"><label>DUI <span style="font-weight:400;opacity:0.7;">(opcional)</span></label><input id="cmp-edit-dui" type="text" placeholder="00000000-0" maxlength="10"></div>
+      </div>
+      <div class="crm-field">
+        <label>Vincular a miembro <span style="font-weight:400;opacity:0.7;">(buscar por nombre)</span></label>
+        <input id="cmp-buscar-miembro" type="text" placeholder="Escribe para buscar..." autocomplete="off" oninput="buscarMiembro(this.value)">
+        <div id="cmp-miembro-results" style="display:none;background:#fff;border:1.5px solid var(--color-border);border-radius:8px;max-height:160px;overflow-y:auto;margin-top:4px;box-shadow:0 4px 12px rgba(0,0,0,0.1);"></div>
+        <div id="cmp-miembro-sel" style="display:none;background:#eff6ff;border-radius:8px;padding:8px 12px;margin-top:6px;font-size:0.85rem;font-weight:600;color:#1d4ed8;"></div>
+        <input type="hidden" id="cmp-edit-profile-id">
+      </div>
+      <div class="crm-field"><label>Nota interna</label><textarea id="cmp-edit-nota" rows="2" placeholder="Observaciones del admin..." style="width:100%;padding:10px;border:1.5px solid var(--color-border);border-radius:8px;font-family:var(--font-main);font-size:0.88rem;resize:vertical;"></textarea></div>
+      <div id="cmpEditOk" style="display:none;background:#d1fae5;color:#065f46;border-radius:8px;padding:8px 12px;font-size:0.83rem;margin-top:8px;"></div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm" onclick="closeModal('comprobante')">Cerrar</button>
+      <button class="btn-crm btn-crm-primary" onclick="guardarEdicionComprobante()">Guardar cambios</button>
+      <button class="btn-crm" style="background:#d1fae5;color:#065f46;" onclick="cambiarEstadoModal('verificado')">✓ Verificar</button>
+      <button class="btn-crm btn-crm-danger" onclick="cambiarEstadoModal('rechazado')">✗ Rechazar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
+<script>
+  const sb = window.supabaseClient;
+  let currentCmpId = null;
+
+  // ── ACCESS GATE ──────────────────────────────────────────────
+  async function verificarCodigo() {
+    const input = document.getElementById('gateInput').value.trim().toUpperCase();
+    const errEl = document.getElementById('gateError');
+    errEl.style.display = 'none';
+
+    if (!input) { errEl.textContent = 'Ingresa el código.'; errEl.style.display = 'block'; return; }
+
+    // Check sessionStorage first (already validated this session)
+    if (sessionStorage.getItem('ofrenda_access') === 'ok') {
+      abrirCRM(); return;
+    }
+
+    const { data, error } = await sb.from('ofrenda_config').select('value').eq('key', 'access_code').single();
+    if (error || !data) { errEl.textContent = 'Error al verificar. Intenta de nuevo.'; errEl.style.display = 'block'; return; }
+
+    if (input === data.value.toUpperCase()) {
+      sessionStorage.setItem('ofrenda_access', 'ok');
+      abrirCRM();
+    } else {
+      errEl.textContent = 'Código incorrecto. Contacta al administrador.';
+      errEl.style.display = 'block';
+      document.getElementById('gateInput').value = '';
+    }
+  }
+
+  function cerrarSesionContabilidad() {
+    sessionStorage.removeItem('ofrenda_access');
+    document.getElementById('crmLayout').style.display = 'none';
+    document.getElementById('accessGate').style.display = 'flex';
+    document.getElementById('gateInput').value = '';
+    document.getElementById('gateError').style.display = 'none';
+  }
+
+  function abrirCRM() {
+    document.getElementById('accessGate').style.display = 'none';
+    document.getElementById('crmLayout').style.display = 'flex';
+    cargarComprobantes();
+  }
+
+  // Auto-check if session already validated
+  window.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem('ofrenda_access') === 'ok') abrirCRM();
+    // Default month filter to current month
+    const now = new Date();
+    const mm = String(now.getMonth()+1).padStart(2,'0');
+    document.getElementById('filtroMes').value = `${now.getFullYear()}-${mm}`;
+  });
+
+  // ── TABS ─────────────────────────────────────────────────────
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.crm-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+    if (name === 'comprobantes') cargarComprobantes();
+    if (name === 'colectas') cargarColectas();
+    if (name === 'tipos') cargarTipos();
+    if (name === 'cuentas') cargarCuentas();
+  }
+
+  // ── COMPROBANTES ─────────────────────────────────────────────
+  async function cargarComprobantes() {
+    const filtro = document.getElementById('filtroEstado').value;
+    let q = sb.from('comprobantes_ofrenda')
+      .select('id, tipo, banco, monto, referencia, nombre_remitente, dui, estado, nota_admin, created_at, user_id, profile_id, profiles(nombre, correo)')
+      .order('created_at', { ascending: false });
+    if (filtro) q = q.eq('estado', filtro);
+    const { data } = await q;
+
+    const tb = document.getElementById('tbComprobantes');
+    if (!data?.length) { tb.innerHTML = '<tr><td colspan="8" class="muted" style="text-align:center;padding:24px;">Sin comprobantes.</td></tr>'; return; }
+    tb.innerHTML = data.map(c => {
+      const f = new Date(c.created_at);
+      const fecha = `${f.getDate()}/${f.getMonth()+1}/${f.getFullYear()}`;
+      const miembro = c.profiles?.nombre || c.nombre_remitente || '<span class="muted">—</span>';
+      const dui = c.dui ? `<br><code style="font-size:0.75rem;color:#64748b;">${c.dui}</code>` : '';
+      return `<tr>
+        <td class="muted">${fecha}</td>
+        <td>${c.tipo}</td>
+        <td>${c.banco}</td>
+        <td><strong>$${Number(c.monto || 0).toFixed(2)}</strong></td>
+        <td class="muted">${c.referencia || '—'}</td>
+        <td>${miembro}${dui}</td>
+        <td><span class="status-badge status-${c.estado}">${c.estado}</span></td>
+        <td><div class="crm-td-actions">
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick='verComprobante(${JSON.stringify(c).replace(/'/g,"&#39;")})'>Ver</button>
+          ${c.estado !== 'verificado' ? `<button class="btn-crm btn-crm-sm" style="background:#d1fae5;color:#065f46;" onclick="cambiarEstado('${c.id}','verificado')">✓</button>` : ''}
+          ${c.estado !== 'rechazado' ? `<button class="btn-crm btn-crm-sm btn-crm-danger" onclick="cambiarEstado('${c.id}','rechazado')">✗</button>` : ''}
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function verComprobante(c) {
+    currentCmpId = c.id;
+    const f = new Date(c.created_at);
+    const fecha = `${f.getDate()}/${f.getMonth()+1}/${f.getFullYear()} ${f.getHours()}:${String(f.getMinutes()).padStart(2,'0')}`;
+    document.getElementById('cmpDetalleBody').innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div><p style="font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:3px;">Fecha</p><p style="font-weight:600;font-size:0.85rem;">${fecha}</p></div>
+        <div><p style="font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:3px;">Estado</p><span class="status-badge status-${c.estado}">${c.estado}</span></div>
+        <div><p style="font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:3px;">Tipo</p><p style="font-weight:600;">${c.tipo}</p></div>
+        <div><p style="font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:3px;">Banco</p><p style="font-weight:600;">${c.banco}</p></div>
+        <div><p style="font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:3px;">Monto</p><p style="font-weight:700;font-size:1.1rem;color:#0A1931;">$${Number(c.monto || 0).toFixed(2)}</p></div>
+        <div><p style="font-size:0.73rem;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:3px;">Referencia</p><p style="font-weight:600;">${c.referencia || '—'}</p></div>
+      </div>`;
+    // Populate editable fields
+    document.getElementById('cmp-edit-id').value = c.id;
+    document.getElementById('cmp-edit-nombre').value = c.nombre_remitente || '';
+    document.getElementById('cmp-edit-dui').value = c.dui || '';
+    document.getElementById('cmp-edit-nota').value = c.nota_admin || '';
+    document.getElementById('cmp-edit-profile-id').value = c.profile_id || '';
+    document.getElementById('cmp-miembro-sel').style.display = 'none';
+    document.getElementById('cmp-miembro-results').style.display = 'none';
+    document.getElementById('cmpEditOk').style.display = 'none';
+    // Show linked member if exists
+    if (c.profiles?.nombre) {
+      const sel = document.getElementById('cmp-miembro-sel');
+      sel.textContent = `✓ ${c.profiles.nombre}${c.profiles.correo ? ' · ' + c.profiles.correo : ''}`;
+      sel.style.display = 'block';
+      document.getElementById('cmp-buscar-miembro').value = c.profiles.nombre;
+    } else {
+      document.getElementById('cmp-buscar-miembro').value = '';
+    }
+    document.getElementById('modalComprobante').classList.add('active');
+  }
+
+  let buscarTimeout;
+  async function buscarMiembro(q) {
+    const resDiv = document.getElementById('cmp-miembro-results');
+    clearTimeout(buscarTimeout);
+    if (q.length < 2) { resDiv.style.display = 'none'; return; }
+    buscarTimeout = setTimeout(async () => {
+      const { data } = await sb.from('profiles').select('id, nombre, correo').ilike('nombre', `%${q}%`).limit(8);
+      if (!data?.length) { resDiv.innerHTML = '<p style="padding:10px 14px;font-size:0.83rem;color:#64748b;">Sin resultados</p>'; resDiv.style.display = 'block'; return; }
+      resDiv.innerHTML = data.map(p => `
+        <div onclick="seleccionarMiembro('${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}','${(p.correo||'').replace(/'/g,"\\'")}' )"
+          style="padding:10px 14px;cursor:pointer;font-size:0.85rem;border-bottom:1px solid #f1f5f9;"
+          onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">
+          <strong>${p.nombre || '—'}</strong><br><span style="color:#64748b;font-size:0.78rem;">${p.correo || ''}</span>
+        </div>`).join('');
+      resDiv.style.display = 'block';
+    }, 300);
+  }
+
+  function seleccionarMiembro(id, nombre, correo) {
+    document.getElementById('cmp-edit-profile-id').value = id;
+    document.getElementById('cmp-buscar-miembro').value = nombre;
+    document.getElementById('cmp-miembro-results').style.display = 'none';
+    const sel = document.getElementById('cmp-miembro-sel');
+    sel.textContent = `✓ ${nombre}${correo ? ' · ' + correo : ''}`;
+    sel.style.display = 'block';
+  }
+
+  async function guardarEdicionComprobante() {
+    const id = document.getElementById('cmp-edit-id').value;
+    if (!id) return;
+    const payload = {
+      nombre_remitente: document.getElementById('cmp-edit-nombre').value.trim() || null,
+      dui: document.getElementById('cmp-edit-dui').value.trim() || null,
+      nota_admin: document.getElementById('cmp-edit-nota').value.trim() || null,
+      profile_id: document.getElementById('cmp-edit-profile-id').value || null,
+    };
+    const { error } = await sb.from('comprobantes_ofrenda').update(payload).eq('id', id);
+    const okEl = document.getElementById('cmpEditOk');
+    if (error) { okEl.textContent = 'Error: ' + error.message; okEl.style.background='#fee2e2'; okEl.style.color='#991b1b'; }
+    else { okEl.textContent = '✓ Cambios guardados.'; okEl.style.background='#d1fae5'; okEl.style.color='#065f46'; }
+    okEl.style.display = 'block';
+    cargarComprobantes();
+  }
+
+  async function cambiarEstadoModal(estado) {
+    if (!currentCmpId) return;
+    await sb.from('comprobantes_ofrenda').update({ estado }).eq('id', currentCmpId);
+    closeModal('comprobante');
+    cargarComprobantes();
+  }
+
+  async function cambiarEstado(id, estado) {
+    await sb.from('comprobantes_ofrenda').update({ estado }).eq('id', id);
+    cargarComprobantes();
+  }
+
+  // ── COLECTAS EFECTIVO ────────────────────────────────────────
+  async function cargarColectas() {
+    const mes = document.getElementById('filtroMes').value;
+    let q = sb.from('colectas_efectivo').select('*').order('fecha_servicio', { ascending: false });
+    if (mes) {
+      const [y, m] = mes.split('-');
+      const desde = `${y}-${m}-01`;
+      const hasta = `${y}-${m}-31`;
+      q = q.gte('fecha_servicio', desde).lte('fecha_servicio', hasta);
+    }
+    const { data } = await q;
+
+    // Totales
+    const total = data?.reduce((s, c) => s + Number(c.monto), 0) || 0;
+    const porTipo = {};
+    data?.forEach(c => { porTipo[c.tipo] = (porTipo[c.tipo] || 0) + Number(c.monto); });
+    const topTipos = Object.entries(porTipo).sort((a,b) => b[1]-a[1]).slice(0,3);
+
+    document.getElementById('colectaTotales').innerHTML = `
+      <div class="colecta-stat">
+        <div class="colecta-stat-label">Total del mes</div>
+        <div class="colecta-stat-val">$${total.toFixed(2)}</div>
+      </div>
+      <div class="colecta-stat">
+        <div class="colecta-stat-label">Entradas</div>
+        <div class="colecta-stat-val">${data?.length || 0}</div>
+      </div>
+      ${topTipos.map(([tipo, monto]) => `
+        <div class="colecta-stat">
+          <div class="colecta-stat-label">${tipo}</div>
+          <div class="colecta-stat-val">$${monto.toFixed(2)}</div>
+        </div>`).join('')}`;
+
+    const tb = document.getElementById('tbColectas');
+    if (!data?.length) { tb.innerHTML = '<tr><td colspan="7" class="muted" style="text-align:center;padding:24px;">Sin colectas en este período.</td></tr>'; return; }
+    tb.innerHTML = data.map(c => {
+      const [y,m,d] = c.fecha_servicio.split('-');
+      const fechaSrv = `${d}/${m}/${y}`;
+      const reg = new Date(c.created_at);
+      const fechaReg = `${reg.getDate()}/${reg.getMonth()+1}/${reg.getFullYear()}`;
+      return `<tr>
+        <td><strong>${fechaSrv}</strong> <span class="muted" style="font-size:0.75rem;">(Domingo)</span></td>
+        <td>${c.tipo}</td>
+        <td><strong>$${Number(c.monto).toFixed(2)}</strong></td>
+        <td>${c.contado_por || '<span class="muted">—</span>'}</td>
+        <td style="max-width:180px;white-space:normal;font-size:0.83rem;">${c.notas || '<span class="muted">—</span>'}</td>
+        <td class="muted" style="font-size:0.8rem;">${fechaReg}</td>
+        <td><div class="crm-td-actions">
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick='editarColecta(${JSON.stringify(c).replace(/'/g,"&#39;")})'>Editar</button>
+          <button class="btn-crm btn-crm-danger btn-crm-sm" onclick="eliminarColecta('${c.id}','${fechaSrv}')">Eliminar</button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function editarColecta(c) {
+    document.getElementById('titleColecta').textContent = 'Editar Colecta';
+    document.getElementById('col-id').value = c.id;
+    document.getElementById('col-fecha').value = c.fecha_servicio;
+    document.getElementById('col-monto').value = c.monto;
+    document.getElementById('col-tipo').value = c.tipo;
+    document.getElementById('col-contado').value = c.contado_por || '';
+    document.getElementById('col-notas').value = c.notas || '';
+    document.getElementById('modalColecta').classList.add('active');
+  }
+
+  async function guardarColecta() {
+    const errEl = document.getElementById('errColecta');
+    errEl.style.display = 'none';
+    const fecha  = document.getElementById('col-fecha').value;
+    const monto  = parseFloat(document.getElementById('col-monto').value);
+    const tipo   = document.getElementById('col-tipo').value;
+    if (!fecha || !monto || monto <= 0) { errEl.textContent = 'Fecha y monto son obligatorios.'; errEl.style.display = 'block'; return; }
+
+    const { data: { user } } = await sb.auth.getUser();
+    const payload = {
+      fecha_servicio: fecha,
+      monto,
+      tipo,
+      contado_por: document.getElementById('col-contado').value.trim() || null,
+      notas: document.getElementById('col-notas').value.trim() || null,
+      created_by: user?.id || null
+    };
+    const id = document.getElementById('col-id').value;
+    const { error } = id ? await sb.from('colectas_efectivo').update(payload).eq('id', id)
+                         : await sb.from('colectas_efectivo').insert(payload);
+    if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+    closeModal('colecta'); cargarColectas();
+  }
+
+  async function eliminarColecta(id, fecha) {
+    if (!confirm(`¿Eliminar la colecta del ${fecha}? Esta acción no se puede deshacer.`)) return;
+    await sb.from('colectas_efectivo').delete().eq('id', id);
+    cargarColectas();
+  }
+
+  // ── TIPOS ────────────────────────────────────────────────────
+  async function cargarTipos() {
+    const { data } = await sb.from('ofrenda_tipos').select('*').order('orden');
+    const tb = document.getElementById('tbTipos');
+    if (!data?.length) { tb.innerHTML = '<tr><td colspan="4" class="muted" style="text-align:center;padding:24px;">Sin tipos.</td></tr>'; return; }
+    tb.innerHTML = data.map(t => `<tr>
+      <td style="font-size:1.3rem;">${t.icono || '💰'}</td>
+      <td><strong>${t.nombre}</strong></td>
+      <td><span class="badge ${t.activo ? 'badge-green' : 'badge-gray'}">${t.activo ? 'Activo' : 'Inactivo'}</span></td>
+      <td>
+        <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick='editarTipo(${JSON.stringify(t).replace(/'/g,"&#39;")})'>Editar</button>
+        <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="toggleTipo('${t.id}',${t.activo})">${t.activo ? 'Desactivar' : 'Activar'}</button>
+        <button class="btn-crm btn-crm-danger btn-crm-sm" onclick="eliminarTipo('${t.id}','${t.nombre}')">Eliminar</button>
+      </td>
+    </tr>`).join('');
+  }
+
+  function openModal(type, reset = true) {
+    if (reset) {
+      if (type === 'tipo') {
+        document.getElementById('titleTipo').textContent = 'Nuevo tipo';
+        ['tipo-id','tipo-nombre','tipo-icono'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('tipo-activo').value = 'true';
+      } else if (type === 'cuenta') {
+        document.getElementById('titleCuenta').textContent = 'Nueva cuenta bancaria';
+        ['cuenta-id','cuenta-banco','cuenta-numero','cuenta-tipo','cuenta-titular'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('cuenta-activo').value = 'true';
+      } else if (type === 'colecta') {
+        document.getElementById('titleColecta').textContent = 'Registrar Colecta';
+        ['col-id','col-contado','col-notas'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('col-monto').value = '';
+        document.getElementById('col-tipo').value = 'Ofrenda General';
+        // Default fecha to next Sunday
+        const hoy = new Date();
+        const diasHastaDomingo = (7 - hoy.getDay()) % 7 || 7;
+        const domingo = new Date(hoy);
+        domingo.setDate(hoy.getDate() - hoy.getDay()); // last Sunday
+        document.getElementById('col-fecha').value = domingo.toISOString().split('T')[0];
+      }
+    }
+    const errMap = { tipo: 'errTipo', cuenta: 'errCuenta', colecta: 'errColecta' };
+    if (errMap[type]) document.getElementById(errMap[type]).style.display = 'none';
+    const modalMap = { tipo: 'modalTipo', cuenta: 'modalCuenta', colecta: 'modalColecta' };
+    if (modalMap[type]) document.getElementById(modalMap[type]).classList.add('active');
+  }
+
+  function closeModal(type) {
+    const modalMap = { tipo: 'modalTipo', cuenta: 'modalCuenta', colecta: 'modalColecta', comprobante: 'modalComprobante' };
+    if (modalMap[type]) document.getElementById(modalMap[type]).classList.remove('active');
+  }
+
+  function editarTipo(t) {
+    document.getElementById('titleTipo').textContent = 'Editar tipo';
+    document.getElementById('tipo-id').value = t.id;
+    document.getElementById('tipo-nombre').value = t.nombre;
+    document.getElementById('tipo-icono').value = t.icono || '';
+    document.getElementById('tipo-activo').value = t.activo ? 'true' : 'false';
+    openModal('tipo', false);
+  }
+
+  async function guardarTipo() {
+    const errEl = document.getElementById('errTipo');
+    const nombre = document.getElementById('tipo-nombre').value.trim();
+    if (!nombre) { errEl.textContent = 'Nombre obligatorio.'; errEl.style.display = 'block'; return; }
+    const payload = { nombre, icono: document.getElementById('tipo-icono').value.trim() || '💰', activo: document.getElementById('tipo-activo').value === 'true' };
+    const id = document.getElementById('tipo-id').value;
+    const { error } = id ? await sb.from('ofrenda_tipos').update(payload).eq('id', id)
+                         : await sb.from('ofrenda_tipos').insert(payload);
+    if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+    closeModal('tipo'); cargarTipos();
+  }
+
+  async function toggleTipo(id, actual) { await sb.from('ofrenda_tipos').update({ activo: !actual }).eq('id', id); cargarTipos(); }
+  async function eliminarTipo(id, nombre) { if (!confirm(`¿Eliminar "${nombre}"?`)) return; await sb.from('ofrenda_tipos').delete().eq('id', id); cargarTipos(); }
+
+  // ── CUENTAS ──────────────────────────────────────────────────
+  async function cargarCuentas() {
+    const { data } = await sb.from('ofrenda_cuentas').select('*').order('orden');
+    const tb = document.getElementById('tbCuentas');
+    if (!data?.length) { tb.innerHTML = '<tr><td colspan="6" class="muted" style="text-align:center;padding:24px;">Sin cuentas.</td></tr>'; return; }
+    tb.innerHTML = data.map(c => `<tr>
+      <td><strong>${c.banco}</strong></td>
+      <td><code style="font-size:0.85rem;">${c.numero_cuenta}</code></td>
+      <td>${c.titular}</td>
+      <td class="muted">${c.tipo_cuenta}</td>
+      <td><span class="badge ${c.activo ? 'badge-green' : 'badge-gray'}">${c.activo ? 'Activo' : 'Inactivo'}</span></td>
+      <td>
+        <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick='editarCuenta(${JSON.stringify(c).replace(/'/g,"&#39;")})'>Editar</button>
+        <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="toggleCuenta('${c.id}',${c.activo})">${c.activo ? 'Desactivar' : 'Activar'}</button>
+        <button class="btn-crm btn-crm-danger btn-crm-sm" onclick="eliminarCuenta('${c.id}','${c.banco}')">Eliminar</button>
+      </td>
+    </tr>`).join('');
+  }
+
+  function editarCuenta(c) {
+    document.getElementById('titleCuenta').textContent = 'Editar cuenta';
+    document.getElementById('cuenta-id').value = c.id;
+    document.getElementById('cuenta-banco').value = c.banco;
+    document.getElementById('cuenta-numero').value = c.numero_cuenta;
+    document.getElementById('cuenta-tipo').value = c.tipo_cuenta || '';
+    document.getElementById('cuenta-titular').value = c.titular;
+    document.getElementById('cuenta-activo').value = c.activo ? 'true' : 'false';
+    openModal('cuenta', false);
+  }
+
+  async function guardarCuenta() {
+    const errEl = document.getElementById('errCuenta');
+    const banco   = document.getElementById('cuenta-banco').value.trim();
+    const numero  = document.getElementById('cuenta-numero').value.trim();
+    const titular = document.getElementById('cuenta-titular').value.trim();
+    if (!banco || !numero || !titular) { errEl.textContent = 'Banco, número y titular son obligatorios.'; errEl.style.display = 'block'; return; }
+    const payload = { banco, numero_cuenta: numero, tipo_cuenta: document.getElementById('cuenta-tipo').value.trim() || 'Corriente', titular, activo: document.getElementById('cuenta-activo').value === 'true' };
+    const id = document.getElementById('cuenta-id').value;
+    const { error } = id ? await sb.from('ofrenda_cuentas').update(payload).eq('id', id)
+                         : await sb.from('ofrenda_cuentas').insert(payload);
+    if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+    closeModal('cuenta'); cargarCuentas();
+  }
+
+  async function toggleCuenta(id, actual) { await sb.from('ofrenda_cuentas').update({ activo: !actual }).eq('id', id); cargarCuentas(); }
+  async function eliminarCuenta(id, nombre) { if (!confirm(`¿Eliminar cuenta de "${nombre}"?`)) return; await sb.from('ofrenda_cuentas').delete().eq('id', id); cargarCuentas(); }
+</script>
+</body>
+</html>

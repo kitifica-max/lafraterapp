@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Plan Kairós</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <style>
+    .kairos-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .km-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .km-box .km-val {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-blue);
+    }
+    .km-box .km-label {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+    .progress-mini {
+      height: 6px;
+      background: var(--color-border);
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .progress-mini-fill {
+      height: 100%;
+      background: var(--color-blue);
+      border-radius: 3px;
+      transition: width 0.4s;
+    }
+  </style>
+</head>
+<body>
+<div class="crm-layout">
+
+  <aside class="crm-sidebar">
+    <div class="crm-brand"><img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater"><span class="crm-brand-badge">CRM</span></div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Plan Kairós</h1>
+      <span class="crm-topbar-user"></span>
+    </div>
+    <div class="crm-content">
+
+      <!-- Métricas de suscripción -->
+      <div class="kairos-metrics" id="kairosMetrics">
+        <div class="km-box">
+          <div class="km-val" id="metSubs">—</div>
+          <div class="km-label">Suscriptores activos</div>
+        </div>
+        <div class="km-box">
+          <div class="km-val" id="metPromDia">—</div>
+          <div class="km-label">Día promedio congregación</div>
+          <div class="progress-mini"><div class="progress-mini-fill" id="metPromBar" style="width:0%"></div></div>
+        </div>
+        <div class="km-box">
+          <div class="km-val" id="metLeyeron">—</div>
+          <div class="km-label">Leyeron ayer</div>
+        </div>
+        <div class="km-box">
+          <div class="km-val" id="metCompletos">—</div>
+          <div class="km-label">Días completados (total)</div>
+        </div>
+      </div>
+
+      <!-- Tabla suscriptores -->
+      <div class="crm-card" style="margin-bottom:24px">
+        <div class="crm-card-header">
+          <span class="crm-card-title">Suscriptores Kairós</span>
+          <span class="crm-card-subtitle" id="subCount" style="color:var(--color-text-muted);font-size:0.85rem;"></span>
+        </div>
+        <div class="crm-table-wrap">
+          <table class="crm-table">
+            <thead>
+              <tr><th>Usuario</th><th>Desde</th><th>Día actual</th><th>Progreso</th><th>Estado</th></tr>
+            </thead>
+            <tbody id="subsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Plan de lecturas (admin) -->
+      <div class="crm-card">
+        <div class="crm-card-header">
+          <span class="crm-card-title">Días del plan</span>
+          <button class="btn-crm btn-crm-primary" onclick="openModal()">+ Nuevo día</button>
+        </div>
+        <div style="padding:0 16px 12px;display:flex;gap:10px;align-items:center;">
+          <input type="number" id="searchDia" placeholder="Buscar día..." min="1" max="365" style="width:140px;padding:8px 12px;border:1.5px solid var(--color-border);border-radius:8px;background:var(--color-bg);color:var(--color-text-main);font-size:0.9rem;" oninput="filterPlan()">
+        </div>
+        <div class="crm-table-wrap" style="max-height:420px;overflow-y:auto;">
+          <table class="crm-table">
+            <thead style="position:sticky;top:0;z-index:1;background:var(--color-surface);">
+              <tr><th>Día</th><th>Lecturas (primeras)</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal día plan -->
+<div class="crm-modal-overlay" id="crmModal">
+  <div class="crm-modal crm-modal-lg">
+    <div class="crm-modal-header">
+      <h3 id="modalTitle">Nuevo día</h3>
+      <button class="crm-modal-close" onclick="closeModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <div class="crm-field-row">
+        <div class="crm-field"><label>Día del año *</label><input type="number" id="f-dia" placeholder="Ej. 113" min="1" max="366"></div>
+        <div class="crm-field"><label>Título</label><input id="f-titulo" placeholder="Ej. Día 113"></div>
+      </div>
+      <div class="crm-field">
+        <label>Lecturas (una por línea)</label>
+        <textarea id="f-lecturas" rows="8" placeholder="Génesis 1:1-9&#10;Génesis 1:10-17&#10;Mateo 1:1-8"></textarea>
+        <small style="color:#6b7280;font-size:0.78rem;">Cada línea = una lectura. Se guardan como lista.</small>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm btn-crm-secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn-crm btn-crm-primary" id="saveBtn" onclick="saveRecord()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
+<script>
+  const sb = window.supabaseClient;
+  let records = [];
+  let currentId = null;
+
+  async function loadMetrics() {
+    const today = new Date().toISOString().slice(0, 10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+
+    const [{ data: subs }, { count: completados }, { data: ayerData }] = await Promise.all([
+      sb.from('kairos_suscripciones').select('user_id, fecha_inicio, activo').eq('activo', true),
+      sb.from('progreso_lectura').select('*', { count: 'exact', head: true }).eq('completado', true),
+      sb.from('progreso_lectura').select('user_id', { count: 'exact' }).gte('updated_at', yesterday + 'T00:00:00').lt('updated_at', today + 'T00:00:00')
+    ]);
+
+    const activeSubs = subs || [];
+    document.getElementById('metSubs').textContent = activeSubs.length;
+    document.getElementById('subCount').textContent = `${activeSubs.length} activos`;
+    document.getElementById('metCompletos').textContent = completados || 0;
+
+    const ayer = new Set(ayerData?.map(r => r.user_id) || []).size;
+    document.getElementById('metLeyeron').textContent = ayer;
+
+    // Promedio día actual de suscriptores
+    if (activeSubs.length > 0) {
+      const hoy = new Date(); hoy.setHours(0,0,0,0);
+      const dias = activeSubs.map(s => {
+        const ini = new Date(s.fecha_inicio); ini.setHours(0,0,0,0);
+        return Math.min(Math.floor((hoy - ini) / 86400000) + 1, 365);
+      });
+      const prom = Math.round(dias.reduce((a, b) => a + b, 0) / dias.length);
+      document.getElementById('metPromDia').textContent = `Día ${prom}`;
+      document.getElementById('metPromBar').style.width = Math.round(prom / 365 * 100) + '%';
+    }
+
+    renderSubs(activeSubs);
+  }
+
+  function renderSubs(subs) {
+    const tbody = document.getElementById('subsBody');
+    if (!subs.length) {
+      tbody.innerHTML = '<tr><td colspan="5"><div class="crm-empty"><p>Sin suscriptores aún.</p></div></td></tr>';
+      return;
+    }
+    const hoy = new Date(); hoy.setHours(0,0,0,0);
+    tbody.innerHTML = subs.map(s => {
+      const ini = new Date(s.fecha_inicio); ini.setHours(0,0,0,0);
+      const dia = Math.min(Math.floor((hoy - ini) / 86400000) + 1, 365);
+      const pct = Math.round(dia / 365 * 100);
+      const desde = new Date(s.fecha_inicio).toLocaleDateString('es-SV');
+      return `<tr>
+        <td><span style="font-family:monospace;font-size:0.8rem;color:var(--color-text-muted)">${s.user_id.slice(0, 8)}…</span></td>
+        <td>${desde}</td>
+        <td><span class="badge badge-blue">Día ${dia}</span></td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="flex:1;background:var(--color-border);height:6px;border-radius:3px;overflow:hidden;">
+              <div style="width:${pct}%;background:var(--color-blue);height:100%;border-radius:3px;"></div>
+            </div>
+            <span style="font-size:0.78rem;color:var(--color-text-muted);min-width:32px">${pct}%</span>
+          </div>
+        </td>
+        <td><span class="badge ${s.activo ? 'badge-green' : 'badge-gray'}">${s.activo ? 'Activo' : 'Pausado'}</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  async function load() {
+    const { data } = await sb.from('plan_lectura').select('*').order('dia', { ascending: true });
+    records = data || [];
+    filterPlan();
+  }
+
+  function filterPlan() {
+    const q = parseInt(document.getElementById('searchDia').value);
+    const filtered = q ? records.filter(r => r.dia === q) : records;
+    render(filtered);
+  }
+
+  function render(data) {
+    const tbody = document.getElementById('tableBody');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="3"><div class="crm-empty"><p>Sin días. Genera el plan Kairós.</p></div></td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(p => {
+      const lecturas = Array.isArray(p.lecturas) ? p.lecturas : [];
+      const preview = lecturas.slice(0, 2).join(' · ') + (lecturas.length > 2 ? ` +${lecturas.length - 2}` : '');
+      return `<tr>
+        <td><span class="badge badge-blue">Día ${p.dia}</span></td>
+        <td class="muted truncate" style="max-width:400px">${preview || '—'}</td>
+        <td><div class="crm-td-actions">
+          <button class="btn-crm btn-crm-ghost btn-crm-sm" onclick="openModal('${p.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Editar</button>
+          <button class="btn-crm btn-crm-danger btn-crm-sm" onclick="deleteRecord('${p.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function openModal(id = null) {
+    currentId = id;
+    if (id) {
+      const r = records.find(r => r.id === id);
+      document.getElementById('modalTitle').textContent = 'Editar día';
+      document.getElementById('f-dia').value = r.dia || '';
+      document.getElementById('f-titulo').value = r.titulo || '';
+      const lecturas = Array.isArray(r.lecturas) ? r.lecturas : [];
+      document.getElementById('f-lecturas').value = lecturas.join('\n');
+    } else {
+      document.getElementById('modalTitle').textContent = 'Nuevo día';
+      ['f-dia','f-titulo','f-lecturas'].forEach(id => document.getElementById(id).value = '');
+    }
+    document.getElementById('crmModal').classList.add('active');
+  }
+
+  function closeModal() { document.getElementById('crmModal').classList.remove('active'); currentId = null; }
+
+  async function saveRecord() {
+    const dia = parseInt(document.getElementById('f-dia').value);
+    if (!dia) { alert('Día es obligatorio.'); return; }
+    const titulo = document.getElementById('f-titulo').value.trim() || `Día ${dia}`;
+    const lecturas = document.getElementById('f-lecturas').value
+      .split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+    const { error } = currentId
+      ? await sb.from('plan_lectura').update({ dia, titulo, lecturas }).eq('id', currentId)
+      : await sb.from('plan_lectura').insert({ dia, titulo, lecturas });
+    btn.disabled = false; btn.textContent = 'Guardar';
+    if (error) { alert('Error: ' + error.message); return; }
+    closeModal(); load();
+  }
+
+  async function deleteRecord(id) {
+    if (!confirm('¿Eliminar este día del plan?')) return;
+    await sb.from('plan_lectura').delete().eq('id', id);
+    load();
+  }
+
+  loadMetrics();
+  load();
+</script>
+</body>
+</html>

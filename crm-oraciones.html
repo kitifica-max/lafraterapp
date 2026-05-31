@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frater CRM — Oraciones</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/crm.css">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+</head>
+<body>
+<div class="crm-layout">
+
+  <aside class="crm-sidebar">
+    <div class="crm-brand"><img src="img/LogoFrater_1.png" class="crm-brand-logo" alt="Frater"><span class="crm-brand-badge">CRM</span></div>
+    <nav class="crm-nav">
+      <span class="crm-nav-section">Principal</span>
+      <a href="crm-dashboard.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/></svg> Dashboard</a>
+      <a href="crm-usuarios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Usuarios</a>
+      <span class="crm-nav-section">Contenido</span>
+      <a href="crm-eventos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Eventos</a>
+      <a href="crm-ministerios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Ministerios</a>
+      <a href="crm-articulos.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg> Artículos</a>
+      <a href="crm-plan.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Plan de Lectura</a>
+      <span class="crm-nav-section">Registros</span>
+      <a href="crm-oraciones.html" class="crm-nav-item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Oraciones</a>
+      <a href="crm-asistencia.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>  Asistencia</a>
+      <a href="crm-servicios.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V11l-2-2 2-2"/><path d="M21 22V11l2-2-2-2"/><path d="M12 22V6"/><path d="M9 6h6"/><path d="M10 4V2h4v2"/><path d="M3 11h18"/><path d="M12 6v4"/></svg> Servicios</a>
+      <a href="crm-mensajes.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Mensajes</a>
+      <a href="crm-ofrenda.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4 4-4-4M12 8v7"/></svg> Ofrenda</a>
+      <span class="crm-nav-section">Formación</span>
+      <a href="crm-facultad.html" class="crm-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Facultad</a>
+    </nav>
+    <div class="crm-sidebar-footer">
+      <div class="crm-admin-name"></div>
+      <button class="crm-nav-item danger" onclick="crmLogout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <div class="crm-main">
+    <div class="crm-topbar">
+      <h1 class="crm-page-title">Peticiones de Oración</h1>
+      <span class="crm-topbar-user"></span>
+    </div>
+    <div class="crm-content">
+
+      <!-- Filtros -->
+      <div class="crm-card" style="margin-bottom:22px;">
+        <div class="crm-card-section crm-filter-bar">
+          <select id="filterCategoria" onchange="applyFilter()" class="crm-input" style="width:auto;">
+            <option value="">Todas las categorías</option>
+            <option value="Salud">Salud</option>
+            <option value="Familia">Familia</option>
+            <option value="Trabajo">Trabajo</option>
+            <option value="Espiritual">Espiritual</option>
+            <option value="General">General</option>
+          </select>
+          <select id="filterAnonima" onchange="applyFilter()" class="crm-input" style="width:auto;">
+            <option value="">Todas</option>
+            <option value="false">Con nombre</option>
+            <option value="true">Anónimas</option>
+          </select>
+          <span id="totalCount" class="muted" style="margin-left:auto;font-size:0.85rem;"></span>
+        </div>
+      </div>
+
+      <div class="crm-card">
+        <div class="crm-table-wrap">
+          <table class="crm-table">
+            <thead>
+              <tr><th>Nombre</th><th>Categoría</th><th>Petición</th><th>Anónima</th><th>Fecha</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal detalle -->
+<div class="crm-modal-overlay" id="detailModal">
+  <div class="crm-modal crm-modal-lg">
+    <div class="crm-modal-header">
+      <h3>Detalle de petición</h3>
+      <button class="crm-modal-close" onclick="closeDetail()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="crm-modal-body">
+      <div class="crm-field-row" style="margin-bottom:16px;">
+        <div class="crm-field"><label class="crm-label">Nombre</label><p id="d-nombre" style="margin:4px 0 0;font-weight:600;color:#111827;"></p></div>
+        <div class="crm-field"><label class="crm-label">Categoría</label><p id="d-categoria" style="margin:4px 0 0;"></p></div>
+        <div class="crm-field"><label class="crm-label">Fecha</label><p id="d-fecha" class="muted" style="margin:4px 0 0;"></p></div>
+        <div class="crm-field"><label class="crm-label">Anónima</label><p id="d-anonima" style="margin:4px 0 0;"></p></div>
+      </div>
+      <div class="crm-field" style="margin-bottom:0;">
+        <label class="crm-label">Petición completa</label>
+        <p id="d-peticion" style="margin:8px 0 0;line-height:1.6;background:#f9fafb;padding:16px;border-radius:8px;border:1px solid #e5e7eb;"></p>
+      </div>
+    </div>
+    <div class="crm-modal-footer">
+      <button class="btn-crm btn-crm-secondary" onclick="closeDetail()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/crm-guard.js"></script>
+<script>
+  const sb = window.supabaseClient;
+  let records = [];
+
+  async function load() {
+    const { data } = await sb.from('peticiones_oracion')
+      .select('*')
+      .order('created_at', { ascending: false });
+    records = data || [];
+    applyFilter();
+  }
+
+  function applyFilter() {
+    const cat = document.getElementById('filterCategoria').value;
+    const anon = document.getElementById('filterAnonima').value;
+    let filtered = records;
+    if (cat) filtered = filtered.filter(r => r.categoria === cat);
+    if (anon !== '') filtered = filtered.filter(r => String(r.anonima) === anon);
+    document.getElementById('totalCount').textContent = `${filtered.length} petición${filtered.length !== 1 ? 'es' : ''}`;
+    render(filtered);
+  }
+
+  function render(data) {
+    const tbody = document.getElementById('tableBody');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="5"><div class="crm-empty"><div class="crm-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><p>Sin peticiones aún.</p></div></td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(r => {
+      const f = new Date(r.created_at);
+      const fecha = `${f.getDate()}/${f.getMonth()+1}/${f.getFullYear()}`;
+      const nombre = r.anonima ? '<span class="muted">Anónimo</span>' : `<strong>${r.nombre || '—'}</strong>`;
+      const anonBadge = r.anonima
+        ? '<span class="badge badge-gray">Sí</span>'
+        : '<span class="badge badge-blue">No</span>';
+      const peticionPreview = (r.peticion || '').length > 80
+        ? r.peticion.substring(0, 80) + '…'
+        : r.peticion;
+      return `<tr style="cursor:pointer;" onclick="openDetail('${r.id}')">
+        <td>${nombre}</td>
+        <td><span class="badge badge-blue">${r.categoria || '—'}</span></td>
+        <td class="muted">${peticionPreview}</td>
+        <td>${anonBadge}</td>
+        <td class="muted">${fecha}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function openDetail(id) {
+    const r = records.find(r => r.id === id);
+    if (!r) return;
+    const f = new Date(r.created_at);
+    document.getElementById('d-nombre').textContent = r.anonima ? 'Anónimo' : (r.nombre || '—');
+    document.getElementById('d-categoria').innerHTML = `<span class="badge badge-blue">${r.categoria || '—'}</span>`;
+    document.getElementById('d-fecha').textContent = `${f.getDate()}/${f.getMonth()+1}/${f.getFullYear()} ${f.getHours()}:${String(f.getMinutes()).padStart(2,'0')}`;
+    document.getElementById('d-anonima').innerHTML = r.anonima ? '<span class="badge badge-gray">Sí</span>' : '<span class="badge badge-blue">No</span>';
+    document.getElementById('d-peticion').textContent = r.peticion || '—';
+    document.getElementById('detailModal').classList.add('active');
+  }
+
+  function closeDetail() { document.getElementById('detailModal').classList.remove('active'); }
+
+  load();
+</script>
+</body>
+</html>

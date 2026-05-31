@@ -5,49 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Frater - Evento</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fab-menu.css">
   <link rel="stylesheet" href="css/evento_detalle.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1931">
+  <link rel="icon" type="image/png" href="img/LogoFrater_1.png">
+  <link rel="apple-touch-icon" href="img/LogoFrater_1.png">
 </head>
 <body>
 
-  <header class="detail-header">
-    <a href="javascript:history.back()" class="btn-back">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </a>
-    <h1 id="eventoTitulo">Noche de Adoración</h1>
-  </header>
-
-  <div class="event-hero">
-    <div class="event-hero-img">🎵</div>
-    <span class="event-tag" id="eventoTag">Jóvenes</span>
+  <!-- Hero: imagen + gradiente bottom-up + back + título -->
+  <div class="event-hero" id="eventoHero">
+    <img class="event-hero-img-bg" id="eventoImgBg" src="" alt="" style="display:none;">
+    <div class="event-hero-top">
+      <a href="javascript:history.back()" class="btn-back">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </a>
+      <h1 id="eventoTitulo">Cargando...</h1>
+    </div>
+    <span class="event-tag" id="eventoTag">Evento</span>
   </div>
 
   <main class="detail-body">
     <div class="info-grid">
       <div class="info-item">
-        <div class="info-icon">📅</div>
+        <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
         <div>
           <p class="info-label">Fecha</p>
-          <p class="info-value" id="eventoFecha">Sábado 25 de Abril</p>
+          <p class="info-value" id="eventoFecha">—</p>
         </div>
       </div>
       <div class="info-item">
-        <div class="info-icon">⏰</div>
+        <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <div>
           <p class="info-label">Hora</p>
-          <p class="info-value" id="eventoHora">6:00 PM</p>
+          <p class="info-value" id="eventoHora">—</p>
         </div>
       </div>
       <div class="info-item">
-        <div class="info-icon">📍</div>
+        <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <div>
           <p class="info-label">Lugar</p>
-          <p class="info-value" id="eventoLugar">Auditorio Principal</p>
+          <p class="info-value" id="eventoLugar">—</p>
         </div>
       </div>
       <div class="info-item">
-        <div class="info-icon">👥</div>
+        <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div>
           <p class="info-label">Cupos</p>
           <p class="info-value" id="eventoCupos">Abierto</p>
@@ -55,18 +58,29 @@
       </div>
     </div>
 
+    <!-- Ministerio organizador (visible si aplica) -->
+    <div class="ministerio-row" id="ministerioRow" style="display:none;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div><span>Organiza: </span><strong id="ministerioNombre"></strong></div>
+    </div>
+
     <div class="detail-section">
       <h2>Acerca del evento</h2>
-      <p id="eventoDescripcion">Una noche especial de alabanza y adoración para los jóvenes de Fraternidad Cristiana. Ven a conectar con Dios y con la comunidad. Habrá música en vivo, tiempo de oración y refrigerios al finalizar.</p>
+      <p id="eventoDescripcion"></p>
     </div>
 
     <button class="btn-primary" id="btnRegistro">Registrarme al evento</button>
+    <button class="btn-cancelar" id="btnCancelar" style="display:none;" onclick="cancelarRegistro()">Ya no iré</button>
+    <a class="btn-gcal" id="btnGcal" style="display:none;" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+      Agregar a Google Calendar
+    </a>
   </main>
 
   <div class="content-spacer"></div>
 
   <nav class="bottom-nav">
-    <a href="index.html" class="nav-item">
+    <a href="app.html" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       Inicio
     </a>
@@ -74,7 +88,7 @@
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
       Explora
     </a>
-    <a href="#" class="nav-item nav-fab">
+    <a href="#" class="nav-item nav-fab" onclick="toggleFabMenu(); return false;">
       <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
     </a>
     <a href="plan_detalles.html" class="nav-item">
@@ -87,13 +101,184 @@
     </a>
   </nav>
 
+  <div class="fab-overlay" id="fabOverlay" onclick="closeFabMenu()"></div>
+  <div class="fab-sheet" id="fabSheet">
+    <div class="fab-sheet-handle"></div>
+    <p class="fab-sheet-title">Acciones rápidas</p>
+    <a href="oracion.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="fab-action-info"><h4>Solicitar oración</h4><p>Envía tu petición al equipo</p></div></a>
+    <a href="asistencia.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="fab-action-info"><h4>Registrar asistencia</h4><p>Check-in al servicio de hoy</p></div></a>
+    <a href="ofrenda.html" class="fab-action"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="fab-action-info"><h4>Hacer una ofrenda</h4><p>Apoya a la iglesia</p></div></a>
+    <a href="https://lafratersv.com/invitacion.html" class="fab-action" target="_blank" rel="noopener"><div class="fab-action-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><div class="fab-action-info"><h4>Invitar a La Frater</h4><p>Comparte con un amigo</p></div></a>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/auth-guard.js"></script>
+  <script src="js/fab-menu.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+    const DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    const sb = window.supabaseClient;
+    const params = new URLSearchParams(location.search);
+    const eventoId = params.get('id');
+    let userId = null;
+    let eventoData = null;
+
+    function buildGCalUrl(e) {
+      const pad = n => String(n).padStart(2,'0');
+      const m = e.hora?.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+      let s, en;
+      if (m) {
+        let h = parseInt(m[1]);
+        const min = parseInt(m[2]);
+        const mer = m[3]?.toUpperCase();
+        if (mer === 'PM' && h < 12) h += 12;
+        if (mer === 'AM' && h === 12) h = 0;
+        const base = e.fecha.replace(/-/g,'');
+        s  = `${base}T${pad(h)}${pad(min)}00`;
+        en = `${base}T${pad((h+2)%24)}${pad(min)}00`;
+      } else {
+        s = e.fecha.replace(/-/g,'');
+        const next = new Date(e.fecha+'T00:00:00'); next.setDate(next.getDate()+1);
+        en = next.toISOString().split('T')[0].replace(/-/g,'');
+      }
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(e.titulo)}&dates=${s}/${en}&details=${encodeURIComponent(e.descripcion||'')}&location=${encodeURIComponent(e.lugar||'')}`;
     }
+
+    function renderCupos(cuposStr) {
+      const n = parseInt(cuposStr);
+      const el = document.getElementById('eventoCupos');
+      if (isNaN(n)) { el.textContent = 'Abierto'; return; }
+      if (n <= 0) {
+        el.innerHTML = '<span class="cupos-badge-warn">Sin cupos disponibles</span>';
+      } else {
+        el.textContent = `${n} disponible${n !== 1 ? 's' : ''}`;
+        if (n <= 5) el.innerHTML += ' <span class="cupos-badge-warn">¡Últimos!</span>';
+      }
+    }
+
+    function mostrarRegistrado(e) {
+      const btn = document.getElementById('btnRegistro');
+      btn.textContent = 'Ya estás registrado';
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+      document.getElementById('btnCancelar').style.display = 'block';
+      const gcal = document.getElementById('btnGcal');
+      gcal.href = buildGCalUrl(e);
+      gcal.style.display = 'flex';
+    }
+
+    function mostrarNoRegistrado() {
+      const btn = document.getElementById('btnRegistro');
+      btn.textContent = 'Registrarme al evento';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      document.getElementById('btnCancelar').style.display = 'none';
+      document.getElementById('btnGcal').style.display = 'none';
+    }
+
+    async function cancelarRegistro() {
+      const btnC = document.getElementById('btnCancelar');
+      btnC.disabled = true; btnC.textContent = 'Cancelando...';
+
+      const { error } = await sb.from('registros_evento')
+        .update({ estado: 'cancelado' }).eq('user_id', userId).eq('evento_id', eventoId).eq('estado', 'activo');
+
+      if (error) {
+        btnC.disabled = false; btnC.textContent = 'Ya no iré';
+        alert('Error al cancelar: ' + error.message);
+        return;
+      }
+
+      // Incrementar cupos si es numérico
+      const cuposNum = parseInt(eventoData?.cupos);
+      if (!isNaN(cuposNum)) {
+        const nuevo = cuposNum + 1;
+        await sb.from('eventos').update({ cupos: String(nuevo) }).eq('id', eventoId);
+        eventoData.cupos = String(nuevo);
+        renderCupos(eventoData.cupos);
+      }
+
+      mostrarNoRegistrado();
+    }
+
+    async function init() {
+      const { data: { user } } = await sb.auth.getUser();
+      userId = user?.id;
+
+      if (!eventoId) { document.getElementById('eventoTitulo').textContent = 'Evento no encontrado'; return; }
+
+      const { data: e } = await sb.from('eventos')
+        .select('*, ministerios(nombre)')
+        .eq('id', eventoId).single();
+
+      if (!e) { document.getElementById('eventoTitulo').textContent = 'Evento no encontrado'; return; }
+      eventoData = e;
+
+      document.title = `Frater - ${e.titulo}`;
+      document.getElementById('eventoTitulo').textContent = e.titulo;
+      document.getElementById('eventoTag').textContent = e.tipo || 'Evento';
+      document.getElementById('eventoHora').textContent  = e.hora  || '—';
+      document.getElementById('eventoLugar').textContent = e.lugar || '—';
+      document.getElementById('eventoDescripcion').textContent = e.descripcion || '';
+
+      const fecha = new Date(e.fecha + 'T00:00:00');
+      document.getElementById('eventoFecha').textContent =
+        `${DIAS[fecha.getDay()]}, ${fecha.getDate()} de ${MESES[fecha.getMonth()]}`;
+
+      // Imagen hero
+      if (e.imagen_url) {
+        const img = document.getElementById('eventoImgBg');
+        img.src = e.imagen_url; img.alt = e.titulo; img.style.display = 'block';
+      }
+
+      // Cupos
+      renderCupos(e.cupos);
+      const cuposNum = parseInt(e.cupos);
+      if (!isNaN(cuposNum) && cuposNum <= 0) {
+        const btn = document.getElementById('btnRegistro');
+        btn.disabled = true; btn.textContent = 'Sin cupos'; btn.style.opacity = '0.5';
+      }
+
+      // Ministerio organizador
+      if (e.ministerios?.nombre) {
+        document.getElementById('ministerioNombre').textContent = e.ministerios.nombre;
+        document.getElementById('ministerioRow').style.display = 'flex';
+      }
+
+      // Ya registrado?
+      const { data: reg } = await sb.from('registros_evento').select('id')
+        .eq('user_id', userId).eq('evento_id', eventoId).eq('estado', 'activo').maybeSingle();
+      if (reg) mostrarRegistrado(e);
+    }
+
+    document.getElementById('btnRegistro').addEventListener('click', async () => {
+      const btn = document.getElementById('btnRegistro');
+      btn.disabled = true; btn.textContent = 'Registrando...';
+
+      const { error } = await sb.from('registros_evento')
+        .insert({ user_id: userId, evento_id: eventoId });
+
+      if (error) {
+        btn.disabled = false; btn.textContent = 'Registrarme al evento';
+        alert('Error al registrarse: ' + error.message);
+        return;
+      }
+
+      // Decrementar cupos si es numérico y actualizar DOM
+      const cuposNum = parseInt(eventoData?.cupos);
+      if (!isNaN(cuposNum) && cuposNum > 0) {
+        const nuevo = Math.max(0, cuposNum - 1);
+        await sb.from('eventos').update({ cupos: String(nuevo) }).eq('id', eventoId);
+        eventoData.cupos = String(nuevo);
+        renderCupos(eventoData.cupos);
+      }
+
+      mostrarRegistrado(eventoData);
+    });
+
+    init();
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
   </script>
 </body>
 </html>
